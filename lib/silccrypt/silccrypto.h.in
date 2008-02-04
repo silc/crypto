@@ -57,7 +57,7 @@
 #endif /* !SILC_VERSION */
 
 /* SILC Crypto Toolkit version */
-#define __SILC_CRYPTO_VERSION SILC_VERSION(0,0,0)
+@__CRYPTO_PACKAGE_VERSION@
 
 #ifdef __cplusplus
 extern "C" {
