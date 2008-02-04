@@ -16,9 +16,8 @@
   GNU General Public License for more details.
 
 */
-/* $Id$ */
 
-#include "silc.h"
+#include "silccrypto.h"
 #include <gmp.h>
 
 void silc_mp_init(SilcMPInt *mp)

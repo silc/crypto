@@ -4,7 +4,7 @@
 
   Author: Pekka Riikonen <priikone@silcnet.org>
 
-  Copyright (C) 2007 Pekka Riikonen
+  Copyright (C) 2007 - 2008 Pekka Riikonen
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -43,6 +43,64 @@
 
 #ifndef SILCCRYPTO_H
 #define SILCCRYPTO_H
+
+/* Version check macro.  Use this to check that package is of specific
+   version compile time.  Use the __SILC_XXX_VERSION below in comparison.
+   Example:
+
+   #if __SILC_CRYPTO_VERSION < SILC_VERSION(1,2,0)
+     ...
+   #endif
+*/
+#ifndef SILC_VERSION
+#define SILC_VERSION(a, b, c) (((a) << 24) + ((b) << 16) + ((c) << 8)
+#endif /* !SILC_VERSION */
+
+/* SILC Crypto Toolkit version */
+#define __SILC_CRYPTO_VERSION SILC_VERSION(0,0,0)
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* We except all systems to have these include files */
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#if defined(HAVE_CRYPTODEFS_H)
+/* Automatically generated configuration header.  These are included only
+   when the SILC Crypto Toolkit itself is compiled. */
+#ifndef SILC_SYMBIAN
+#include "cryptodefs.h"
+#else
+#include "../../symbian/silcdefs.h"
+#endif /* SILC_SYMBIAN */
+#include "silcdistdefs.h"
+#include "silccompile.h"
+#endif /* HAVE_CRYPTODEFS_H */
+
+/* SILC Runtime Toolkit include */
+#include <silcruntime.h>
+
+/* SILC Crypto Toolkit includes */
+#include <silcmp.h>
+#include <silcmath.h>
+#include <silccrypto.h>
+#include <silccipher.h>
+#include <silchash.h>
+#include <silchmac.h>
+#include <silcrng.h>
+#include <silcpkcs.h>
+#include <silcpk.h>
+#include <silcpkcs1.h>
+#include <silcacc.h>
+#ifdef SILC_DIST_SSH
+#include <silcssh.h>
+#endif /* SILC_DIST_SSH */
+#include <silcasn1.h>
+#include <silcber.h>
+#include <silcskr.h>
 
 /****f* silccrypt/SilcCryptoAPI/silc_crypto_init
  *
@@ -114,5 +172,9 @@ void silc_crypto_uninit(void);
  *
  ***/
 SilcStack silc_crypto_stack(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* SILCCRYPTO_H */

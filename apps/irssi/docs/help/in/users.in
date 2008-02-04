@@ -1,8 +1,0 @@
-
-@SYNTAX:users@
-
-Lists users of given channel. The channel must be either joined or it needs to be a public channel (without secret or private flags set).
-
-Alias WHO is by default USERS * command.
-
-See also: NAMES, WHOIS, WHOWAS

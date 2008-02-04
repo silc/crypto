@@ -8,18 +8,6 @@
 option no-dist
 
 # Default distribution for preparing raw CVS sources.
-inherit common
-inherit client
-inherit server
-inherit toolkit
+inherit crypto
 
 define SILC_DIST_INPLACE
-
-# SFTP and VCARD is undefined in server, so force it here
-define SILC_DIST_SFTP
-define SILC_DIST_VCARD
-
-# Apps
-define SILC_DIST_ASN1UTILS
-
-pre-hook distdir/pre-run

@@ -5,7 +5,7 @@ By Steve Reid <steve@edmweb.com>
 100% Public Domain
 */
 
-#include "silc.h"
+#include "silccrypto.h"
 #include "sha1_internal.h"
 #include "sha1.h"
 

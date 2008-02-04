@@ -3,7 +3,7 @@
 
 /* LibTomCrypt, modular cryptographic library -- Tom St Denis */
 
-#include "silc.h"
+#include "silccrypto.h"
 #include "sha512_internal.h"
 #include "sha512.h"
 

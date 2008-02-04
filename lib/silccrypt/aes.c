@@ -33,7 +33,7 @@
  Issue 09/09/2006
 */
 
-#include "silc.h"
+#include "silccrypto.h"
 #include "rijndael_internal.h"
 #include "aes.h"
 

@@ -1,10 +1,9 @@
-#ifdef SILC_DIST_CRYPTO
 #
 #  lib/silccrypt/configure.ad
 #
 #  Author: Pekka Riikonen <priikone@silcnet.org>
 #
-#  Copyright (C) 2006 - 2007 Pekka Riikonen
+#  Copyright (C) 2006 - 2008 Pekka Riikonen
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -15,8 +14,6 @@
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #  GNU General Public License for more details.
 #
-
-if test x$compile_libs = xtrue; then
 
 AC_MSG_NOTICE([configuring crypto library])
 SILC_CRYPTO_CFLAGS=
@@ -56,16 +53,5 @@ fi
 
 AC_SUBST(SILC_CRYPTO_CFLAGS)
 
-AC_CONFIG_FILES(
-lib/silccrypt/Makefile
-#ifdef SILC_DIST_INPLACE
-lib/silccrypt/tests/Makefile
-#endif SILC_DIST_INPLACE
-)
-
-fi	# compile_libs
-
 # AM_CONDITIONAL is so bad that it itself cannot be defined in conditional
 AM_CONDITIONAL(SILC_AES_ASM, test x$aes_asm = xtrue)
-
-#endif SILC_DIST_CRYPTO

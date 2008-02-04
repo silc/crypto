@@ -1,6 +1,6 @@
 /* SILC SKR tests */
 
-#include "silc.h"
+#include "silccrypto.h"
 #include "silcskr.h"
 
 SilcBool found = TRUE;

@@ -17,7 +17,8 @@
 
 */
 
-#include "silc.h"
+#include "silcruntime.h"
+#include "silccrypto.h"
 
 SilcBool hexdump = FALSE;
 SilcBool dec_base64 = FALSE;
@@ -255,7 +256,7 @@ int main(int argc, char **argv)
   data = tmp = silc_file_readfile(argv[argc - 1], &data_len, NULL);
   if (!data) {
     fprintf(stderr, "Error: Cannot read file '%s': %s\n", argv[argc - 1],
-	    strerror(errno));
+	    silc_errno_string(silc_errno));
     return 1;
   }
 

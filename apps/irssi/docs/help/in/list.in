@@ -1,9 +1,0 @@
-
-@SYNTAX:list@
-
-Lists all channel names and number of people on them. Channel topics
-are also shown.
-
-Your server only knows number of people on channels if it has local
-clients joined onto those. This is why you'll see N/A for some channels.
-

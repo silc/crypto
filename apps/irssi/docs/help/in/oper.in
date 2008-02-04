@@ -1,9 +1,0 @@
-
-@SYNTAX:oper@
-
-Gives you the server operator privileges if the correct
-username and passphrase are given. User will be prompted
-for the passphrase if the -pubkey option is not provided.
-
-See also: KILL, SCONNECT, CLOSE, SILCOPER
-

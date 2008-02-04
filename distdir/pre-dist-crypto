@@ -1,0 +1,20 @@
+#!/bin/sh
+
+distribution=$1
+dist_version=$2
+package=$3
+distdir=$4
+release=$5
+
+if test -z $release; then
+  release="0.fc8"
+fi
+
+sed -e "s/SILC_VERSION/$dist_version/" -e "s/SILC_RELEASE/$release/" \
+  sct.spec.in > sct.spec
+
+./configure
+
+cd doc
+make toolkit-ref-html
+cd ..

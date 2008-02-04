@@ -1,6 +1,6 @@
 /* SILC SSH2 library tests */
 
-#include "silc.h"
+#include "silccrypto.h"
 
 int main(int argc, char **argv)
 {

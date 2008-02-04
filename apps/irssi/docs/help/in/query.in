@@ -1,9 +1,0 @@
-
-@SYNTAX:query@
-
-Starts a private conversation with given person.
-
-The query session is ended by giving command UNQUERY
-
-See also: UNQUERY, WINDOW, MSG, SET QUERY
-

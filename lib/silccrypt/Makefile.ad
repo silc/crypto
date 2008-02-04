@@ -3,7 +3,7 @@
 #
 #  Author: Pekka Riikonen <priikone@silcnet.org>
 #
-#  Copyright (C) 2000 - 2007 Pekka Riikonen
+#  Copyright (C) 2000 - 2008 Pekka Riikonen
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -53,16 +53,8 @@ libsilccrypt_la_SOURCES = 	\
 	silcpkcs1.c		\
 	silcpk.c
 
-if SILC_LIBTOOLFIX
-# Tell libtool to compile silccrypt as shared since silcsim will need it.
-LTFLAGS = --libtool-enable-shared
-else
-LTFLAGS =
-endif
+CFLAGS = @SILC_CRYPTO_CFLAGS@
 
-CFLAGS = $(LTFLAGS) @SILC_CRYPTO_CFLAGS@
-
-#ifdef SILC_DIST_TOOLKIT
 include_HEADERS =		\
 	silccrypto.h		\
 	silccipher.h		\
@@ -76,7 +68,6 @@ include_HEADERS =		\
 	silcpk.h
 
 SILC_EXTRA_DIST = tests
-#endif SILC_DIST_TOOLKIT
 
 SUFFIXES = .asm
 

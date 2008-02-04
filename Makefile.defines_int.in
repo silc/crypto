@@ -3,7 +3,7 @@
 #
 #  Author: Pekka Riikonen <priikone@silcnet.org>
 #
-#  Copyright (C) 2000 - 2007 Pekka Riikonen
+#  Copyright (C) 2000 - 2008 Pekka Riikonen
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@ silc_install_prefix=@prefix@
 # Common libraries that are linked against the created executable
 #
 SILC_COMMON_LDFLAGS= @LDFLAGS@
-SILC_COMMON_LIBS= -lsilc @LIBS@
+SILC_COMMON_LIBS= @LIBS@
 
 #
 # Common compilation flags
@@ -54,7 +54,3 @@ modulesdir = $(DESTDIR)$(silc_modulesdir)
 helpdir = $(DESTDIR)$(silc_helpdir)
 docdir = $(DESTDIR)$(silc_docdir)
 mandir = $(DESTDIR)@mandir@
-#ifdef SILC_DIST_SERVER
-silc_logsdir=@LOGSDIR@
-logsdir = $(DESTDIR)$(silc_logsdir)
-#endif SILC_DIST_SERVER

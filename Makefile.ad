@@ -3,7 +3,7 @@
 #
 #  Author: Pekka Riikonen <priikone@silcnet.org>
 #
-#  Copyright (C) 2000 - 2005 Pekka Riikonen
+#  Copyright (C) 2000 - 2008 Pekka Riikonen
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -18,36 +18,16 @@
 AUTOMAKE_OPTIONS = 1.0 no-dependencies foreign
 
 SUBDIRS = 		\
-#ifdef SILC_DIST_LIB
 	@LIBSUBDIR@	\
-#endif SILC_DIST_LIB
-#ifdef SILC_DIST_APPS
 	apps		\
-#endif SILC_DIST_APPS
-#ifdef SILC_DIST_TOOLKIT
 	win32		\
-#endif SILC_DIST_TOOLKIT
-#ifdef SILC_DIST_INCLUDES
 	includes	\
-#endif SILC_DIST_INCLUDES
-#ifdef SILC_DIST_DOC
 	doc
-#endif SILC_DIST_DOC
 
 EXTRA_DIST = 		\
 	silcdefs.h.in	\
-#ifdef SILC_DIST_TOOLKIT
-	silc-toolkit.spec \
+	sct.spec	\
 	symbian		\
-#endif SILC_DIST_TOOLKIT
-#ifdef SILC_DIST_CLIENT
-	README.PLUGIN \
-#endif SILC_DIST_CLIENT
-#ifdef SILC_DIST_SILC
-	libtoolfix 	\
 	CHANGES CREDITS
-#endif SILC_DIST_SILC
 
-#ifdef SILC_DIST_SILC
 include $(top_srcdir)/Makefile.defines.in
-#endif SILC_DIST_SILC

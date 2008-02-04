@@ -16,9 +16,8 @@
   GNU General Public License for more details.
 
 */
-/* $Id$ */
 
-#include "silc.h"
+#include "silccrypto.h"
 
 /* Encodes MP integer into binary data. Returns allocated data that
    must be free'd by the caller. If `len' is provided the destination

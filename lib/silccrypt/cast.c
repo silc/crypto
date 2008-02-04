@@ -58,7 +58,7 @@ Mean:          674 cycles =    38.0 mbits/sec
 
 */
 
-#include "silc.h"
+#include "silccrypto.h"
 #include "cast_internal.h"
 #include "cast.h"
 

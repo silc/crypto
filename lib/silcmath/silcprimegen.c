@@ -4,7 +4,7 @@
 
   Author: Pekka Riikonen <priikone@silcnet.org>
 
-  Copyright (C) 1997 - 2007 Pekka Riikonen
+  Copyright (C) 1997 - 2008 Pekka Riikonen
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -17,9 +17,8 @@
 
 */
 /* Created: Mon Dec  8 16:35:37 GMT+0200 1997 */
-/* $Id$ */
 
-#include "silc.h"
+#include "silccrypto.h"
 
 /*
    Fixed primetable for small prime division. We use this primetable to

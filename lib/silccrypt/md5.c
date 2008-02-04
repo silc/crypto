@@ -18,11 +18,11 @@
  * will fill a supplied 16-byte array with the digest.
  */
 
-#include "silc.h"
+#include "silccrypto.h"
 #include "md5_internal.h"
 #include "md5.h"
 
-/* 
+/*
  * SILC Hash API for MD5
  */
 
@@ -62,7 +62,7 @@ MD5Init(struct MD5Context *ctx)
   ctx->buf[1] = 0xefcdab89;
   ctx->buf[2] = 0x98badcfe;
   ctx->buf[3] = 0x10325476;
-  
+
   ctx->bits[0] = 0;
   ctx->bits[1] = 0;
 }
@@ -113,7 +113,7 @@ MD5Update(struct MD5Context *ctx, unsigned char const *buf, unsigned len)
 }
 
 /*
- * Final wrapup - pad to 64-byte boundary with the bit pattern 
+ * Final wrapup - pad to 64-byte boundary with the bit pattern
  * 1 0* (64-bit count of bits processed, MSB-first)
  */
 void
@@ -207,7 +207,7 @@ MD5Transform(SilcUInt32 buf[4], const unsigned char kbuf[64])
   MD5STEP(F1, d, a, b, c, in[13]+0xfd987193, 12);
   MD5STEP(F1, c, d, a, b, in[14]+0xa679438e, 17);
   MD5STEP(F1, b, c, d, a, in[15]+0x49b40821, 22);
-  
+
   MD5STEP(F2, a, b, c, d, in[ 1]+0xf61e2562,  5);
   MD5STEP(F2, d, a, b, c, in[ 6]+0xc040b340,  9);
   MD5STEP(F2, c, d, a, b, in[11]+0x265e5a51, 14);
@@ -224,7 +224,7 @@ MD5Transform(SilcUInt32 buf[4], const unsigned char kbuf[64])
   MD5STEP(F2, d, a, b, c, in[ 2]+0xfcefa3f8,  9);
   MD5STEP(F2, c, d, a, b, in[ 7]+0x676f02d9, 14);
   MD5STEP(F2, b, c, d, a, in[12]+0x8d2a4c8a, 20);
-  
+
   MD5STEP(F3, a, b, c, d, in[ 5]+0xfffa3942,  4);
   MD5STEP(F3, d, a, b, c, in[ 8]+0x8771f681, 11);
   MD5STEP(F3, c, d, a, b, in[11]+0x6d9d6122, 16);
@@ -241,7 +241,7 @@ MD5Transform(SilcUInt32 buf[4], const unsigned char kbuf[64])
   MD5STEP(F3, d, a, b, c, in[12]+0xe6db99e5, 11);
   MD5STEP(F3, c, d, a, b, in[15]+0x1fa27cf8, 16);
   MD5STEP(F3, b, c, d, a, in[ 2]+0xc4ac5665, 23);
-  
+
   MD5STEP(F4, a, b, c, d, in[ 0]+0xf4292244,  6);
   MD5STEP(F4, d, a, b, c, in[ 7]+0x432aff97, 10);
   MD5STEP(F4, c, d, a, b, in[14]+0xab9423a7, 15);
@@ -258,7 +258,7 @@ MD5Transform(SilcUInt32 buf[4], const unsigned char kbuf[64])
   MD5STEP(F4, d, a, b, c, in[11]+0xbd3af235, 10);
   MD5STEP(F4, c, d, a, b, in[ 2]+0x2ad7d2bb, 15);
   MD5STEP(F4, b, c, d, a, in[ 9]+0xeb86d391, 21);
-  
+
   buf[0] += a;
   buf[1] += b;
   buf[2] += c;

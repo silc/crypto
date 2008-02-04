@@ -1,6 +1,6 @@
 /* Software accelerator tests */
 
-#include "silc.h"
+#include "silccrypto.h"
 
 SilcSchedule schedule;
 SilcPublicKey public_key, accpub;
@@ -60,7 +60,7 @@ int main(int argc, char **argv)
   if (!softacc)
     goto err;
 
-  if (!silc_acc_init(softacc, schedule, "min_threads", 2, "max_threads", 
+  if (!silc_acc_init(softacc, schedule, "min_threads", 2, "max_threads",
 		     8, NULL))
     goto err;
 

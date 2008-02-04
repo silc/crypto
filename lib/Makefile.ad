@@ -3,7 +3,7 @@
 #
 #  Author: Pekka Riikonen <priikone@silcnet.org>
 #
-#  Copyright (C) 2000 - 2007 Pekka Riikonen
+#  Copyright (C) 2000 - 2008 Pekka Riikonen
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -17,193 +17,63 @@
 
 AUTOMAKE_OPTIONS = 1.0 no-dependencies foreign
 
-# SILC Library dirs
-SILCLIB_DIRS = 		\
-	contrib 	\
-	silccore	\
-	silcutil 	\
-	silcapputil 	\
-#ifdef SILC_DIST_CRYPTO
+# Library dirs
+CRYPTO_DIRS = 		\
 	silccrypt 	\
-#endif SILC_DIST_CRYPTO
-#ifdef SILC_DIST_SKR
 	silcskr 	\
-#endif SILC_DIST_SKR
-#ifdef SILC_DIST_MATH
 	silcmath 	\
-#endif SILC_DIST_MATH
-#ifdef SILC_DIST_SIM
-	silcsim 	\
-#endif SILC_DIST_SIM
-#ifdef SILC_DIST_ASN1
 	silcasn1	\
-#endif SILC_DIST_ASN1
-	silcske 	\
-#ifdef SILC_DIST_HTTP
-	silchttp	\
-#endif SILC_DIST_HTTP
-#ifdef SILC_DIST_SFTP
-	silcsftp	\
-#endif SILC_DIST_SFTP
-#ifdef SILC_DIST_VCARD
-	silcvcard	\
-#endif SILC_DIST_VCARD
-#ifdef SILC_DIST_ACC
 	silcacc		\
-#endif SILC_DIST_ACC
 #ifdef SILC_DIST_SSH
 	silcssh		\
 #endif SILC_DIST_SSH
 
 if SILC_ENABLE_SHARED
 if SILC_WIN32
-LIBTOOL_OPTS= -release $(LIB_BASE_VERSION) -rpath $(DESTDIR)$(libdir) -export-dynamic -no-undefined
+LIBTOOL_OPTS= -release $(CRYPTO_BASE_VERSION) -rpath $(DESTDIR)$(libdir) \
+	       -export-dynamic -no-undefined
 else
-LIBTOOL_OPTS= -release $(LIB_BASE_VERSION) -rpath $(DESTDIR)$(libdir)
+LIBTOOL_OPTS= -release $(CRYPTO_BASE_VERSION) -rpath $(DESTDIR)$(libdir)
 endif
-LIBTOOL_SILC_VERSION = -version-info $(LIBSILC_CURRENT):$(LIBSILC_REVISION):$(LIBSILC_AGE)
-LIBTOOL_SILCCLIENT_VERSION = -version-info $(LIBSILCCLIENT_CURRENT):$(LIBSILCCLIENT_REVISION):$(LIBSILCCLIENT_AGE)
-LIBTOOL_SILCSERVER_VERSION = -version-info $(LIBSILCSERVER_CURRENT):$(LIBSILCSERVER_REVISION):$(LIBSILCSERVER_AGE)
+LIBTOOL_CRYPTO_VERSION = \
+   -version-info $(CRYPTO_CURRENT):$(CRYPTO_REVISION):$(CRYPTO_AGE)
 else
 LIBTOOL_OPTS=
-LIBTOOL_SILC_VERSION =
-LIBTOOL_SILCCLIENT_VERSION =
-LIBTOOL_SILCSERVER_VERSION =
+LIBTOOL_CRYPTO_VERSION =
 endif
-
 if SILC_WIN32
-SILC_LINK_LIBS=$(LIBS)
-SILCCLIENT_LINK_LIBS=$(LIBS) -lsilc
-SILCSERVER_LIBS=$(LIBS) -lsilc
+CRYPTO_LINK_LIBS=$(LIBS)
 else
-SILC_LINK_LIBS=
-SILCCLIENT_LINK_LIBS=
-SILCSERVER_LIBS=
+CRYPTO_LINK_LIBS=
 endif
 
-SILCLIB = libsilc.a
+CRYPTO_LIB = libsct.a
 
-#ifdef SILC_DIST_CLIENTLIB
-# SILC Client Library dirs
-SILCCLIENTLIB_DIRS = silcclient
-SILCCLIENTLIB = libsilcclient.a
-#endif SILC_DIST_CLIENTLIB
+SUBDIRS = $(CRYPTO_DIRS)
 
-#ifdef SILC_DIST_SERVERLIB
-# SILC Server Library dirs
-SILCSERVERLIB_DIRS = silcserver
-SILCSERVERLIB = libsilcserver.a
-#endif SILC_DIST_SERVERLIB
-
-SUBDIRS = $(SILCLIB_DIRS) $(SILCSERVERLIB_DIRS) $(SILCCLIENTLIB_DIRS)
-
-CLEANFILES = libsilc.a $(SILCCLIENTLIB) $(SILCSERVERLIB)
-DISTCLEANFILES = libsilc.a $(SILCCLIENTLIB) $(SILCSERVERLIB)
+CLEANFILES = $(CRYPTO_LIB)
+DISTCLEANFILES = $(CRYPTO_LIB)
 
 remove:
 	-rm -f $(CLEANFILES)
 
 all:
-	$(MAKE) remove $(SILCLIB) $(SILCSERVERLIB) $(SILCCLIENTLIB)
+	$(MAKE) remove $(CRYPTO_LIB)
 
-#ifdef SILC_DIST_TOOLKIT
 install-exec-hook:
 	-mkdir -p $(DESTDIR)$(libdir)
-	-$(LIBTOOL) $(INSTALL) libsilc.la $(DESTDIR)$(libdir)/
-#ifdef SILC_DIST_CLIENTLIB
-	-$(LIBTOOL) $(INSTALL) libsilcclient.la $(DESTDIR)$(libdir)/
-#endif SILC_DIST_CLIENTLIB
-#ifdef SILC_DIST_SERVERLIB
-	-$(LIBTOOL) $(INSTALL) libsilcserver.la $(DESTDIR)$(libdir)/
-#endif SILC_DIST_SERVERLIB
-#else !SILC_DIST_TOOLKIT
+	-$(LIBTOOL) $(INSTALL) libsct.la $(DESTDIR)$(libdir)/
 
-#ifdef SILC_DIST_SERVERLIB
-install-exec-hook:
-if SILC_ENABLE_SHARED
-	-mkdir -p $(libdir)
-	-$(LIBTOOL) $(INSTALL) libsilc.la $(DESTDIR)$(libdir)/
-	-$(LIBTOOL) $(INSTALL) libsilcserver.la $(DESTDIR)$(libdir)/
-	-rm -rf $(DESTDIR)$(libdir)/libsilc.a
-	-rm -rf $(DESTDIR)$(libdir)/libsilcserver.a
-endif
-#endif SILC_DIST_SERVERLIB
-
-#ifdef SILC_DIST_CLIENTLIB
-install-exec-hook:
-if SILC_ENABLE_SHARED
-	-mkdir -p $(libdir)
-	-$(LIBTOOL) $(INSTALL) libsilc.la $(DESTDIR)$(libdir)/
-	-$(LIBTOOL) $(INSTALL) libsilcclient.la $(DESTDIR)$(libdir)/
-	-rm -rf $(DESTDIR)$(libdir)/libsilc.a
-	-rm -rf $(DESTDIR)$(libdir)/libsilcclient.a
-endif
-#endif SILC_DIST_CLIENTLIB
-#endif SILC_DIST_TOOLKIT
-
-LIB_BASE_VERSION=@LIB_BASE_VERSION@
-LIBSILC_CURRENT=@LIBSILC_CURRENT@
-LIBSILC_REVISION=@LIBSILC_REVISION@
-LIBSILC_AGE=@LIBSILC_AGE@
-
-libsilc.a:
-	find $(SILCLIB_DIRS) -type f -name *.lo | xargs \
-	$(LIBTOOL) --mode=link $(CC) $(CFLAGS) $(LDFLAGS) $(SILC_LINK_LIBS) \
-	$(LIBTOOL_SILC_VERSION) \
-	$(LIBTOOL_OPTS) -o libsilc.la
-
-#ifdef SILC_DIST_CLIENTLIB
-LIBSILCCLIENT_CURRENT=@LIBSILCCLIENT_CURRENT@
-LIBSILCCLIENT_REVISION=@LIBSILCCLIENT_REVISION@
-LIBSILCCLIENT_AGE=@LIBSILCCLIENT_AGE@
-
-libsilcclient.a:
-	find $(SILCCLIENTLIB_DIRS) -type f -name *.lo | xargs \
+libsct.a:
+	find $(CRYPTO_DIRS) -type f -name *.lo | xargs \
 	$(LIBTOOL) --mode=link $(CC) $(CFLAGS) $(LDFLAGS) \
-	$(SILCCLIENT_LINK_LIBS) $(LIBTOOL_SILCCLIENT_VERSION) \
-	$(LIBTOOL_OPTS) -o libsilcclient.la
-#endif SILC_DIST_CLIENTLIB
+	$(CRYPTO_LINK_LIBS) \
+	$(LIBTOOL_CRYPTO_VERSION) \
+	$(LIBTOOL_OPTS) -o libsct.la
 
-#ifdef SILC_DIST_SERVERLIB
-LIBSILCSERVER_CURRENT=@LIBSILCSERVER_CURRENT@
-LIBSILCSERVER_REVISION=@LIBSILCSERVER_REVISION@
-LIBSILCSERVER_AGE=@LIBSILCSERVER_AGE@
-
-libsilcserver.a:
-	find $(SILCSERVERLIB_DIRS) -type f -name *.lo | xargs \
-	$(LIBTOOL) --mode=link $(CC) $(CFLAGS) $(LDFLAGS) $(SILCSERVER_LIBS) \
-	$(LIBTOOL_SILCSERVER_VERSION) \
-	$(LIBTOOL_OPTS) -o libsilcserver.la
-#endif SILC_DIST_SERVERLIB
-
-#ifdef SILC_DIST_TOOLKIT
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = silc.pc		\
-#ifdef SILC_DIST_CLIENTLIB
-		silcclient.pc		\
-#endif SILC_DIST_CLIENTLIB
-#ifdef SILC_DIST_SERVERLIB
-		silcserver.pc
-#endif SILC_DIST_SERVERLIB
+pkgconfig_DATA = sct.pc
 
-EXTRA_DIST = 	silc.pc.in		\
-#ifdef SILC_DIST_CLIENTLIB
-		silcclient.pc.in	\
-#endif SILC_DIST_CLIENTLIB
-#ifdef SILC_DIST_SERVERLIB
-		silcserver.pc.in
-#endif SILC_DIST_SERVERLIB
-
-toolkit-install:
-	-mkdir -p $(docdir)/toolkit/
-	-$(INSTALL_DATA) $(top_srcdir)/doc/toolkit/* $(docdir)/toolkit
-	-$(INSTALL_DATA) $(top_srcdir)/lib/doc/*.gif $(docdir)/toolkit
-	-cp -R $(top_srcdir)/tutorial $(docdir)
-#endif SILC_DIST_TOOLKIT
-
-install-data-hook:	\
-#ifdef SILC_DIST_TOOLKIT
-	toolkit-install
-#endif SILC_DIST_TOOLKIT
+EXTRA_DIST = sct.pc.in
 
 include $(top_srcdir)/Makefile.defines.in

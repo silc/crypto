@@ -1,10 +1,9 @@
-#ifdef SILC_DIST_MATH
 #
 #  lib/silcmath/configure.ad
 #
 #  Author: Pekka Riikonen <priikone@silcnet.org>
 #
-#  Copyright (C) 2005 - 2007 Pekka Riikonen
+#  Copyright (C) 2005 - 2008 Pekka Riikonen
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -15,8 +14,6 @@
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #  GNU General Public License for more details.
 #
-
-if test x$compile_libs = xtrue; then
 
 AC_MSG_NOTICE([configuring math library])
 
@@ -129,10 +126,3 @@ fi
 #endif SILC_DIST_TFM
 
 AC_SUBST(MATH_CFLAGS)
-
-AC_CONFIG_FILES(
-lib/silcmath/Makefile
-)
-
-fi	# compile_libs
-#endif SILC_DIST_MATH

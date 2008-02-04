@@ -3,7 +3,7 @@
 #
 #  Author: Pekka Riikonen <priikone@poseidon.pspt.fi>
 #
-#  Copyright (C) 2000 Pekka Riikonen
+#  Copyright (C) 2000 - 2008 Pekka Riikonen
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -18,11 +18,10 @@
 
 AUTOMAKE_OPTIONS = 1.0 no-dependencies foreign
 
-SUBDIRS = libsilc libsilcclient
+SUBDIRS =
 
 EXTRA_DIST = 					\
-	silcdefs.h silc.dsw copy_dll		\
-	tests all.dsp clean_dist.pl README	\
-	libsilc_static libsilcclient_static
+	silcdefs.h *.dsw copy_dll		\
+	tests *.dsp clean_dist.pl README
 
 include $(top_srcdir)/Makefile.defines.in

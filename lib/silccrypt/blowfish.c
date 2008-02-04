@@ -33,7 +33,7 @@
  *
  */
 
-#include "silc.h"
+#include "silccrypto.h"
 #include "blowfish_internal.h"
 #include "blowfish.h"
 

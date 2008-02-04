@@ -3,7 +3,7 @@
 
 /* LibTomCrypt, modular cryptographic library -- Tom St Denis */
 
-#include "silc.h"
+#include "silccrypto.h"
 #include "cast5_internal.h"
 #include "cast5.h"
 

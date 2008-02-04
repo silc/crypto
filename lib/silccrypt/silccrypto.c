@@ -4,7 +4,7 @@
 
   Author: Pekka Riikonen <priikone@silcnet.org>
 
-  Copyright (C) 2007 Pekka Riikonen
+  Copyright (C) 2007 - 2008 Pekka Riikonen
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 
 */
 
-#include "silc.h"
+#include "silccrypto.h"
 
 #ifndef SILC_SYMBIAN
 SilcStack crypto_stack = NULL;		/* Crypto Toolkit's global stack */

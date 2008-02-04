@@ -3,7 +3,7 @@
 #
 #  Author: Pekka Riikonen <priikone@silcnet.org>
 #
-#  Copyright (C) 2005 Pekka Riikonen
+#  Copyright (C) 2005 - 2008 Pekka Riikonen
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -21,9 +21,7 @@ noinst_LTLIBRARIES = libsilcskr.la
 
 libsilcskr_la_SOURCES = silcskr.c
 
-#ifdef SILC_DIST_TOOLKIT
 include_HEADERS = silcskr.h silcskr_i.h
-#endif SILC_DIST_TOOLKIT
 
 EXTRA_DIST = *.h $(SILC_EXTRA_DIST)
 

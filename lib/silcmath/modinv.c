@@ -16,9 +16,8 @@
   GNU General Public License for more details.
 
 */
-/* $Id$ */
 
-#include "silc.h"
+#include "silccrypto.h"
 
 /* Table for finding multiplicative inverse */
 typedef struct {

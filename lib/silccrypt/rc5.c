@@ -38,7 +38,7 @@
  *
  */
 
-#include "silc.h"
+#include "silccrypto.h"
 #include "rc5_internal.h"
 #include "rc5.h"
 

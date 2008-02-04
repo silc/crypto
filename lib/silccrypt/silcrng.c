@@ -4,7 +4,7 @@
 
   Author: Pekka Riikonen <priikone@silcnet.org>
 
-  Copyright (C) 1997 - 2007 Pekka Riikonen
+  Copyright (C) 1997 - 2008 Pekka Riikonen
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -16,7 +16,6 @@
   GNU General Public License for more details.
 
 */
-/* $Id$ */
 /*
  * Created: Sun Mar  9 00:09:18 1997
  *
@@ -25,7 +24,7 @@
  * This RNG has been rewritten twice since the creation.
  */
 
-#include "silc.h"
+#include "silccrypto.h"
 
 #ifndef WIN32
 #ifdef HAVE_GETSID
@@ -348,7 +347,7 @@ static void silc_rng_get_hard_noise(SilcRng rng)
   int fd, len, i;
 
   /* Get noise from /dev/[u]random if available */
-  fd = open(rng->devrandom, O_RDONLY);
+  fd = silc_file_open(rng->devrandom, O_RDONLY);
   if (fd < 0)
     return;
 
@@ -366,7 +365,7 @@ static void silc_rng_get_hard_noise(SilcRng rng)
 #endif
 
  out:
-  close(fd);
+  silc_file_close(fd);
   memset(buf, 0, sizeof(buf));
 #endif
 }

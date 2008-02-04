@@ -20,6 +20,6 @@ AUTOMAKE_OPTIONS = 1.0 no-dependencies foreign
 bin_PROGRAMS = asn1dump
 asn1dump_SOURCES = asn1dump.c
 
-LIBS = $(SILC_COMMON_LIBS)
+LIBS = $(SILC_COMMON_LIBS) -lsct
 
 include $(top_srcdir)/Makefile.defines.in
