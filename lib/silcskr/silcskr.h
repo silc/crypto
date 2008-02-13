@@ -4,7 +4,7 @@
 
   Author: Pekka Riikonen <priikone@silcnet.org>
 
-  Copyright (C) 2005 - 2007 Pekka Riikonen
+  Copyright (C) 2005 - 2008 Pekka Riikonen
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -17,13 +17,13 @@
 
 */
 
-/****h* silcskr/SILC Key Repository
+/****h* silcskr/Key Manager and Repository
  *
  * DESCRIPTION
  *
- * SILC Key repository is a generic public key and certificate repository
- * which allows fast and versatile ways to retrieve public keys from the
- * the repository.
+ * SILC Key manager and repository is a generic public key and certificate
+ * manager which allows fast and versatile ways to store, retrieve and
+ * validate public keys and certificates.
  *
  * SILC Key Repository is thread safe.  Same key repository context can be
  * safely used in multi threaded environment.
@@ -33,7 +33,7 @@
 #ifndef SILCSKR_H
 #define SILCSKR_H
 
-/****s* silcskr/SilcSKRAPI/SilcSKR
+/****s* silcskr/SilcSKR
  *
  * NAME
  *
@@ -49,7 +49,7 @@
  ***/
 typedef struct SilcSKRObject *SilcSKR, SilcSKRStruct;
 
-/****s* silcskr/SilcSKRAPI/SilcSKRFind
+/****s* silcskr/SilcSKRFind
  *
  * NAME
  *
@@ -65,7 +65,7 @@ typedef struct SilcSKRObject *SilcSKR, SilcSKRStruct;
  ***/
 typedef struct SilcSKRFindStruct *SilcSKRFind;
 
-/****d* silcskr/SilcSKRAPI/SilcSKRKeyUsage
+/****d* silcskr/SilcSKRKeyUsage
  *
  * NAME
  *
@@ -96,7 +96,7 @@ typedef enum {
 } SilcSKRKeyUsage;
 /***/
 
-/****s* silcskr/SilcSKRAPI/SilcSKRKey
+/****s* silcskr/SilcSKRKey
  *
  * NAME
  *
@@ -118,45 +118,13 @@ typedef struct SilcSKRKeyStruct {
 } *SilcSKRKey;
 /***/
 
-/****d* silcskr/SilcSKRAPI/SilcSKRStatus
- *
- * NAME
- *
- *    typedef enum { ... } SilcSKRStatus;
- *
- * DESCRIPTION
- *
- *    Indicates the status of the key repository procedures.  This is
- *    returned to SilcSKRFindCallback function to indicate the status
- *    of the finding.  This is a bitmask, and more than one status may
- *    be set at one time.
- *
- *    If there are no errors only SILC_SKR_OK is set.  If error occurred
- *    then at least SILC_SKR_ERROR is set, and possibly other error
- *    status also.
- *
- *    If the SILC_SKR_UNSUPPORTED_TYPE is returned the repository does not
- *    support the public key type and it cannot be added to the repository.
- *
- * SOURCE
- */
-typedef enum {
-  SILC_SKR_OK                 = 0x00000001, /* All is Ok */
-  SILC_SKR_ERROR              = 0x00000002, /* Generic error status */
-  SILC_SKR_ALREADY_EXIST      = 0x00000004, /* Key already exist */
-  SILC_SKR_NOT_FOUND          = 0x00000008, /* No keys were found */
-  SILC_SKR_NO_MEMORY          = 0x00000010, /* System out of memory */
-  SILC_SKR_UNSUPPORTED_TYPE   = 0x00000020, /* Unsupported PKCS type */
-} SilcSKRStatus;
-/***/
-
-/****f* silcskr/SilcSKRAPI/SilcSKRFindCallback
+/****f* silcskr/SilcSKRFindCallback
  *
  * SYNOPSIS
  *
  *    typedef void (*SilcSKRFindCallback)(SilcSKR skr, SilcSKRFind find,
- *                                        SilcSKRStatus status,
- *                                        SilcDList keys, void *context);
+ *                                        SilcResult status, SilcDList keys,
+ *                                        void *context);
  *
  * DESCRIPTION
  *
@@ -170,10 +138,10 @@ typedef enum {
  *
  ***/
 typedef void (*SilcSKRFindCallback)(SilcSKR skr, SilcSKRFind find,
-				    SilcSKRStatus status,
-				    SilcDList keys, void *context);
+				    SilcResult status, SilcDList keys,
+				    void *context);
 
-/****f* silcskr/SilcSKRAPI/silc_skr_alloc
+/****f* silcskr/silc_skr_alloc
  *
  * SYNOPSIS
  *
@@ -186,7 +154,7 @@ typedef void (*SilcSKRFindCallback)(SilcSKR skr, SilcSKRFind find,
  ***/
 SilcSKR silc_skr_alloc(void);
 
-/****f* silcskr/SilcSKRAPI/silc_skr_free
+/****f* silcskr/silc_skr_free
  *
  * SYNOPSIS
  *
@@ -199,7 +167,7 @@ SilcSKR silc_skr_alloc(void);
  ***/
 void silc_skr_free(SilcSKR skr);
 
-/****f* silcskr/SilcSKRAPI/silc_skr_init
+/****f* silcskr/silc_skr_init
  *
  * SYNOPSIS
  *
@@ -214,7 +182,7 @@ void silc_skr_free(SilcSKR skr);
  ***/
 SilcBool silc_skr_init(SilcSKR skr);
 
-/****f* silcskr/SilcSKRAPI/silc_skr_uninit
+/****f* silcskr/silc_skr_uninit
  *
  * SYNOPSIS
  *
@@ -228,15 +196,15 @@ SilcBool silc_skr_init(SilcSKR skr);
  ***/
 void silc_skr_uninit(SilcSKR skr);
 
-/****f* silcskr/SilcSKRAPI/silc_skr_add_public_key
+/****f* silcskr/silc_skr_add_public_key
  *
  * SYNOPSIS
  *
- *    SilcSKRStatus silc_skr_add_public_key(SilcSKR skr,
- *                                          SilcPublicKey public_key,
- *                                          SilcSKRKeyUsage usage,
- *                                          void *key_context,
- *                                          SilcSKRKey *return_key);
+ *    SilcResult silc_skr_add_public_key(SilcSKR skr,
+ *                                       SilcPublicKey public_key,
+ *                                       SilcSKRKeyUsage usage,
+ *                                       void *key_context,
+ *                                       SilcSKRKey *return_key);
  *
  * DESCRIPTION
  *
@@ -253,32 +221,32 @@ void silc_skr_uninit(SilcSKR skr);
  *    reference may be taken with silc_skr_ref_public_key to assure the
  *    entry remains valid.
  *
- *    Returns SILC_SKR_OK if the key was added successfully, and error
+ *    Returns SILC_OK if the key was added successfully, and error
  *    status if key could not be added, or has been added already.
  *
  * EXAMPLE
  *
  *    // Add a key to repository
  *    if (silc_skr_add_public_key(repository, pubkey, SILC_SKR_USAGE_ANY,
- *                                NULL, NULL) != SILC_SKR_OK)
+ *                                NULL, NULL) != SILC_OK)
  *      goto error;
  *
  ***/
-SilcSKRStatus silc_skr_add_public_key(SilcSKR skr,
-				      SilcPublicKey public_key,
-				      SilcSKRKeyUsage usage,
-				      void *key_context,
-				      SilcSKRKey *return_key);
+SilcResult silc_skr_add_public_key(SilcSKR skr,
+				   SilcPublicKey public_key,
+				   SilcSKRKeyUsage usage,
+				   void *key_context,
+				   SilcSKRKey *return_key);
 
-/****f* silcskr/SilcSKRAPI/silc_skr_add_public_key_simple
+/****f* silcskr/silc_skr_add_public_key_simple
  *
  * SYNOPSIS
  *
- *    SilcSKRStatus silc_skr_add_public_key_simple(SilcSKR skr,
- *                                                 SilcPublicKey public_key,
- *                                                 SilcSKRKeyUsage usage,
- *                                                 void *key_context,
- *                                                 SilcSKRKey *return_key);
+ *    SilcResult silc_skr_add_public_key_simple(SilcSKR skr,
+ *                                              SilcPublicKey public_key,
+ *                                              SilcSKRKeyUsage usage,
+ *                                              void *key_context,
+ *                                              SilcSKRKey *return_key);
  *
  * DESCRIPTION
  *
@@ -295,38 +263,38 @@ SilcSKRStatus silc_skr_add_public_key(SilcSKR skr,
  *    reference may be taken with silc_skr_ref_public_key to assure the
  *    entry remains valid.
  *
- *    Returns SILC_SKR_OK if the key was added successfully, and error
+ *    Returns SILC_OK if the key was added successfully, and error
  *    status if key could not be added, or has been added already.
  *
  ***/
-SilcSKRStatus silc_skr_add_public_key_simple(SilcSKR skr,
-					     SilcPublicKey public_key,
-					     SilcSKRKeyUsage usage,
-					     void *key_context,
-					     SilcSKRKey *return_key);
+SilcResult silc_skr_add_public_key_simple(SilcSKR skr,
+					  SilcPublicKey public_key,
+					  SilcSKRKeyUsage usage,
+					  void *key_context,
+					  SilcSKRKey *return_key);
 
-/****f* silcskr/SilcSKRAPI/silc_skr_del_public_key
+/****f* silcskr/silc_skr_del_public_key
  *
  * SYNOPSIS
  *
- *    SilcSKRStatus silc_skr_del_public_key(SilcSKR skr,
- *                                          SilcPublicKey public_key,
- *                                          void *key_context);
+ *    SilcResult silc_skr_del_public_key(SilcSKR skr,
+ *                                       SilcPublicKey public_key,
+ *                                       void *key_context);
  *
  * DESCRIPTION
  *
  *    Removes and destroyes the public key from the repository.  The
  *    public_key will become invalid after this call returns.
  *
- *    Returns SILC_SKR_OK if the key was added successfully, and error
- *    status if key could not be added, or has been added already.
+ *    Returns SILC_OK if the key was deleted successfully, and error
+ *    status if key could not be deleted, or has been deleted already.
  *
  ***/
-SilcSKRStatus silc_skr_del_public_key(SilcSKR skr,
-				      SilcPublicKey public_key,
-				      void *key_context);
+SilcResult silc_skr_del_public_key(SilcSKR skr,
+				   SilcPublicKey public_key,
+				   void *key_context);
 
-/****f* silcskr/SilcSKRAPI/silc_skr_ref_public_key
+/****f* silcskr/silc_skr_ref_public_key
  *
  * SYNOPSIS
  *
@@ -341,7 +309,7 @@ SilcSKRStatus silc_skr_del_public_key(SilcSKR skr,
  ***/
 void silc_skr_ref_public_key(SilcSKR skr, SilcSKRKey key);
 
-/****f* silcskr/SilcSKRAPI/silc_skr_unref_public_key
+/****f* silcskr/silc_skr_unref_public_key
  *
  * SYNOPSIS
  *
@@ -356,7 +324,7 @@ void silc_skr_ref_public_key(SilcSKR skr, SilcSKRKey key);
  ***/
 void silc_skr_unref_public_key(SilcSKR skr, SilcSKRKey key);
 
-/****f* silcskr/SilcSKRAPI/silc_skr_find_alloc
+/****f* silcskr/silc_skr_find_alloc
  *
  * SYNOPSIS
  *
@@ -371,7 +339,7 @@ void silc_skr_unref_public_key(SilcSKR skr, SilcSKRKey key);
  ***/
 SilcSKRFind silc_skr_find_alloc(void);
 
-/****f* silcskr/SilcSKRAPI/silc_skr_find_free
+/****f* silcskr/silc_skr_find_free
  *
  * SYNOPSIS
  *
@@ -384,7 +352,7 @@ SilcSKRFind silc_skr_find_alloc(void);
  ***/
 void silc_skr_find_free(SilcSKRFind find);
 
-/****f* silcskr/SilcSKRAPI/silc_skr_find_add_pkcs_type
+/****f* silcskr/silc_skr_find_add_pkcs_type
  *
  * SYNOPSIS
  *
@@ -399,7 +367,7 @@ void silc_skr_find_free(SilcSKRFind find);
  ***/
 SilcBool silc_skr_find_set_pkcs_type(SilcSKRFind find, SilcPKCSType type);
 
-/****f* silcskr/SilcSKRAPI/silc_skr_find_set_username
+/****f* silcskr/silc_skr_find_set_username
  *
  * SYNOPSIS
  *
@@ -416,7 +384,7 @@ SilcBool silc_skr_find_set_pkcs_type(SilcSKRFind find, SilcPKCSType type);
  ***/
 SilcBool silc_skr_find_set_username(SilcSKRFind find, const char *username);
 
-/****f* silcskr/SilcSKRAPI/silc_skr_find_set_host
+/****f* silcskr/silc_skr_find_set_host
  *
  * SYNOPSIS
  *
@@ -433,7 +401,7 @@ SilcBool silc_skr_find_set_username(SilcSKRFind find, const char *username);
  ***/
 SilcBool silc_skr_find_set_host(SilcSKRFind find, const char *host);
 
-/****f* silcskr/SilcSKRAPI/silc_skr_find_set_realname
+/****f* silcskr/silc_skr_find_set_realname
  *
  * SYNOPSIS
  *
@@ -450,7 +418,7 @@ SilcBool silc_skr_find_set_host(SilcSKRFind find, const char *host);
  ***/
 SilcBool silc_skr_find_set_realname(SilcSKRFind find, const char *realname);
 
-/****f* silcskr/SilcSKRAPI/silc_skr_find_set_email
+/****f* silcskr/silc_skr_find_set_email
  *
  * SYNOPSIS
  *
@@ -467,7 +435,7 @@ SilcBool silc_skr_find_set_realname(SilcSKRFind find, const char *realname);
  ***/
 SilcBool silc_skr_find_set_email(SilcSKRFind find, const char *email);
 
-/****f* silcskr/SilcSKRAPI/silc_skr_find_set_org
+/****f* silcskr/silc_skr_find_set_org
  *
  * SYNOPSIS
  *
@@ -484,7 +452,7 @@ SilcBool silc_skr_find_set_email(SilcSKRFind find, const char *email);
  ***/
 SilcBool silc_skr_find_set_org(SilcSKRFind find, const char *org);
 
-/****f* silcskr/SilcSKRAPI/silc_skr_find_set_country
+/****f* silcskr/silc_skr_find_set_country
  *
  * SYNOPSIS
  *
@@ -501,7 +469,7 @@ SilcBool silc_skr_find_set_org(SilcSKRFind find, const char *org);
  ***/
 SilcBool silc_skr_find_set_country(SilcSKRFind find, const char *country);
 
-/****f* silcskr/SilcSKRAPI/silc_skr_find_set_public_key
+/****f* silcskr/silc_skr_find_set_public_key
  *
  * SYNOPSIS
  *
@@ -517,7 +485,7 @@ SilcBool silc_skr_find_set_country(SilcSKRFind find, const char *country);
 SilcBool silc_skr_find_set_public_key(SilcSKRFind find,
 				      SilcPublicKey public_key);
 
-/****f* silcskr/SilcSKRAPI/silc_skr_find_set_context
+/****f* silcskr/silc_skr_find_set_context
  *
  * SYNOPSIS
  *
@@ -532,7 +500,7 @@ SilcBool silc_skr_find_set_public_key(SilcSKRFind find,
  ***/
 SilcBool silc_skr_find_set_context(SilcSKRFind find, void *context);
 
-/****f* silcskr/SilcSKRAPI/silc_skr_find_set_usage
+/****f* silcskr/silc_skr_find_set_usage
  *
  * SYNOPSIS
  *
@@ -549,7 +517,7 @@ SilcBool silc_skr_find_set_context(SilcSKRFind find, void *context);
  ***/
 SilcBool silc_skr_find_set_usage(SilcSKRFind find, SilcSKRKeyUsage usage);
 
-/****f* silcskr/SilcSKRAPI/silc_skr_find
+/****f* silcskr/silc_skr_find
  *
  * SYNOPSIS
  *

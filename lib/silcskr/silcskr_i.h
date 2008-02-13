@@ -4,7 +4,7 @@
 
   Author: Pekka Riikonen <priikone@silcnet.org>
 
-  Copyright (C) 2005 Pekka Riikonen
+  Copyright (C) 2005 - 2008 Pekka Riikonen
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -41,5 +41,13 @@ struct SilcSKRObject {
 struct SilcSKRFindStruct {
   SilcHashTable constr;			   /* Search constraints */
 };
+
+/* Backwards support */
+#define SILC_SKR_OK SILC_OK
+#define SILC_SKR_ERROR SILC_ERR
+#define SILC_SKR_ALREADY_EXIST SILC_ERR_ALREADY_EXISTS
+#define SILC_SKR_NOT_FOUND SILC_ERR_NOT_FOUND
+#define SILC_SKR_NO_MEMORY SILC_ERR_OUT_OF_MEMORY
+#define SILC_SKR_UNSUPPORTED_TYPE SILC_ERR_NOT_SUPPORTED
 
 #endif /* SILCSKR_I_H */
