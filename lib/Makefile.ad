@@ -27,6 +27,9 @@ CRYPTO_DIRS = 		\
 #ifdef SILC_DIST_SSH
 	silcssh		\
 #endif SILC_DIST_SSH
+#ifdef SILC_DIST_PGP
+	silcpgp		\
+#endif SILC_DIST_PGP
 
 if SILC_ENABLE_SHARED
 if SILC_WIN32

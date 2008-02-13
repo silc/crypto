@@ -232,6 +232,7 @@ struct SilcPKCSAlgorithmStruct {
 #define SILC_PKCS_IMPORT_PRIVATE_KEY(name)				\
   int name(const struct SilcPKCSObjectStruct *pkcs,			\
 	   const struct SilcPKCSAlgorithmStruct *alg,			\
+	   const char *passphrase, SilcUInt32 passphrase_len,		\
 	   void *key, SilcUInt32 key_len, void **ret_private_key,	\
 	   const struct SilcPKCSAlgorithmStruct **ret_alg)
 

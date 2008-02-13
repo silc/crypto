@@ -965,7 +965,7 @@ SILC_PKCS_IMPORT_PRIVATE_KEY_FILE(silc_pkcs_silc_import_private_key_file)
   silc_cipher_free(aes);
 
   /* Import the private key */
-  ret = silc_pkcs_silc_import_private_key(pkcs, NULL, filedata,
+  ret = silc_pkcs_silc_import_private_key(pkcs, NULL, NULL, 0, filedata,
 					  len, ret_private_key, ret_alg);
 
   silc_free(data);

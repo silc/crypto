@@ -421,7 +421,6 @@ AC_ARG_ENABLE(debug,
     case "${enableval}" in
       yes)
         AC_MSG_RESULT(yes)
-        AC_DEFINE([SILC_DEBUG], [], [enable-debug])
 	summary_debug="yes"
         ;;
       *)
@@ -485,8 +484,13 @@ SILC_LIB_INCLUDES="$SILC_LIB_INCLUDES -I$SILC_TOP_SRCDIR/lib/silccrypt"
 SILC_LIB_INCLUDES="$SILC_LIB_INCLUDES -I$SILC_TOP_SRCDIR/lib/silcasn1"
 SILC_LIB_INCLUDES="$SILC_LIB_INCLUDES -I$SILC_TOP_SRCDIR/lib/silcacc"
 SILC_LIB_INCLUDES="$SILC_LIB_INCLUDES -I$SILC_TOP_SRCDIR/lib/silcskr"
-SILC_LIB_INCLUDES="$SILC_LIB_INCLUDES -I$SILC_TOP_SRCDIR/lib/silcssh"
 SILC_LIB_INCLUDES="$SILC_LIB_INCLUDES -I$SILC_TOP_SRCDIR/lib/silcmath"
+#ifdef SILC_DIST_SSH
+SILC_LIB_INCLUDES="$SILC_LIB_INCLUDES -I$SILC_TOP_SRCDIR/lib/silcssh"
+#endif SILC_DIST_SSH
+#ifdef SILC_DIST_PGP
+SILC_LIB_INCLUDES="$SILC_LIB_INCLUDES -I$SILC_TOP_SRCDIR/lib/silcpgp"
+#endif SILC_DIST_PGP
 
 # SILC Runtime Toolkit checking
 AC_ARG_WITH(srt-includes,
@@ -648,8 +652,14 @@ lib/silcasn1/Makefile
 lib/silcasn1/tests/Makefile
 lib/silcacc/Makefile
 lib/silcacc/tests/Makefile
+#ifdef SILC_DIST_SSH
 lib/silcssh/Makefile
 lib/silcssh/tests/Makefile
+#endif SILC_DIST_SSH
+#ifdef SILC_DIST_PGP
+lib/silcpgp/Makefile
+lib/silcpgp/tests/Makefile
+#endif SILC_DIST_PGP
 lib/silcskr/Makefile
 lib/silcskr/tests/Makefile
 lib/silcmath/Makefile

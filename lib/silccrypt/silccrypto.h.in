@@ -94,13 +94,16 @@ extern "C" {
 #include <silcpkcs.h>
 #include <silcpk.h>
 #include <silcpkcs1.h>
+#include <silcasn1.h>
+#include <silcber.h>
+#include <silcskr.h>
 #include <silcacc.h>
 #ifdef SILC_DIST_SSH
 #include <silcssh.h>
 #endif /* SILC_DIST_SSH */
-#include <silcasn1.h>
-#include <silcber.h>
-#include <silcskr.h>
+#ifdef SILC_DIST_PGP
+#include <silcpgp.h>
+#endif /* SILC_DIST_PGP */
 
 /****f* silccrypt/SilcCryptoAPI/silc_crypto_init
  *

@@ -24,6 +24,9 @@
 #ifdef SILC_DIST_SSH
 #include "silcssh_pkcs.h"
 #endif /* SILC_DIST_SSH */
+#ifdef SILC_DIST_PGP
+#include "silcpgp_pkcs.h"
+#endif /* SILC_DIST_PGP */
 
 #ifndef SILC_SYMBIAN
 /* Dynamically registered list of PKCS. */
@@ -88,6 +91,32 @@ const SilcPKCSObject silc_default_pkcs[] =
     silc_pkcs_ssh_verify,
   },
 #endif /* SILC_DIST_SSH */
+
+#ifdef SILC_DIST_PGP
+  /* OpenPGP PKCS */
+  {
+    SILC_PKCS_OPENPGP,
+    silc_pkcs_pgp_get_algorithm,
+    silc_pkcs_pgp_import_public_key_file,
+    silc_pkcs_pgp_import_public_key,
+    silc_pkcs_pgp_export_public_key_file,
+    silc_pkcs_pgp_export_public_key,
+    silc_pkcs_pgp_public_key_bitlen,
+    silc_pkcs_pgp_public_key_copy,
+    silc_pkcs_pgp_public_key_compare,
+    silc_pkcs_pgp_public_key_free,
+    silc_pkcs_pgp_import_private_key_file,
+    silc_pkcs_pgp_import_private_key,
+    silc_pkcs_pgp_export_private_key_file,
+    silc_pkcs_pgp_export_private_key,
+    silc_pkcs_pgp_private_key_bitlen,
+    silc_pkcs_pgp_private_key_free,
+    silc_pkcs_pgp_encrypt,
+    silc_pkcs_pgp_decrypt,
+    silc_pkcs_pgp_sign,
+    silc_pkcs_pgp_verify,
+  },
+#endif /* SILC_DIST_PGP */
 
   {
     0, NULL, NULL, NULL, NULL, NULL,
@@ -191,7 +220,7 @@ const SilcPKCSAlgorithm silc_default_pkcs_alg[] =
   {
     "dsa",
     "ssh",
-    "sha1",
+    "sha1,sha224,sha256,sha384,sha512",
     silc_dsa_generate_key,
     silc_ssh_dsa_import_public_key,
     silc_ssh_dsa_export_public_key,
@@ -209,6 +238,52 @@ const SilcPKCSAlgorithm silc_default_pkcs_alg[] =
     silc_dsa_verify
   },
 #endif /* SILC_DIST_SSH */
+
+#ifdef SILC_DIST_PGP
+  /* PKCS #1, OpenPGP style public keys */
+  {
+    "rsa",
+    "openpgp",
+    "sha1",
+    silc_pkcs1_generate_key,
+    silc_pgp_rsa_import_public_key,
+    silc_pgp_rsa_export_public_key,
+    silc_pkcs1_public_key_bitlen,
+    silc_pkcs1_public_key_copy,
+    silc_pkcs1_public_key_compare,
+    silc_pkcs1_public_key_free,
+    silc_pgp_rsa_import_private_key,
+    silc_pgp_rsa_export_private_key,
+    silc_pkcs1_private_key_bitlen,
+    silc_pkcs1_private_key_free,
+    silc_pkcs1_encrypt,
+    silc_pkcs1_decrypt,
+    silc_pkcs1_sign,
+    silc_pkcs1_verify
+  },
+
+  /* DSS, OpenPGP style public keys */
+  {
+    "dsa",
+    "openpgp",
+    "sha1,sha224,sha256,sha384,sha512",
+    silc_dsa_generate_key,
+    silc_pgp_dsa_import_public_key,
+    silc_pgp_dsa_export_public_key,
+    silc_dsa_public_key_bitlen,
+    silc_dsa_public_key_copy,
+    silc_dsa_public_key_compare,
+    silc_dsa_public_key_free,
+    silc_pgp_dsa_import_private_key,
+    silc_pgp_dsa_export_private_key,
+    silc_dsa_private_key_bitlen,
+    silc_dsa_private_key_free,
+    silc_dsa_encrypt,
+    silc_dsa_decrypt,
+    silc_dsa_sign,
+    silc_dsa_verify
+  },
+#endif /* SILC_DIST_PGP */
 
   {
     NULL, NULL, NULL, NULL,
@@ -653,7 +728,7 @@ SilcBool silc_pkcs_private_key_alloc(SilcPKCSType type,
   }
 
   /* Import the PKCS private key */
-  if (!pkcs->import_private_key(pkcs, NULL, key, key_len,
+  if (!pkcs->import_private_key(pkcs, NULL, NULL, 0, key, key_len,
 				&private_key->private_key,
 				&private_key->alg)) {
     silc_free(private_key);

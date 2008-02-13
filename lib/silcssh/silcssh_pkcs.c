@@ -573,8 +573,9 @@ SILC_PKCS_IMPORT_PRIVATE_KEY_FILE(silc_pkcs_ssh_import_private_key_file)
   }
 
   /* Decode the private key */
-  ret = silc_pkcs_ssh_import_private_key(pkcs, alg, filedata, filedata_len,
-					 (void *)&privkey, ret_alg);
+  ret = silc_pkcs_ssh_import_private_key(pkcs, alg, NULL, 0, filedata, 
+					 filedata_len, (void *)&privkey,
+					 ret_alg);
   silc_free(data);
 
   if (ret) {

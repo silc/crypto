@@ -10,8 +10,9 @@ include distdir/BSD BSD
 license-header distdir/GPL-header distdir/CRYPTO-header
 
 # Distdefs
-define SILC_DIST_TMA
 define SILC_DIST_SSH
+define SILC_DIST_PGP
+define SILC_DIST_TMA
 define SILC_DIST_ASN1UTILS
 
 # TFM not enabled for now

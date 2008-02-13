@@ -66,9 +66,10 @@ typedef enum {
  * DESCRIPTION
  *
  *    This context represents any kind of PKCS public key.  It can be
- *    allocated by silc_pkcs_public_key_alloc and is freed by the
- *    silc_pkcs_public_key_free.  The PKCS specific public key context
- *    can be retrieved by calling silc_pkcs_public_key_get_pkcs.
+ *    allocated by silc_pkcs_public_key_alloc or silc_pkcs_load_public_key
+ *    and is freed by the silc_pkcs_public_key_free.  The PKCS specific
+ *    public key context can be retrieved by calling
+ *    silc_pkcs_public_key_get_pkcs.
  *
  * SOURCE
  */
@@ -87,8 +88,10 @@ typedef struct SilcPublicKeyStruct {
  *
  * DESCRIPTION
  *
- *    This context represents any kind of PKCS private key.  The PKCS specific
- *    key context can be retrieved by calling silc_pkcs_private_key_get_pkcs.
+ *    This context represents any kind of PKCS private key.  It can be
+ *    allocated by silc_pkcs_private_key_alloc or more commonly by calling
+ *    silc_pkcs_load_private_key.  The PKCS specific key context can be
+ *    retrieved by calling silc_pkcs_private_key_get_pkcs.
  *
  * SOURCE
  */
@@ -554,6 +557,9 @@ SilcPublicKey silc_pkcs_public_key_copy(SilcPublicKey public_key);
  *    Allocates SilcPrivateKey of the type of `type' from the key data
  *    `key' of length of `key_len' bytes.  Returns FALSE if the `key'
  *    is malformed or unsupported private key type.
+ *
+ *    Usually this function is not needed.  Typical application calls
+ *    silc_pkcs_load_private_key instead.
  *
  ***/
 SilcBool silc_pkcs_private_key_alloc(SilcPKCSType type,
