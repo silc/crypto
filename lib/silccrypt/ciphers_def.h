@@ -80,7 +80,7 @@ do {									\
 #define SILC_CBC_DEC_LSB_128_32(len, iv, block_prev, block,		\
 				block_dec, src, dst, i, dec)		\
 do {									\
-  if (len & (16 - 1))							\
+  if (!len || len & (16 - 1))						\
     return FALSE;							\
   									\
   SILC_GET32_LSB(block_prev[0], &iv[0]);				\
@@ -162,7 +162,7 @@ do {									\
 #define SILC_CBC_DEC_MSB_128_32(len, iv, block_prev, block,		\
 				block_dec, src, dst, i, dec)		\
 do {									\
-  if (len & (16 - 1))							\
+  if (!len || len & (16 - 1))						\
     return FALSE;							\
   									\
   SILC_GET32_MSB(block_prev[0], &iv[0]);				\
@@ -236,7 +236,7 @@ do {									\
 #define SILC_CBC_DEC_MSB_64_32(len, iv, block_prev, block,		\
 			       block_dec, src, dst, i, dec)		\
 do {									\
-  if (len & (8 - 1))							\
+  if (!len || len & (8 - 1))						\
     return FALSE;							\
   									\
   SILC_GET32_MSB(block_prev[0], &iv[0]);				\
@@ -438,6 +438,7 @@ do {									\
 
 #define SILC_CFB_DEC_LSB_128_32(iv, cfb, pad, src, dst, dec)		\
 do {									\
+  unsigned char temp;							\
   while (len-- > 0) {							\
     if (pad == 16) {							\
       SILC_GET32_LSB(cfb[0], iv);					\
@@ -453,9 +454,9 @@ do {									\
       SILC_PUT32_LSB(cfb[3], iv + 12);					\
       pad = 0;								\
     }									\
-    iv[pad] = *src ^ iv[pad];						\
-    *dst = iv[pad];							\
-    iv[pad++] = *src;							\
+    temp = *src;							\
+    *dst = temp ^ iv[pad];						\
+    iv[pad++] = temp;							\
     dst++;								\
     src++;								\
   }									\
@@ -491,6 +492,7 @@ do {									\
 
 #define SILC_CFB_DEC_MSB_128_32(iv, cfb, pad, src, dst, dec)		\
 do {									\
+  unsigned char temp;							\
   while (len-- > 0) {							\
     if (pad == 16) {							\
       SILC_GET32_MSB(cfb[0], iv);					\
@@ -506,9 +508,9 @@ do {									\
       SILC_PUT32_MSB(cfb[3], iv + 12);					\
       pad = 0;								\
     }									\
-    iv[pad] = *src ^ iv[pad];						\
-    *dst = iv[pad];							\
-    iv[pad++] = *src;							\
+    temp = *src;							\
+    *dst = temp ^ iv[pad];						\
+    iv[pad++] = temp;							\
     dst++;								\
     src++;								\
   }									\
@@ -540,6 +542,7 @@ do {									\
 
 #define SILC_CFB_DEC_MSB_64_32(iv, cfb, pad, src, dst, dec)		\
 do {									\
+  unsigned char temp;							\
   while (len-- > 0) {							\
     if (pad == 8) {							\
       SILC_GET32_MSB(cfb[0], iv);					\
@@ -551,9 +554,9 @@ do {									\
       SILC_PUT32_MSB(cfb[1], iv + 4);					\
       pad = 0;								\
     }									\
-    iv[pad] = *src ^ iv[pad];						\
-    *dst = iv[pad];							\
-    iv[pad++] = *src;							\
+    temp = *src;							\
+    *dst = temp ^ iv[pad];						\
+    iv[pad++] = temp;							\
     dst++;								\
     src++;								\
   }									\
@@ -578,15 +581,16 @@ do {									\
 /* CFB 128-bit block, MSB, the 8-bit iv argument must be decrypted. */
 
 #define SILC_CFB_DEC_MSB_128_8(iv, pad, src, dst, dec)			\
- do {									\
+do {									\
+  unsigned char temp;							\
   while (len-- > 0) {							\
     if (pad == 16) {							\
       dec;								\
       pad = 0;								\
     }									\
-    iv[pad] = *src ^ iv[pad];						\
-    *dst = iv[pad];							\
-    iv[pad++] = *src;							\
+    temp = *src;							\
+    *dst = temp ^ iv[pad];						\
+    iv[pad++] = temp;							\
     dst++;								\
     src++;								\
   }									\

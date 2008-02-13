@@ -4,7 +4,7 @@
 
   Author: Pekka Riikonen <priikone@silcnet.org>
 
-  Copyright (C) 2007 Pekka Riikonen
+  Copyright (C) 2007 - 2008 Pekka Riikonen
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -31,7 +31,8 @@
  * signatures and verification.  Both RSA and DSS SSH2 keys are supported.
  * The library supports the standard SSH2 public key file format defined
  * in RFC 4716 and the OpenSSH public key file format.  The private key file
- * format support includes OpenSSH private key files.
+ * format support includes OpenSSH private key files.  The signature format
+ * is compliant with the SSH2 protocol.
  *
  * EXAMPLE
  *
@@ -69,7 +70,7 @@
 #ifndef SILCSSH_H
 #define SILCSSH_H
 
-/****d* silcssh/SilcSshAPI/SilcSshKeyType
+/****d* silcssh/SilcSshKeyType
  *
  * NAME
  *
@@ -87,7 +88,7 @@ typedef enum {
   SILC_SSH_KEY_SSH2      = 2,	   /* SSH2 public key, RFC 4716 */
 } SilcSshKeyType;
 
-/****s* silcssh/SilcSshAPI/SilcSshPublicKey
+/****s* silcssh/SilcSshPublicKey
  *
  * NAME
  *
@@ -109,7 +110,7 @@ typedef struct SilcSshPublicKeyStruct  {
 } *SilcSshPublicKey;
 /***/
 
-/****s* silcssh/SilcSshAPI/SilcSshPrivateKey
+/****s* silcssh/SilcSshPrivateKey
  *
  * NAME
  *
@@ -131,7 +132,7 @@ typedef struct SilcSshPrivateKeyStruct  {
 } *SilcSshPrivateKey;
 /***/
 
-/****f* silcssh/SilcSshAPI/silc_ssh_generate_key
+/****f* silcssh/silc_ssh_generate_key
  *
  * SYNOPSIS
  *
@@ -160,7 +161,7 @@ SilcBool silc_ssh_generate_key(const char *algorithm,
 			       SilcPublicKey *ret_public_key,
 			       SilcPrivateKey *ret_private_key);
 
-/****f* silcssh/SilcSshAPI/silc_ssh_public_key_decode
+/****f* silcssh/silc_ssh_public_key_decode
  *
  * SYNOPSIS
  *
@@ -184,7 +185,7 @@ SilcBool silc_ssh_generate_key(const char *algorithm,
 int silc_ssh_public_key_decode(unsigned char *key, SilcUInt32 key_len,
 			       SilcSshPublicKey *ret_public_key);
 
-/****f* silcssh/SilcSshAPI/silc_ssh_public_key_encode
+/****f* silcssh/silc_ssh_public_key_encode
  *
  * SYNOPSIS
  *
@@ -208,7 +209,7 @@ unsigned char *silc_ssh_public_key_encode(SilcStack stack,
 					  SilcSshPublicKey public_key,
 					  SilcUInt32 *ret_key_len);
 
-/****f* silcssh/SilcSshAPI/silc_ssh_public_key_free
+/****f* silcssh/silc_ssh_public_key_free
  *
  * SYNOPSIS
  *
@@ -223,7 +224,7 @@ unsigned char *silc_ssh_public_key_encode(SilcStack stack,
  ***/
 void silc_ssh_public_key_free(SilcSshPublicKey public_key);
 
-/****f* silcssh/SilcSshAPI/silc_ssh_public_key_get_field
+/****f* silcssh/silc_ssh_public_key_get_field
  *
  * SYNOPSIS
  *
@@ -244,7 +245,7 @@ void silc_ssh_public_key_free(SilcSshPublicKey public_key);
 const char *silc_ssh_public_key_get_field(SilcSshPublicKey public_key,
 					  const char *field);
 
-/****f* silcssh/SilcSshAPI/silc_ssh_public_key_add_field
+/****f* silcssh/silc_ssh_public_key_add_field
  *
  * SYNOPSIS
  *
@@ -262,7 +263,7 @@ SilcBool silc_ssh_public_key_add_field(SilcSshPublicKey public_key,
 				       const char *field,
 				       const char *value);
 
-/****f* silcssh/SilcSshAPI/silc_ssh_public_key_set_type
+/****f* silcssh/silc_ssh_public_key_set_type
  *
  * SYNOPSIS
  *

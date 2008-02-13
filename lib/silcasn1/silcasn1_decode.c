@@ -590,7 +590,7 @@ silc_asn1_decoder(SilcAsn1 asn1, SilcStack stack1, SilcAsn1Tag type,
 	    goto fail;
 	  }
 
-	  *(*val) = (rdata[0] == 0xff ? TRUE : FALSE);
+	  *(*val) = (rdata[0] != 0x00 ? TRUE : FALSE);
 	  break;
 	}
 

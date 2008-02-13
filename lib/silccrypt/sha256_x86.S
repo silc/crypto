@@ -48,7 +48,7 @@
 
 */
 
-#include "../../silcdefs.h"
+#include "../../cryptodefs.h"
 
 #ifdef SILC_SHA256_X86
 

@@ -4,7 +4,7 @@
 
   Author: Pekka Riikonen <priikone@silcnet.org>
 
-  Copyright (C) 2007 Pekka Riikonen
+  Copyright (C) 2007 - 2008 Pekka Riikonen
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
 #ifndef SILCACC_H
 #define SILCACC_H
 
-/****s* silcacc/SilcAccAPI/SilcAccelerator
+/****s* silcacc/SilcAccelerator
  *
  * NAME
  *
@@ -56,7 +56,7 @@ typedef struct SilcAcceleratorObject {
 #endif /* 0 */
 } *SilcAccelerator, SilcAcceleratorStruct;
 
-/****f* silcacc/SilcAccAPI/silc_acc_register
+/****f* silcacc/silc_acc_register
  *
  * SYNOPSIS
  *
@@ -76,7 +76,7 @@ typedef struct SilcAcceleratorObject {
  ***/
 SilcBool silc_acc_register(const SilcAccelerator acc);
 
-/****f* silcacc/SilcAccAPI/silc_acc_unregister
+/****f* silcacc/silc_acc_unregister
  *
  * SYNOPSIS
  *
@@ -90,7 +90,7 @@ SilcBool silc_acc_register(const SilcAccelerator acc);
  ***/
 void silc_acc_unregister(SilcAccelerator acc);
 
-/****f* silcacc/SilcAccAPI/silc_acc_find
+/****f* silcacc/silc_acc_find
  *
  * SYNOPSIS
  *
@@ -104,7 +104,7 @@ void silc_acc_unregister(SilcAccelerator acc);
  ***/
 SilcAccelerator silc_acc_find(const char *name);
 
-/****f* silcacc/SilcAccAPI/silc_acc_init
+/****f* silcacc/silc_acc_init
  *
  * SYNOPSIS
  *
@@ -126,7 +126,7 @@ SilcAccelerator silc_acc_find(const char *name);
  ***/
 SilcBool silc_acc_init(SilcAccelerator acc, SilcSchedule schedule, ...);
 
-/****f* silcacc/SilcAccAPI/silc_acc_uninit
+/****f* silcacc/silc_acc_uninit
  *
  * SYNOPSIS
  *
@@ -142,7 +142,7 @@ SilcBool silc_acc_init(SilcAccelerator acc, SilcSchedule schedule, ...);
  ***/
 SilcBool silc_acc_uninit(SilcAccelerator acc);
 
-/****f* silcacc/SilcAccAPI/silc_acc_get_supported
+/****f* silcacc/silc_acc_get_supported
  *
  * SYNOPSIS
  *
@@ -156,7 +156,7 @@ SilcBool silc_acc_uninit(SilcAccelerator acc);
  ***/
 SilcDList silc_acc_get_supported(void);
 
-/****f* silcacc/SilcAccAPI/silc_acc_get_name
+/****f* silcacc/silc_acc_get_name
  *
  * SYNOPSIS
  *
@@ -169,7 +169,7 @@ SilcDList silc_acc_get_supported(void);
  ***/
 const char *silc_acc_get_name(SilcAccelerator acc);
 
-/****f* silcacc/SilcAccAPI/silc_acc_public_key
+/****f* silcacc/silc_acc_public_key
  *
  * SYNOPSIS
  *
@@ -192,7 +192,7 @@ const char *silc_acc_get_name(SilcAccelerator acc);
 SilcPublicKey silc_acc_public_key(SilcAccelerator acc,
 				  SilcPublicKey public_key);
 
-/****f* silcacc/SilcAccAPI/silc_acc_private_key
+/****f* silcacc/silc_acc_private_key
  *
  * SYNOPSIS
  *
@@ -215,7 +215,7 @@ SilcPublicKey silc_acc_public_key(SilcAccelerator acc,
 SilcPrivateKey silc_acc_private_key(SilcAccelerator acc,
 				    SilcPrivateKey private_key);
 
-/****f* silcacc/SilcAccAPI/silc_acc_get_public_key
+/****f* silcacc/silc_acc_get_public_key
  *
  * SYNOPSIS
  *
@@ -232,7 +232,7 @@ SilcPrivateKey silc_acc_private_key(SilcAccelerator acc,
 SilcPublicKey silc_acc_get_public_key(SilcAccelerator acc,
 				      SilcPublicKey public_key);
 
-/****f* silcacc/SilcAccAPI/silc_acc_get_private_key
+/****f* silcacc/silc_acc_get_private_key
  *
  * SYNOPSIS
  *

@@ -189,7 +189,7 @@ silc_asn1_encoder(SilcAsn1 asn1, SilcStack stack1, SilcStack stack2,
 	    SILC_LOG_DEBUG(("Error decoding underlaying node for ANY"));
 	    goto fail;
 	  }
-	  assert(enc == SILC_BER_ENC_CONSTRUCTED);
+	  SILC_VERIFY(enc == SILC_BER_ENC_CONSTRUCTED);
 
 	  /* Now encode with implicit tagging */
 	  len = silc_ber_encoded_len(tag, d_len, FALSE);
@@ -485,7 +485,7 @@ silc_asn1_encoder(SilcAsn1 asn1, SilcStack stack1, SilcStack stack2,
 	/* Encode empty BER block */
 	SilcBool val = va_arg(asn1->ap, SilcUInt32);
 
-	assert(indef == FALSE);
+	SILC_VERIFY(indef == FALSE);
 
 	if (!val)
 	  break;

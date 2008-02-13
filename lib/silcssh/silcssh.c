@@ -284,7 +284,7 @@ int silc_ssh_public_key_decode(unsigned char *key, SilcUInt32 key_len,
 			   SILC_STR_ADVANCE,
 			   SILC_STR_UI32_STRING_ALLOC(&type),
 			   SILC_STR_END) < 0) {
-    SILC_LOG_ERROR(("Malformed SSH2 public key"));
+    SILC_LOG_DEBUG(("Malformed SSH2 public key"));
     goto err;
   }
 

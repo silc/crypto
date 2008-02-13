@@ -4,7 +4,7 @@
 
   Author: Pekka Riikonen <priikone@silcnet.org>
 
-  Copyright (C) 1997 - 2007 Pekka Riikonen
+  Copyright (C) 1997 - 2008 Pekka Riikonen
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@
 
 #include "silcrng.h"
 
-/****f* silcmath/SilcMathAPI/silc_math_gen_prime
+/****f* silcmath/silc_math_gen_prime
  *
  * SYNOPSIS
  *
@@ -54,7 +54,7 @@
 SilcBool silc_math_gen_prime(SilcMPInt *prime, SilcUInt32 bits,
 			     SilcBool verbose, SilcRng rng);
 
-/****f* silcmath/SilcMathAPI/silc_math_prime_test
+/****f* silcmath/silc_math_prime_test
  *
  * SYNOPSIS
  *

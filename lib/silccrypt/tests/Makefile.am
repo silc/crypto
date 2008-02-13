@@ -48,6 +48,6 @@ test_silcpkcs_SOURCES = test_silcpkcs.c
 test_dsa_SOURCES = test_dsa.c
 
 LIBS = $(SILC_COMMON_LIBS)
-LDADD = -L.. -L../.. -lsilc
+LDADD = -L.. -L../.. -lsct
 
 include $(top_srcdir)/Makefile.defines.in

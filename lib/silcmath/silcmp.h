@@ -4,7 +4,7 @@
 
   Author: Pekka Riikonen <priikone@silcnet.org>
 
-  Copyright (C) 1997 - 2007 Pekka Riikonen
+  Copyright (C) 1997 - 2008 Pekka Riikonen
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -43,7 +43,7 @@
 #endif /* SILC_DIST_TFM */
 #endif
 
-/****d* silcmath/SilcMPAPI/SilcMPInt
+/****d* silcmath/SilcMPInt
  *
  * NAME
  *
@@ -60,7 +60,7 @@
 typedef SILC_MP_INT SilcMPInt;
 /***/
 
-/****f* silcmath/SilcMPAPI/silc_mp_init
+/****f* silcmath/silc_mp_init
  *
  * SYNOPSIS
  *
@@ -75,7 +75,7 @@ typedef SILC_MP_INT SilcMPInt;
  ***/
 void silc_mp_init(SilcMPInt *mp);
 
-/****f* silcmath/SilcMPAPI/silc_mp_sinit
+/****f* silcmath/silc_mp_sinit
  *
  * SYNOPSIS
  *
@@ -92,7 +92,7 @@ void silc_mp_init(SilcMPInt *mp);
  ***/
 SilcBool silc_mp_sinit(SilcStack stack, SilcMPInt *mp);
 
-/****f* silcmath/SilcMPAPI/silc_mp_uninit
+/****f* silcmath/silc_mp_uninit
  *
  * SYNOPSIS
  *
@@ -105,7 +105,7 @@ SilcBool silc_mp_sinit(SilcStack stack, SilcMPInt *mp);
  ***/
 void silc_mp_uninit(SilcMPInt *mp);
 
-/****f* silcmath/SilcMPAPI/silc_mp_suninit
+/****f* silcmath/silc_mp_suninit
  *
  * SYNOPSIS
  *
@@ -118,7 +118,7 @@ void silc_mp_uninit(SilcMPInt *mp);
  ***/
 void silc_mp_suninit(SilcStack stack, SilcMPInt *mp);
 
-/****f* silcmath/SilcMPAPI/silc_mp_size
+/****f* silcmath/silc_mp_size
  *
  * SYNOPSIS
  *
@@ -131,7 +131,7 @@ void silc_mp_suninit(SilcStack stack, SilcMPInt *mp);
  ***/
 size_t silc_mp_size(SilcMPInt *mp);
 
-/****f* silcmath/SilcMPAPI/silc_mp_sizeinbase
+/****f* silcmath/silc_mp_sizeinbase
  *
  * SYNOPSIS
  *
@@ -153,7 +153,7 @@ size_t silc_mp_size(SilcMPInt *mp);
  ***/
 size_t silc_mp_sizeinbase(SilcMPInt *mp, int base);
 
-/****f* silcmath/SilcMPAPI/silc_mp_set
+/****f* silcmath/silc_mp_set
  *
  * SYNOPSIS
  *
@@ -167,7 +167,7 @@ size_t silc_mp_sizeinbase(SilcMPInt *mp, int base);
  ***/
 void silc_mp_set(SilcMPInt *dst, SilcMPInt *src);
 
-/****f* silcmath/SilcMPAPI/silc_mp_set_ui
+/****f* silcmath/silc_mp_set_ui
  *
  * SYNOPSIS
  *
@@ -181,7 +181,7 @@ void silc_mp_set(SilcMPInt *dst, SilcMPInt *src);
  ***/
 void silc_mp_set_ui(SilcMPInt *dst, SilcUInt32 ui);
 
-/****f* silcmath/SilcMPAPI/silc_mp_set_si
+/****f* silcmath/silc_mp_set_si
  *
  * SYNOPSIS
  *
@@ -195,7 +195,7 @@ void silc_mp_set_ui(SilcMPInt *dst, SilcUInt32 ui);
  ***/
 void silc_mp_set_si(SilcMPInt *dst, SilcInt32 si);
 
-/****f* silcmath/SilcMPAPI/silc_mp_set_str
+/****f* silcmath/silc_mp_set_str
  *
  * SYNOPSIS
  *
@@ -214,7 +214,7 @@ void silc_mp_set_si(SilcMPInt *dst, SilcInt32 si);
  ***/
 void silc_mp_set_str(SilcMPInt *dst, const char *str, int base);
 
-/****f* silcmath/SilcMPAPI/silc_mp_get_ui
+/****f* silcmath/silc_mp_get_ui
  *
  * SYNOPSIS
  *
@@ -227,7 +227,7 @@ void silc_mp_set_str(SilcMPInt *dst, const char *str, int base);
  ***/
 SilcUInt32 silc_mp_get_ui(SilcMPInt *mp);
 
-/****f* silcmath/SilcMPAPI/silc_mp_get_str
+/****f* silcmath/silc_mp_get_str
  *
  * SYNOPSIS
  *
@@ -247,7 +247,7 @@ SilcUInt32 silc_mp_get_ui(SilcMPInt *mp);
  ***/
 char *silc_mp_get_str(char *str, SilcMPInt *mp, int base);
 
-/****f* silcmath/SilcMPAPI/silc_mp_add
+/****f* silcmath/silc_mp_add
  *
  * SYNOPSIS
  *
@@ -260,7 +260,7 @@ char *silc_mp_get_str(char *str, SilcMPInt *mp, int base);
  ***/
 void silc_mp_add(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2);
 
-/****f* silcmath/SilcMPAPI/silc_mp_add_ui
+/****f* silcmath/silc_mp_add_ui
  *
  * SYNOPSIS
  *
@@ -274,7 +274,7 @@ void silc_mp_add(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2);
  ***/
 void silc_mp_add_ui(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 ui);
 
-/****f* silcmath/SilcMPAPI/silc_mp_sub
+/****f* silcmath/silc_mp_sub
  *
  * SYNOPSIS
  *
@@ -287,7 +287,7 @@ void silc_mp_add_ui(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 ui);
  ***/
 void silc_mp_sub(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2);
 
-/****f* silcmath/SilcMPAPI/silc_mp_sub_ui
+/****f* silcmath/silc_mp_sub_ui
  *
  * SYNOPSIS
  *
@@ -301,7 +301,7 @@ void silc_mp_sub(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2);
  ***/
 void silc_mp_sub_ui(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 ui);
 
-/****f* silcmath/SilcMPAPI/silc_mp_mul
+/****f* silcmath/silc_mp_mul
  *
  * SYNOPSIS
  *
@@ -314,7 +314,7 @@ void silc_mp_sub_ui(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 ui);
  ***/
 void silc_mp_mul(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2);
 
-/****f* silcmath/SilcMPAPI/silc_mp_mul_ui
+/****f* silcmath/silc_mp_mul_ui
  *
  * SYNOPSIS
  *
@@ -328,7 +328,7 @@ void silc_mp_mul(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2);
  ***/
 void silc_mp_mul_ui(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 ui);
 
-/****f* silcmath/SilcMPAPI/silc_mp_mul_2exp
+/****f* silcmath/silc_mp_mul_2exp
  *
  * SYNOPSIS
  *
@@ -342,7 +342,7 @@ void silc_mp_mul_ui(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 ui);
  ***/
 void silc_mp_mul_2exp(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 exp);
 
-/****f* silcmath/SilcMPAPI/silc_mp_sqrt
+/****f* silcmath/silc_mp_sqrt
  *
  * SYNOPSIS
  *
@@ -355,7 +355,7 @@ void silc_mp_mul_2exp(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 exp);
  ***/
 void silc_mp_sqrt(SilcMPInt *dst, SilcMPInt *src);
 
-/****f* silcmath/SilcMPAPI/silc_mp_div
+/****f* silcmath/silc_mp_div
  *
  * SYNOPSIS
  *
@@ -369,7 +369,7 @@ void silc_mp_sqrt(SilcMPInt *dst, SilcMPInt *src);
  ***/
 void silc_mp_div(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2);
 
-/****f* silcmath/SilcMPAPI/silc_mp_div_ui
+/****f* silcmath/silc_mp_div_ui
  *
  * SYNOPSIS
  *
@@ -383,7 +383,7 @@ void silc_mp_div(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2);
  ***/
 void silc_mp_div_ui(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 ui);
 
-/****f* silcmath/SilcMPAPI/silc_mp_div_qr
+/****f* silcmath/silc_mp_div_qr
  *
  * SYNOPSIS
  *
@@ -401,7 +401,7 @@ void silc_mp_div_ui(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 ui);
 void silc_mp_div_qr(SilcMPInt *q, SilcMPInt *r, SilcMPInt *mp1,
 		    SilcMPInt *mp2);
 
-/****f* silcmath/SilcMPAPI/silc_mp_div_2exp
+/****f* silcmath/silc_mp_div_2exp
  *
  * SYNOPSIS
  *
@@ -415,7 +415,7 @@ void silc_mp_div_qr(SilcMPInt *q, SilcMPInt *r, SilcMPInt *mp1,
  ***/
 void silc_mp_div_2exp(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 exp);
 
-/****f* silcmath/SilcMPAPI/silc_mp_div_2exp_qr
+/****f* silcmath/silc_mp_div_2exp_qr
  *
  * SYNOPSIS
  *
@@ -433,7 +433,7 @@ void silc_mp_div_2exp(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 exp);
 void silc_mp_div_2exp_qr(SilcMPInt *q, SilcMPInt *r, SilcMPInt *mp1,
 			 SilcUInt32 exp);
 
-/****f* silcmath/SilcMPAPI/silc_mp_mod
+/****f* silcmath/silc_mp_mod
  *
  * SYNOPSIS
  *
@@ -449,7 +449,7 @@ void silc_mp_div_2exp_qr(SilcMPInt *q, SilcMPInt *r, SilcMPInt *mp1,
  ***/
 void silc_mp_mod(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2);
 
-/****f* silcmath/SilcMPAPI/silc_mp_mod_ui
+/****f* silcmath/silc_mp_mod_ui
  *
  * SYNOPSIS
  *
@@ -464,7 +464,7 @@ void silc_mp_mod(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2);
  ***/
 void silc_mp_mod_ui(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 ui);
 
-/****f* silcmath/SilcMPAPI/silc_mp_mod_2exp
+/****f* silcmath/silc_mp_mod_2exp
  *
  * SYNOPSIS
  *
@@ -480,7 +480,7 @@ void silc_mp_mod_ui(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 ui);
  ***/
 void silc_mp_mod_2exp(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 ui);
 
-/****f* silcmath/SilcMPAPI/silc_mp_pow
+/****f* silcmath/silc_mp_pow
  *
  * SYNOPSIS
  *
@@ -494,7 +494,7 @@ void silc_mp_mod_2exp(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 ui);
  ***/
 void silc_mp_pow(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *exp);
 
-/****f* silcmath/SilcMPAPI/silc_mp_pow_ui
+/****f* silcmath/silc_mp_pow_ui
  *
  * SYNOPSIS
  *
@@ -508,7 +508,7 @@ void silc_mp_pow(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *exp);
  ***/
 void silc_mp_pow_ui(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 exp);
 
-/****f* silcmath/SilcMPAPI/silc_mp_pow_mod
+/****f* silcmath/silc_mp_pow_mod
  *
  * SYNOPSIS
  *
@@ -524,7 +524,7 @@ void silc_mp_pow_ui(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 exp);
 void silc_mp_pow_mod(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *exp,
 		     SilcMPInt *mod);
 
-/****f* silcmath/SilcMPAPI/silc_mp_pow_mod_ui
+/****f* silcmath/silc_mp_pow_mod_ui
  *
  * SYNOPSIS
  *
@@ -540,7 +540,7 @@ void silc_mp_pow_mod(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *exp,
 void silc_mp_pow_mod_ui(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 exp,
 			SilcMPInt *mod);
 
-/****f* silcmath/SilcMPAPI/silc_mp_modinv
+/****f* silcmath/silc_mp_modinv
  *
  * SYNOPSIS
  *
@@ -568,7 +568,7 @@ void silc_mp_pow_mod_ui(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 exp,
  ***/
 void silc_mp_modinv(SilcMPInt *inv, SilcMPInt *a, SilcMPInt *n);
 
-/****f* silcmath/SilcMPAPI/silc_mp_gcd
+/****f* silcmath/silc_mp_gcd
  *
  * SYNOPSIS
  *
@@ -582,7 +582,7 @@ void silc_mp_modinv(SilcMPInt *inv, SilcMPInt *a, SilcMPInt *n);
  ***/
 void silc_mp_gcd(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2);
 
-/****f* silcmath/SilcMPAPI/silc_mp_gcdext
+/****f* silcmath/silc_mp_gcdext
  *
  * SYNOPSIS
  *
@@ -598,7 +598,7 @@ void silc_mp_gcd(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2);
 void silc_mp_gcdext(SilcMPInt *g, SilcMPInt *s, SilcMPInt *t, SilcMPInt *mp1,
 		    SilcMPInt *mp2);
 
-/****f* silcmath/SilcMPAPI/silc_mp_cmp
+/****f* silcmath/silc_mp_cmp
  *
  * SYNOPSIS
  *
@@ -612,7 +612,7 @@ void silc_mp_gcdext(SilcMPInt *g, SilcMPInt *s, SilcMPInt *t, SilcMPInt *mp1,
  ***/
 int silc_mp_cmp(SilcMPInt *mp1, SilcMPInt *mp2);
 
-/****f* silcmath/SilcMPAPI/silc_mp_cmp_si
+/****f* silcmath/silc_mp_cmp_si
  *
  * SYNOPSIS
  *
@@ -626,7 +626,7 @@ int silc_mp_cmp(SilcMPInt *mp1, SilcMPInt *mp2);
  ***/
 int silc_mp_cmp_si(SilcMPInt *mp1, SilcInt32 si);
 
-/****f* silcmath/SilcMPAPI/silc_mp_cmp_ui
+/****f* silcmath/silc_mp_cmp_ui
  *
  * SYNOPSIS
  *
@@ -641,7 +641,7 @@ int silc_mp_cmp_si(SilcMPInt *mp1, SilcInt32 si);
  ***/
 int silc_mp_cmp_ui(SilcMPInt *mp1, SilcUInt32 ui);
 
-/****f* silcmath/SilcMPAPI/silc_mp_mp2bin
+/****f* silcmath/silc_mp_mp2bin
  *
  * SYNOPSIS
  *
@@ -658,7 +658,7 @@ int silc_mp_cmp_ui(SilcMPInt *mp1, SilcUInt32 ui);
 unsigned char *silc_mp_mp2bin(SilcMPInt *val, SilcUInt32 len,
 			      SilcUInt32 *ret_len);
 
-/****f* silcmath/SilcMPAPI/silc_mp_mp2bin_noalloc
+/****f* silcmath/silc_mp_mp2bin_noalloc
  *
  * SYNOPSIS
  *
@@ -674,7 +674,7 @@ unsigned char *silc_mp_mp2bin(SilcMPInt *val, SilcUInt32 len,
 void silc_mp_mp2bin_noalloc(SilcMPInt *val, unsigned char *dst,
 			    SilcUInt32 dst_len);
 
-/****f* silcmath/SilcMPAPI/silc_mp_bin2mp
+/****f* silcmath/silc_mp_bin2mp
  *
  * SYNOPSIS
  *
@@ -689,7 +689,7 @@ void silc_mp_mp2bin_noalloc(SilcMPInt *val, unsigned char *dst,
  ***/
 void silc_mp_bin2mp(unsigned char *data, SilcUInt32 len, SilcMPInt *ret);
 
-/****f* silcmath/SilcMPAPI/silc_mp_abs
+/****f* silcmath/silc_mp_abs
  *
  * SYNOPSIS
  *
@@ -702,7 +702,7 @@ void silc_mp_bin2mp(unsigned char *data, SilcUInt32 len, SilcMPInt *ret);
  ***/
 void silc_mp_abs(SilcMPInt *dst, SilcMPInt *src);
 
-/****f* silcmath/SilcMPAPI/silc_mp_neg
+/****f* silcmath/silc_mp_neg
  *
  * SYNOPSIS
  *
@@ -715,7 +715,7 @@ void silc_mp_abs(SilcMPInt *dst, SilcMPInt *src);
  ***/
 void silc_mp_neg(SilcMPInt *dst, SilcMPInt *src);
 
-/****f* silcmath/SilcMPAPI/silc_mp_and
+/****f* silcmath/silc_mp_and
  *
  * SYNOPSIS
  *
@@ -728,7 +728,7 @@ void silc_mp_neg(SilcMPInt *dst, SilcMPInt *src);
  ***/
 void silc_mp_and(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2);
 
-/****f* silcmath/SilcMPAPI/silc_mp_or
+/****f* silcmath/silc_mp_or
  *
  * SYNOPSIS
  *
@@ -741,7 +741,7 @@ void silc_mp_and(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2);
  ***/
 void silc_mp_or(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2);
 
-/****f* silcmath/SilcMPAPI/silc_mp_xor
+/****f* silcmath/silc_mp_xor
  *
  * SYNOPSIS
  *

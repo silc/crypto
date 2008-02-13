@@ -4,7 +4,7 @@
 
   Author: Pekka Riikonen <priikone@silcnet.org>
 
-  Copyright (C) 2003 - 2007 Pekka Riikonen
+  Copyright (C) 2003 - 2008 Pekka Riikonen
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -35,7 +35,7 @@
 #ifndef SILCBER_H
 #define SILCBER_H
 
-/****d* silcasn1/SilcBerAPI/SilcBerClass
+/****d* silcasn1/SilcBerClass
  *
  * NAME
  *
@@ -54,7 +54,7 @@ typedef enum {
 } SilcBerClass;
 /***/
 
-/****d* silcasn1/SilcBerAPI/SilcBerEncoding
+/****d* silcasn1/SilcBerEncoding
  *
  * NAME
  *
@@ -71,7 +71,7 @@ typedef enum {
 } SilcBerEncoding;
 /***/
 
-/****f* silcasn1/SilcBerAPI/silc_ber_encode
+/****f* silcasn1/silc_ber_encode
  *
  * SYNOPSIS
  *
@@ -95,7 +95,7 @@ SilcBool silc_ber_encode(SilcBuffer ber, SilcBerClass ber_class,
 			 const unsigned char *data, SilcUInt32 data_len,
 			 SilcBool indefinite);
 
-/****f* silcasn1/SilcBerAPI/silc_ber_decode
+/****f* silcasn1/silc_ber_decode
  *
  * SYNOPSIS
  *
@@ -123,7 +123,7 @@ SilcBool silc_ber_decode(SilcBuffer ber, SilcBerClass *ber_class,
 			 const unsigned char **data, SilcUInt32 *data_len,
 			 SilcBool *indefinite, SilcUInt32 *identifier_len);
 
-/****f* silcasn1/SilcBerAPI/silc_ber_encoded_len
+/****f* silcasn1/silc_ber_encoded_len
  *
  * SYNOPSIS
  *

@@ -4,7 +4,7 @@
 
   Author: Pekka Riikonen <priikone@silcnet.org>
 
-  Copyright (C) 2003 - 2007 Pekka Riikonen
+  Copyright (C) 2003 - 2008 Pekka Riikonen
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -23,6 +23,7 @@
  *
  * Efficient Abstract Syntax Notation One (ASN.1) implementation.  This
  * interface provides simple and efficient ASN.1 encoder and decoder.
+ *
  * The encoder directly encodes BER encoded data blocks from variable
  * argument list of ASN.1 types.  Multiple trees can be encoded at once
  * and multiple nodes can be encoded into the tree at once.  By default
@@ -46,12 +47,33 @@
  * References: ITU-T X.680 - X.693
  * http://www.itu.int/ITU-T/studygroups/com17/languages/
  *
+ * EXAMPLE
+ *
+ * silc_asn1_encode(asn1, buf,
+ *                  SILC_ASN1_SEQUENCE,
+ *                    SILC_ASN1_BOOLEAN(bool_val),
+ *                    SILC_ASN1_OCTET_STRING(string, string_len),
+ *                    SILC_ASN1_SEQUENCE_T(0, 2),
+ *                      SILC_ASN1_BOOLEAN_T(SILC_ASN1_EXPLICIT, 100, foo),
+ *                     SILC_ASN1_END,
+ *                     SILC_ASN1_OCTET_STRING_T(0, 1, string2, string2_len),
+ *                   SILC_ASN1_END, SILC_ASN1_END);
+ *
+ * Creates ASN.1 tree that looks something like:
+ *
+ * buf ::= SEQUENCE {
+ *   bool_val      BOOLEAN,
+ *   string        OCTET-STRING,
+ *            [2]  SEQUENCE {
+ *                   foo   [100] EXPLICIT BOOLEAN }
+ *   string2  [1]  OCTET-STRING }
+ *
  ***/
 
 #ifndef SILCASN1_H
 #define SILCASN1_H
 
-/****s* silcasn1/SilcASN1API/SilcAsn1
+/****s* silcasn1/SilcAsn1
  *
  * NAME
  *
@@ -68,7 +90,7 @@
  ***/
 typedef struct SilcAsn1Object *SilcAsn1;
 
-/****s* silcasn1/SilcASN1API/SilcAsn1Struct
+/****s* silcasn1/SilcAsn1Struct
  *
  * NAME
  *
@@ -84,7 +106,7 @@ typedef struct SilcAsn1Object *SilcAsn1;
  ***/
 typedef struct SilcAsn1Object SilcAsn1Struct;
 
-/****d* silcasn1/SilcASN1API/SilcAsn1Options
+/****d* silcasn1/SilcAsn1Options
  *
  * NAME
  *
@@ -130,7 +152,7 @@ typedef enum {
   /* Default. If only this is set then defaults are implied. */
   SILC_ASN1_DEFAULT      = 0x0000,
 
-  /* Class options.  User does not need to set these unless specificly
+  /* Class options.  User does not need to set these unless specifically
      wanted to do so.  If SILC_ASN1_DEFAULT is set the SILC_ASN1_CONTEXT is
      implied if any of the tag options are set.  Otherwise SILC_ASN1_UNIVERSAL
      is implied. Only one of these can bet set at once. */
@@ -163,7 +185,7 @@ typedef enum {
 } SilcAsn1Options;
 /***/
 
-/****d* silcasn1/SilcASN1API/SilcAsn1Tag
+/****d* silcasn1/SilcAsn1Tag
  *
  * NAME
  *
@@ -212,7 +234,7 @@ typedef enum {
 
 #include "silcasn1_i.h"
 
-/****f* silcasn1/SilcASN1API/silc_asn1_alloc
+/****f* silcasn1/silc_asn1_alloc
  *
  * SYNOPSIS
  *
@@ -240,7 +262,7 @@ typedef enum {
  ***/
 SilcAsn1 silc_asn1_alloc(SilcStack stack);
 
-/****f* silcasn1/SilcASN1API/silc_asn1_free
+/****f* silcasn1/silc_asn1_free
  *
  * SYNOPSIS
  *
@@ -255,7 +277,7 @@ SilcAsn1 silc_asn1_alloc(SilcStack stack);
  ***/
 void silc_asn1_free(SilcAsn1 asn1);
 
-/****f* silcasn1/SilcASN1API/silc_asn1_init
+/****f* silcasn1/silc_asn1_init
  *
  * SYNOPSIS
  *
@@ -276,7 +298,7 @@ void silc_asn1_free(SilcAsn1 asn1);
  ***/
 SilcBool silc_asn1_init(SilcAsn1 asn1, SilcStack stack);
 
-/****f* silcasn1/SilcASN1API/silc_asn1_uninit
+/****f* silcasn1/silc_asn1_uninit
  *
  * SYNOPSIS
  *
@@ -290,7 +312,7 @@ SilcBool silc_asn1_init(SilcAsn1 asn1, SilcStack stack);
  ***/
 void silc_asn1_uninit(SilcAsn1 asn1);
 
-/****f* silcasn1/SilcASN1API/silc_asn1_encode
+/****f* silcasn1/silc_asn1_encode
  *
  * SYNOPSIS
  *
@@ -303,7 +325,7 @@ void silc_asn1_uninit(SilcAsn1 asn1);
  *    trees and nodes that are encoded into the `dest'.  By default, the
  *    memory for `dest' is allocated from the `asn1', and the buffer becomes
  *    invalid either by calling silc_asn1_free, silc_asn1_uninit, or when
- *    silc_asn1_encode is called for the next time.
+ *    silc_asn1_encode is called for the next time with `asn1' context.
  *
  *    If the SILC_ASN1_OPTS macro with SILC_ASN1_ALLOC option is given then
  *    the `dest' is dynamically allocated and caller must free it by itself.
@@ -344,7 +366,7 @@ void silc_asn1_uninit(SilcAsn1 asn1);
  ***/
 SilcBool silc_asn1_encode(SilcAsn1 asn1, SilcBuffer dest, ...);
 
-/****f* silcasn1/SilcASN1API/silc_asn1_decode
+/****f* silcasn1/silc_asn1_decode
  *
  * SYNOPSIS
  *
@@ -402,7 +424,7 @@ SilcBool silc_asn1_encode(SilcAsn1 asn1, SilcBuffer dest, ...);
  ***/
 SilcBool silc_asn1_decode(SilcAsn1 asn1, SilcBuffer src, ...);
 
-/****f* silcasn1/SilcASN1API/SILC_ASN1_OPTS
+/****f* silcasn1/SILC_ASN1_OPTS
  *
  * SYNOPSIS
  *
@@ -433,7 +455,7 @@ SilcBool silc_asn1_decode(SilcAsn1 asn1, SilcBuffer src, ...);
  ***/
 #define SILC_ASN1_OPTS(opts) SILC_ASN1_TAG_OPTS, (opts)
 
-/****f* silcasn1/SilcASN1API/SILC_ASN1_ANY
+/****f* silcasn1/SILC_ASN1_ANY
  *
  * SYNOPSIS
  *
@@ -473,7 +495,7 @@ SilcBool silc_asn1_decode(SilcAsn1 asn1, SilcBuffer src, ...);
 #define SILC_ASN1_ANY(x) SILC_ASN1_U1(ANY, x)
 #define SILC_ASN1_ANY_T(o, t, x) SILC_ASN1_T1(ANY, o, t, x)
 
-/****f* silcasn1/SilcASN1API/SILC_ASN1_ANY_PRIMITIVE
+/****f* silcasn1/SILC_ASN1_ANY_PRIMITIVE
  *
  * SYNOPSIS
  *
@@ -519,7 +541,7 @@ SilcBool silc_asn1_decode(SilcAsn1 asn1, SilcBuffer src, ...);
 #define SILC_ASN1_ANY_PRIMITIVE(t, x) SILC_ASN1_T1(ANY_PRIMITIVE, 0, t, x)
 #define SILC_ASN1_ANY_PRIMITIVE_T(o, t, x) SILC_ASN1_T1(ANY_PRIMITIVE, o, t, x)
 
-/****f* silcasn1/SilcASN1API/SILC_ASN1_SEQUENCE
+/****f* silcasn1/SILC_ASN1_SEQUENCE
  *
  * SYNOPSIS
  *
@@ -546,11 +568,17 @@ SilcBool silc_asn1_decode(SilcAsn1 asn1, SilcBuffer src, ...);
  *                       SILC_ASN1_BOOLEAN(boolval),
  *                     SILC_ASN1_END, SILC_ASN1_END);
  *
+ *    silc_asn1_encode(asn1, tree2,
+ *                     SILC_ASN1_SEQUENCE_T(SILC_ASN1_PRIVATE, 101),
+ *                       SILC_ASN1_ANY(node),
+ *                       SILC_ASN1_BOOLEAN(boolval),
+ *                     SILC_ASN1_END, SILC_ASN1_END);
+ *
  ***/
 #define SILC_ASN1_SEQUENCE SILC_ASN1_U0(SEQUENCE)
 #define SILC_ASN1_SEQUENCE_T(o, t) SILC_ASN1_T0(SEQUENCE, o, t)
 
-/****f* silcasn1/SilcASN1API/SILC_ASN1_SET
+/****f* silcasn1/SILC_ASN1_SET
  *
  * SYNOPSIS
  *
@@ -580,7 +608,7 @@ SilcBool silc_asn1_decode(SilcAsn1 asn1, SilcBuffer src, ...);
 #define SILC_ASN1_SET SILC_ASN1_U0(SET)
 #define SILC_ASN1_SET_T(o, t) SILC_ASN1_T0(SET, o, t)
 
-/****f* silcasn1/SilcASN1API/SILC_ASN1_SEQUENCE_OF
+/****f* silcasn1/SILC_ASN1_SEQUENCE_OF
  *
  * SYNOPSIS
  *
@@ -614,7 +642,7 @@ SilcBool silc_asn1_decode(SilcAsn1 asn1, SilcBuffer src, ...);
  ***/
 #define SILC_ASN1_SEQUENCE_OF(x, c) SILC_ASN1_U2(SEQUENCE_OF, x, c)
 
-/****f* silcasn1/SilcASN1API/SILC_ASN1_SET_OF
+/****f* silcasn1/SILC_ASN1_SET_OF
  *
  * SYNOPSIS
  *
@@ -645,7 +673,7 @@ SilcBool silc_asn1_decode(SilcAsn1 asn1, SilcBuffer src, ...);
  ***/
 #define SILC_ASN1_SET_OF(x, c) SILC_ASN1_U2(SEQUENCE_OF, x, c)
 
-/****f* silcasn1/SilcASN1API/SILC_ASN1_CHOICE
+/****f* silcasn1/SILC_ASN1_CHOICE
  *
  * SYNOPSIS
  *
@@ -674,7 +702,7 @@ SilcBool silc_asn1_decode(SilcAsn1 asn1, SilcBuffer src, ...);
  ***/
 #define SILC_ASN1_CHOICE(x) SILC_ASN1_U1(CHOICE, x)
 
-/****f* silcasn1/SilcASN1API/SILC_ASN1_BOOLEAN
+/****f* silcasn1/SILC_ASN1_BOOLEAN
  *
  * SYNOPSIS
  *
@@ -697,13 +725,13 @@ SilcBool silc_asn1_decode(SilcAsn1 asn1, SilcBuffer src, ...);
 #define SILC_ASN1_BOOLEAN(x) SILC_ASN1_U1(BOOLEAN, x)
 #define SILC_ASN1_BOOLEAN_T(o, t, x) SILC_ASN1_T1(BOOLEAN, o, t, x)
 
-/****f* silcasn1/SilcASN1API/SILC_ASN1_INT
+/****f* silcasn1/SILC_ASN1_INT
  *
  * SYNOPSIS
  *
  *    Encoding:
  *    SILC_ASN1_INT(integer)
- *    SILC_ASN1_INT_T(opts, tag, &integer)
+ *    SILC_ASN1_INT_T(opts, tag, integer)
  *
  *    Decoding:
  *    SILC_ASN1_INT(&integer)
@@ -720,13 +748,13 @@ SilcBool silc_asn1_decode(SilcAsn1 asn1, SilcBuffer src, ...);
 #define SILC_ASN1_INT(x) SILC_ASN1_U1(INTEGER, x)
 #define SILC_ASN1_INT_T(o, t, x) SILC_ASN1_T1(INTEGER, o, t, x)
 
-/****f* silcasn1/SilcASN1API/SILC_ASN1_SHORT_INT
+/****f* silcasn1/SILC_ASN1_SHORT_INT
  *
  * SYNOPSIS
  *
  *    Encoding:
  *    SILC_ASN1_SHORT_INT(integer)
- *    SILC_ASN1_SHORT_INT_T(opts, tag, &integer)
+ *    SILC_ASN1_SHORT_INT_T(opts, tag, integer)
  *
  *    Decoding:
  *    SILC_ASN1_SHORT_INT(&integer)
@@ -743,13 +771,13 @@ SilcBool silc_asn1_decode(SilcAsn1 asn1, SilcBuffer src, ...);
 #define SILC_ASN1_SHORT_INT(x) SILC_ASN1_U1(SHORT_INTEGER, x)
 #define SILC_ASN1_SHORT_INT_T(o, t, x) SILC_ASN1_T1(SHORT_INTEGER, o, t, x)
 
-/****f* silcasn1/SilcASN1API/SILC_ASN1_ENUM
+/****f* silcasn1/SILC_ASN1_ENUM
  *
  * SYNOPSIS
  *
  *    Encoding:
  *    SILC_ASN1_ENUM(enum)
- *    SILC_ASN1_ENUM_T(opts, tag, &enum)
+ *    SILC_ASN1_ENUM_T(opts, tag, enum)
  *
  *    Decoding:
  *    SILC_ASN1_ENUM(&enum)
@@ -766,7 +794,7 @@ SilcBool silc_asn1_decode(SilcAsn1 asn1, SilcBuffer src, ...);
 #define SILC_ASN1_ENUM(x) SILC_ASN1_U1(ENUM, x)
 #define SILC_ASN1_ENUM_T(o, t, x) SILC_ASN1_T1(ENUM, o, t, x)
 
-/****f* silcasn1/SilcASN1API/SILC_ASN1_BIT_STRING
+/****f* silcasn1/SILC_ASN1_BIT_STRING
  *
  * SYNOPSIS
  *
@@ -791,7 +819,7 @@ SilcBool silc_asn1_decode(SilcAsn1 asn1, SilcBuffer src, ...);
 #define SILC_ASN1_BIT_STRING(x, xl) SILC_ASN1_U2(BIT_STRING, x, xl)
 #define SILC_ASN1_BIT_STRING_T(o, t, x, xl) SILC_ASN1_T2(BIT_STRING, o, t, x, xl)
 
-/****f* silcasn1/SilcASN1API/SILC_ASN1_NULL
+/****f* silcasn1/SILC_ASN1_NULL
  *
  * SYNOPSIS
  *
@@ -817,7 +845,7 @@ SilcBool silc_asn1_decode(SilcAsn1 asn1, SilcBuffer src, ...);
 #define SILC_ASN1_NULL(x) SILC_ASN1_U1(NULL, x)
 #define SILC_ASN1_NULL_T(o, t, x) SILC_ASN1_T1(NULL, o, t, x)
 
-/****f* silcasn1/SilcASN1API/SILC_ASN1_OID
+/****f* silcasn1/SILC_ASN1_OID
  *
  * SYNOPSIS
  *
@@ -840,7 +868,7 @@ SilcBool silc_asn1_decode(SilcAsn1 asn1, SilcBuffer src, ...);
 #define SILC_ASN1_OID(x) SILC_ASN1_U1(OID, x)
 #define SILC_ASN1_OID_T(o, t, x) SILC_ASN1_UT(OID, o, t, x)
 
-/****f* silcasn1/SilcASN1API/SILC_ASN1_OCTET_STRING
+/****f* silcasn1/SILC_ASN1_OCTET_STRING
  *
  * SYNOPSIS
  *
@@ -864,7 +892,7 @@ SilcBool silc_asn1_decode(SilcAsn1 asn1, SilcBuffer src, ...);
 #define SILC_ASN1_OCTET_STRING(x, xl) SILC_ASN1_U2(OCTET_STRING, x, xl)
 #define SILC_ASN1_OCTET_STRING_T(o, t, x, xl) SILC_ASN1_T2(OCTET_STRING, o, t, x, xl)
 
-/****f* silcasn1/SilcASN1API/SILC_ASN1_UTF8_STRING
+/****f* silcasn1/SILC_ASN1_UTF8_STRING
  *
  * SYNOPSIS
  *
@@ -893,7 +921,7 @@ SilcBool silc_asn1_decode(SilcAsn1 asn1, SilcBuffer src, ...);
 #define SILC_ASN1_UTF8_STRING(x, xl) SILC_ASN1_U2(UTF8_STRING, x, xl)
 #define SILC_ASN1_UTF8_STRING_T(o, t, x, xl) SILC_ASN1_T2(UTF8_STRING, o, t, x, xl)
 
-/****f* silcasn1/SilcASN1API/SILC_ASN1_NUMERIC_STRING
+/****f* silcasn1/SILC_ASN1_NUMERIC_STRING
  *
  * SYNOPSIS
  *
@@ -922,7 +950,7 @@ SilcBool silc_asn1_decode(SilcAsn1 asn1, SilcBuffer src, ...);
 #define SILC_ASN1_NUMERIC_STRING(x, xl) SILC_ASN1_U2(NUMERIC_STRING, x, xl)
 #define SILC_ASN1_NUMERIC_STRING_T(o, t, x, xl) SILC_ASN1_T2(NUMERIC_STRING, o, t, x, xl)
 
-/****f* silcasn1/SilcASN1API/SILC_ASN1_PRINTABLE_STRING
+/****f* silcasn1/SILC_ASN1_PRINTABLE_STRING
  *
  * SYNOPSIS
  *
@@ -951,7 +979,7 @@ SilcBool silc_asn1_decode(SilcAsn1 asn1, SilcBuffer src, ...);
 #define SILC_ASN1_PRINTABLE_STRING(x, xl) SILC_ASN1_U2(PRINTABLE_STRING, x, xl)
 #define SILC_ASN1_PRINTABLE_STRING_T(o, t, x, xl) SILC_ASN1_T2(PRINTABLE_STRING, o, t, x, xl)
 
-/****f* silcasn1/SilcASN1API/SILC_ASN1_TELETEX_STRING
+/****f* silcasn1/SILC_ASN1_TELETEX_STRING
  *
  * SYNOPSIS
  *
@@ -980,7 +1008,7 @@ SilcBool silc_asn1_decode(SilcAsn1 asn1, SilcBuffer src, ...);
 #define SILC_ASN1_TELETEX_STRING(x, xl) SILC_ASN1_U2(TELETEX_STRING, x, xl)
 #define SILC_ASN1_TELETEX_STRING_T(o, t, x, xl) SILC_ASN1_T2(TELETEX_STRING, o, t, x, xl)
 
-/****f* silcasn1/SilcASN1API/SILC_ASN1_IA5_STRING
+/****f* silcasn1/SILC_ASN1_IA5_STRING
  *
  * SYNOPSIS
  *
@@ -1009,7 +1037,7 @@ SilcBool silc_asn1_decode(SilcAsn1 asn1, SilcBuffer src, ...);
 #define SILC_ASN1_IA5_STRING(x, xl) SILC_ASN1_U2(IA5_STRING, x, xl)
 #define SILC_ASN1_IA5_STRING_T(o, t, x, xl) SILC_ASN1_T2(IA5_STRING, o, t, x, xl)
 
-/****f* silcasn1/SilcASN1API/SILC_ASN1_VISIBLE_STRING
+/****f* silcasn1/SILC_ASN1_VISIBLE_STRING
  *
  * SYNOPSIS
  *
@@ -1038,7 +1066,7 @@ SilcBool silc_asn1_decode(SilcAsn1 asn1, SilcBuffer src, ...);
 #define SILC_ASN1_VISIBLE_STRING(x, xl) SILC_ASN1_U2(VISIBLE_STRING, x, xl)
 #define SILC_ASN1_VISIBLE_STRING_T(o, t, x, xl) SILC_ASN1_T2(VISIBLE_STRING, o, t, x, xl)
 
-/****f* silcasn1/SilcASN1API/SILC_ASN1_UNIVERSAL_STRING
+/****f* silcasn1/SILC_ASN1_UNIVERSAL_STRING
  *
  * SYNOPSIS
  *
@@ -1067,7 +1095,7 @@ SilcBool silc_asn1_decode(SilcAsn1 asn1, SilcBuffer src, ...);
 #define SILC_ASN1_UNIVERSAL_STRING(x, xl) SILC_ASN1_U2(UNIVERSAL_STRING, x, xl)
 #define SILC_ASN1_UNIVERSAL_STRING_T(o, t, x, xl) SILC_ASN1_T2(UNIVERSAL_STRING, o, t, x, xl)
 
-/****f* silcasn1/SilcASN1API/SILC_ASN1_BMP_STRING
+/****f* silcasn1/SILC_ASN1_BMP_STRING
  *
  * SYNOPSIS
  *
@@ -1096,7 +1124,7 @@ SilcBool silc_asn1_decode(SilcAsn1 asn1, SilcBuffer src, ...);
 #define SILC_ASN1_BMP_STRING(x, xl) SILC_ASN1_U2(BMP_STRING, x, xl)
 #define SILC_ASN1_BMP_STRING_T(o, t, x, xl) SILC_ASN1_T2(BMP_STRING, o, t, x, xl)
 
-/****f* silcasn1/SilcASN1API/SILC_ASN1_UNRESTRICTED_STRING
+/****f* silcasn1/SILC_ASN1_UNRESTRICTED_STRING
  *
  * SYNOPSIS
  *
@@ -1125,7 +1153,7 @@ SilcBool silc_asn1_decode(SilcAsn1 asn1, SilcBuffer src, ...);
 #define SILC_ASN1_UNRESTRICTED_STRING(x, xl) SILC_ASN1_U2(UNRESTRICTED_STRING, x, xl)
 #define SILC_ASN1_UNRESTRICTED_STRING_T(o, t, x, xl) SILC_ASN1_T2(UNRESTRICTED_STRING, o, t, x, xl)
 
-/****f* silcasn1/SilcASN1API/SILC_ASN1_GENERAL_STRING
+/****f* silcasn1/SILC_ASN1_GENERAL_STRING
  *
  * SYNOPSIS
  *
@@ -1154,7 +1182,7 @@ SilcBool silc_asn1_decode(SilcAsn1 asn1, SilcBuffer src, ...);
 #define SILC_ASN1_GENERAL_STRING(x, xl) SILC_ASN1_U2(GENERAL_STRING, x, xl)
 #define SILC_ASN1_GENERAL_STRING_T(o, t, x, xl) SILC_ASN1_T2(GENERAL_STRING, o, t, x, xl)
 
-/****f* silcasn1/SilcASN1API/SILC_ASN1_UTC_TIME
+/****f* silcasn1/SILC_ASN1_UTC_TIME
  *
  * SYNOPSIS
  *
@@ -1177,7 +1205,7 @@ SilcBool silc_asn1_decode(SilcAsn1 asn1, SilcBuffer src, ...);
 #define SILC_ASN1_UTC_TIME(x) SILC_ASN1_U1(UTC_TIME, x)
 #define SILC_ASN1_UTC_TIME_T(o, t, x) SILC_ASN1_T1(UTC_TIME, o, t, x)
 
-/****f* silcasn1/SilcASN1API/SILC_ASN1_GEN_TIME
+/****f* silcasn1/SILC_ASN1_GEN_TIME
  *
  * SYNOPSIS
  *
@@ -1200,7 +1228,7 @@ SilcBool silc_asn1_decode(SilcAsn1 asn1, SilcBuffer src, ...);
 #define SILC_ASN1_GEN_TIME(x) SILC_ASN1_U1(GENERALIZED_TIME, x)
 #define SILC_ASN1_GEN_TIME_T(o, t, x) SILC_ASN1_T1(GENERALIZED_TIME, o, t, x)
 
-/****f* silcasn1/SilcASN1API/SILC_ASN1_END
+/****f* silcasn1/SILC_ASN1_END
  *
  * SYNOPSIS
  *

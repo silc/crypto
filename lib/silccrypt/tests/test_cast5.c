@@ -1,4 +1,4 @@
-#include "silc.h"
+#include "silccrypto.h"
 
 /* First test vector, 8 bytes plaintext, 128 bits key */
 const unsigned char key1[] = "\x01\x23\x45\x67\x12\x34\x56\x78\x23\x45\x67\x89\x34\x56\x78\x9a";
