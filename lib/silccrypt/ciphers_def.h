@@ -4,7 +4,7 @@
 
   Author: Pekka Riikonen <priikone@silcnet.org>
 
-  Copyright (C) 1999 - 2007 Pekka Riikonen
+  Copyright (C) 1999 - 2008 Pekka Riikonen
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -19,6 +19,9 @@
 
 #ifndef CIPHERS_DEF_H
 #define CIPHERS_DEF_H
+
+
+#include "silclog.h"
 
 /* General definitions for algorithms */
 typedef unsigned char u1byte;
@@ -265,147 +268,103 @@ do {									\
   SILC_PUT32_MSB(block[1], &iv[4]);					\
 } while(0)
 
+#ifndef WORDS_BIGENDIAN
 
-/* CTR mode 128-bit block, MSB, MSB counter, the 8-bit enc_ctr argument must
-   be encrypted */
+/* CTR mode 128-bit block, MSB, MSB counter, the 8-bit ctr argument must
+   be encrypted to enc_ctr */
 
-#define SILC_CTR_MSB_128_8(iv, ctr, enc_ctr, pad, src, dst, enc)	\
+#define SILC_CTR_MSB_128_8(ctr, enc_ctr, pad, src, dst, enc)		\
 do {									\
-  SILC_GET32_MSB(ctr[0], iv);						\
-  SILC_GET32_MSB(ctr[1], iv + 4);					\
-  SILC_GET32_MSB(ctr[2], iv + 8);					\
-  SILC_GET32_MSB(ctr[3], iv + 12);					\
-  									\
-  if (pad == 0)								\
-    pad = 16;								\
-  									\
+  while (len > 0) {							\
+    if (pad == 16) {							\
+      for (i = 15; i >= 0; i--)						\
+	if (++ctr[i])							\
+	  break;							\
+      									\
+      enc;								\
+      									\
+      if (len >= 16) {							\
+	*(SilcUInt64 *)dst = *(SilcUInt64 *)src ^ *(SilcUInt64 *)enc_ctr; \
+	*(SilcUInt64 *)(dst + 8) = *(SilcUInt64 *)(src + 8) ^		\
+	  *(SilcUInt64 *)(enc_ctr + 8);					\
+	src += 16;							\
+	dst += 16;							\
+	len -= 16;							\
+	silc_prefetch((void *)src, 0, 0);				\
+	continue;							\
+      }									\
+      pad = 0;								\
+    }									\
+    *dst++ = *src++ ^ enc_ctr[pad++];					\
+    len--;								\
+  }									\
+} while(0)
+
+#else /* WORDS_BIGENDIAN */
+
+#define SILC_CTR_MSB_128_8(ctr, enc_ctr, pad, src, dst, enc)		\
+do {									\
   while (len-- > 0) {							\
     if (pad == 16) {							\
-      if (++ctr[3] == 0)						\
-	if (++ctr[2] == 0)						\
-	  if (++ctr[1] == 0)						\
-	    ++ctr[0];							\
-      									\
-      SILC_PUT32_MSB(ctr[0], enc_ctr);					\
-      SILC_PUT32_MSB(ctr[1], enc_ctr + 4);				\
-      SILC_PUT32_MSB(ctr[2], enc_ctr + 8);				\
-      SILC_PUT32_MSB(ctr[3], enc_ctr + 12);				\
+      for (i = 15; i >= 0; i--)						\
+	if (++ctr[i])							\
+	  break;							\
       									\
       enc;								\
       pad = 0;								\
     }									\
     *dst++ = *src++ ^ enc_ctr[pad++];					\
   }									\
-  									\
-  SILC_PUT32_MSB(ctr[0], iv);						\
-  SILC_PUT32_MSB(ctr[1], iv + 4);					\
-  SILC_PUT32_MSB(ctr[2], iv + 8);					\
-  SILC_PUT32_MSB(ctr[3], iv + 12);					\
 } while(0)
 
-/* CTR mode 128-bit block, MSB, MSB counter, the 32-bit ctr argument must
-   be encrypted to enc_ctr */
+#endif /* !WORDS_BIGENDIAN */
 
-#define SILC_CTR_MSB_128_32(iv, ctr, enc_ctr, pad, src, dst, enc)	\
+/* CTR mode 128-bit block, LSB, MSB counter, the 32-bit tmp argument
+   must be encrypted, enc_ctr must have the encrypted data too.  */
+
+#define SILC_CTR_LSB_128_32(ctr, tmp, enc_ctr, pad, src, dst, enc)	\
 do {									\
-  SILC_GET32_MSB(ctr[0], iv);						\
-  SILC_GET32_MSB(ctr[1], iv + 4);					\
-  SILC_GET32_MSB(ctr[2], iv + 8);					\
-  SILC_GET32_MSB(ctr[3], iv + 12);					\
-  									\
-  if (pad == 0)								\
-    pad = 16;								\
-  									\
   while (len-- > 0) {							\
     if (pad == 16) {							\
-      if (++ctr[3] == 0)						\
-	if (++ctr[2] == 0)						\
-	  if (++ctr[1] == 0)						\
-	    ++ctr[0];							\
+      for (i = 15; i >= 0; i--)						\
+	if (++ctr[i])							\
+	  break;							\
       									\
+      SILC_GET32_LSB(tmp[0], ctr);					\
+      SILC_GET32_LSB(tmp[1], ctr + 4);					\
+      SILC_GET32_LSB(tmp[2], ctr + 8);					\
+      SILC_GET32_LSB(tmp[3], ctr + 12);					\
       enc;								\
-      SILC_PUT32_MSB(enc_ctr[0], iv);					\
-      SILC_PUT32_MSB(enc_ctr[1], iv + 4);				\
-      SILC_PUT32_MSB(enc_ctr[2], iv + 8);				\
-      SILC_PUT32_MSB(enc_ctr[3], iv + 12);				\
+      SILC_PUT32_LSB(tmp[0], enc_ctr);					\
+      SILC_PUT32_LSB(tmp[1], enc_ctr + 4);				\
+      SILC_PUT32_LSB(tmp[2], enc_ctr + 8);				\
+      SILC_PUT32_LSB(tmp[3], enc_ctr + 12);				\
       pad = 0;								\
     }									\
     *dst++ = *src++ ^ enc_ctr[pad++];					\
   }									\
-  									\
-  SILC_PUT32_MSB(ctr[0], iv);						\
-  SILC_PUT32_MSB(ctr[1], iv + 4);					\
-  SILC_PUT32_MSB(ctr[2], iv + 8);					\
-  SILC_PUT32_MSB(ctr[3], iv + 12);					\
 } while(0)
 
-/* CTR mode 128-bit block, LSB, MSB counter, the 32-bit enc_ctr argument
-   must be encrypted */
+/* CTR mode 128-bit block, LSB, MSB counter, the 32-bit tmp argument
+   must be encrypted, enc_ctr must have the encrypted data too.  */
 
-#define SILC_CTR_LSB_128_32(iv, ctr, enc_ctr, pad, src, dst, enc)	\
+#define SILC_CTR_MSB_64_32(ctr, tmp, enc_ctr, pad, src, dst, enc)	\
 do {									\
-  SILC_GET32_MSB(ctr[0], iv);						\
-  SILC_GET32_MSB(ctr[1], iv + 4);					\
-  SILC_GET32_MSB(ctr[2], iv + 8);					\
-  SILC_GET32_MSB(ctr[3], iv + 12);					\
-  									\
-  if (pad == 0)								\
-    pad = 16;								\
-  									\
-  while (len-- > 0) {							\
-    if (pad == 16) {							\
-      if (++ctr[3] == 0)						\
-	if (++ctr[2] == 0)						\
-	  if (++ctr[1] == 0)						\
-	    ++ctr[0];							\
-      									\
-      enc_ctr[0] = SILC_SWAB_32(ctr[0]);				\
-      enc_ctr[1] = SILC_SWAB_32(ctr[1]);				\
-      enc_ctr[2] = SILC_SWAB_32(ctr[2]);				\
-      enc_ctr[3] = SILC_SWAB_32(ctr[3]);				\
-      									\
-      enc;								\
-      SILC_PUT32_LSB(enc_ctr[0], iv);					\
-      SILC_PUT32_LSB(enc_ctr[1], iv + 4);				\
-      SILC_PUT32_LSB(enc_ctr[2], iv + 8);				\
-      SILC_PUT32_LSB(enc_ctr[3], iv + 12);				\
-      pad = 0;								\
-    }									\
-    *dst++ = *src++ ^ iv[pad++];					\
-  }									\
-  									\
-  SILC_PUT32_MSB(ctr[0], iv);						\
-  SILC_PUT32_MSB(ctr[1], iv + 4);					\
-  SILC_PUT32_MSB(ctr[2], iv + 8);					\
-  SILC_PUT32_MSB(ctr[3], iv + 12);					\
-} while(0)
-
-/* CTR mode 64-bit block, MSB, MSB counter, the 32-bit ctr argument must
-   be encrypted to enc_ctr */
-
-#define SILC_CTR_MSB_64_32(iv, ctr, enc_ctr, pad, src, dst, enc)	\
-do {									\
-  SILC_GET32_MSB(ctr[0], iv);						\
-  SILC_GET32_MSB(ctr[1], iv + 4);					\
-  									\
-  if (pad == 0)								\
-    pad = 8;								\
-  									\
   while (len-- > 0) {							\
     if (pad == 8) {							\
-      if (++ctr[1] == 0)						\
-	++ctr[0];							\
+      for (i = 7; i >= 0; i--)						\
+	if (++ctr[i])							\
+	  break;							\
       									\
+      SILC_GET32_MSB(tmp[0], ctr);					\
+      SILC_GET32_MSB(tmp[1], ctr + 4);					\
       enc;								\
-      SILC_PUT32_MSB(enc_ctr[0], iv);					\
-      SILC_PUT32_MSB(enc_ctr[1], iv + 4);				\
+      SILC_PUT32_MSB(tmp[0], enc_ctr);					\
+      SILC_PUT32_MSB(tmp[1], enc_ctr + 4);				\
       pad = 0;								\
     }									\
-    *dst++ = *src++ ^ iv[pad++];					\
+    *dst++ = *src++ ^ enc_ctr[pad++];					\
   }									\
-  									\
-  SILC_PUT32_MSB(ctr[0], iv);						\
-  SILC_PUT32_MSB(ctr[1], iv + 4);					\
 } while(0)
 
 /* CFB 128-bit block, LSB, the 32-bit cfb argument must be encrypted. */

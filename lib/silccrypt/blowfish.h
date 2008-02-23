@@ -26,7 +26,8 @@
 
 SILC_CIPHER_API_SET_KEY(blowfish_cbc);
 SILC_CIPHER_API_SET_IV(blowfish_cbc);
-SILC_CIPHER_API_CONTEXT_LEN(blowfish_cbc);
+SILC_CIPHER_API_INIT(blowfish_cbc);
+SILC_CIPHER_API_UNINIT(blowfish_cbc);
 SILC_CIPHER_API_ENCRYPT(blowfish_cbc);
 SILC_CIPHER_API_DECRYPT(blowfish_cbc);
 

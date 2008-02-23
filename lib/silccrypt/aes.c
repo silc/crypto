@@ -34,7 +34,7 @@
 */
 
 #include "silccrypto.h"
-#include "rijndael_internal.h"
+#include "aes_internal.h"
 #include "aes.h"
 
 /*
@@ -45,17 +45,18 @@
 
 SILC_CIPHER_API_SET_KEY(aes)
 {
-  switch (cipher->mode) {
+  switch (ops->mode) {
+  case SILC_CIPHER_MODE_CTR:
+  case SILC_CIPHER_MODE_CFB:
+    aes_encrypt_key(key, keylen, &((AesContext *)context)->u.enc);
+    break;
+
   case SILC_CIPHER_MODE_CBC:
+  case SILC_CIPHER_MODE_ECB:
     if (encryption)
       aes_encrypt_key(key, keylen, &((AesContext *)context)->u.enc);
     else
       aes_decrypt_key(key, keylen, &((AesContext *)context)->u.dec);
-    break;
-
-  case SILC_CIPHER_MODE_CTR:
-  case SILC_CIPHER_MODE_CFB:
-    aes_encrypt_key(key, keylen, &((AesContext *)context)->u.enc);
     break;
 
   default:
@@ -70,13 +71,9 @@ SILC_CIPHER_API_SET_IV(aes)
 {
   AesContext *aes = context;
 
-  switch (cipher->mode) {
+  switch (ops->mode) {
 
   case SILC_CIPHER_MODE_CTR:
-    /* Starts new block. */
-    aes->u.enc.inf.b[2] = 0;
-    break;
-
   case SILC_CIPHER_MODE_CFB:
     /* Starts new block. */
     aes->u.enc.inf.b[2] = 16;
@@ -87,11 +84,22 @@ SILC_CIPHER_API_SET_IV(aes)
   }
 }
 
-/* Returns the size of the cipher context. */
+/* Initialize */
 
-SILC_CIPHER_API_CONTEXT_LEN(aes)
+SILC_CIPHER_API_INIT(aes)
 {
-  return sizeof(AesContext);
+  AesContext *aes = silc_calloc(1, sizeof(AesContext));
+  if (aes)
+    aes->u.enc.inf.b[2] = 16;
+}
+
+/* Unnitialize */
+
+SILC_CIPHER_API_UNINIT(aes)
+{
+  AesContext *aes = context;
+  memset(aes, 0, sizeof(*aes));
+  silc_free(aes);
 }
 
 /* Encrypts with the cipher. Source and destination buffers maybe one and
@@ -100,12 +108,29 @@ SILC_CIPHER_API_CONTEXT_LEN(aes)
 SILC_CIPHER_API_ENCRYPT(aes)
 {
   AesContext *aes = context;
-  SilcUInt32 ctr[4];
+  int i;
 
-  switch (cipher->mode) {
+  switch (ops->mode) {
+  case SILC_CIPHER_MODE_CTR:
+    SILC_CTR_MSB_128_8(iv, cipher->block, aes->u.enc.inf.b[2], src, dst,
+    		       aes_encrypt(iv, cipher->block, &aes->u.enc));
+    break;
+
+  case SILC_CIPHER_MODE_ECB:
+    {
+      SilcUInt32 nb = len >> 4;
+
+      while (nb--) {
+	aes_encrypt(src, dst, &aes->u.enc);
+	src += 16;
+	dst += 16;
+      }
+    }
+    break;
+
   case SILC_CIPHER_MODE_CBC:
     {
-      int nb = len >> 4;
+      SilcUInt32 nb = len >> 4;
 
       SILC_ASSERT((len & (16 - 1)) == 0);
       if (len & (16 - 1))
@@ -122,11 +147,6 @@ SILC_CIPHER_API_ENCRYPT(aes)
 	dst += 16;
       }
     }
-    break;
-
-  case SILC_CIPHER_MODE_CTR:
-    SILC_CTR_MSB_128_8(iv, ctr, iv, aes->u.enc.inf.b[2], src, dst,
-		       aes_encrypt(iv, iv, &aes->u.enc));
     break;
 
   case SILC_CIPHER_MODE_CFB:
@@ -148,11 +168,27 @@ SILC_CIPHER_API_DECRYPT(aes)
 {
   AesContext *aes = context;
 
-  switch (cipher->mode) {
+  switch (ops->mode) {
+  case SILC_CIPHER_MODE_CTR:
+    return silc_aes_encrypt(cipher, ops, context, src, dst, len, iv);
+    break;
+
+  case SILC_CIPHER_MODE_ECB:
+    {
+      SilcUInt32 nb = len >> 4;
+
+      while (nb--) {
+	aes_decrypt(src, dst, &aes->u.dec);
+	src += 16;
+	dst += 16;
+      }
+    }
+    break;
+
   case SILC_CIPHER_MODE_CBC:
     {
       unsigned char tmp[16];
-      int nb = len >> 4;
+      SilcUInt32 nb = len >> 4;
 
       if (len & (16 - 1))
 	return FALSE;
@@ -169,10 +205,6 @@ SILC_CIPHER_API_DECRYPT(aes)
 	dst += 16;
       }
     }
-    break;
-
-  case SILC_CIPHER_MODE_CTR:
-    return silc_aes_encrypt(cipher, context, src, dst, len, iv);
     break;
 
   case SILC_CIPHER_MODE_CFB:

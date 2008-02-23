@@ -4,7 +4,7 @@
 
   Author: Pekka Riikonen <priikone@silcnet.org>
 
-  Copyright (C) 1997 - 2007 Pekka Riikonen
+  Copyright (C) 2008 Pekka Riikonen
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -26,8 +26,9 @@
 
 SILC_CIPHER_API_SET_KEY(twofish);
 SILC_CIPHER_API_SET_IV(twofish);
-SILC_CIPHER_API_CONTEXT_LEN(twofish);
+SILC_CIPHER_API_INIT(twofish);
+SILC_CIPHER_API_UNINIT(twofish);
 SILC_CIPHER_API_ENCRYPT(twofish);
 SILC_CIPHER_API_DECRYPT(twofish);
 
-#endif
+#endif /* TWOFISH_H */

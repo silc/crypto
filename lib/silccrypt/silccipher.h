@@ -191,10 +191,10 @@ SilcBool silc_cipher_unregister_all(void);
  *
  * DESCRIPTION
  *
- *    Allocates a new SILC cipher object. Function returns 1 on succes and 0
- *    on error. The allocated cipher is returned in new_cipher argument. The
- *    caller must set the key to the cipher after this function has returned
- *    by calling the ciphers set_key function.
+ *    Allocates a new SILC cipher object. Function returns TRUE on succes 
+ *    and FALSE on error. The allocated cipher is returned in new_cipher
+ *    argument. The caller must set the key to the cipher after this
+ *    function has returned by calling the silc_cipher_set_key.
  *
  *    The following ciphers are supported:
  *
@@ -212,6 +212,23 @@ SilcBool silc_cipher_unregister_all(void);
  *
  ***/
 SilcBool silc_cipher_alloc(const char *name, SilcCipher *new_cipher);
+
+/****f* silccrypt/SilcCipherAPI/silc_cipher_alloc
+ *
+ * SYNOPSIS
+ *
+ *    SilcBool silc_cipher_alloc_full(const char *alg_name,
+ *                                    SilcUInt32 key_len,
+ *                                    SilcCipherMode mode,
+ *                                    SilcCipher *new_cipher);
+ * DESCRIPTION
+ *
+ *    Same as silc_cipher_alloc but takes the cipher algorithm name,
+ *    key length and mode as separate arguments.  
+ *
+ ***/
+SilcBool silc_cipher_alloc_full(const char *alg_name, SilcUInt32 key_len,
+				SilcCipherMode mode, SilcCipher *new_cipher);
 
 /****f* silccrypt/SilcCipherAPI/silc_cipher_free
  *
@@ -396,10 +413,23 @@ SilcUInt32 silc_cipher_get_iv_len(SilcCipher cipher);
  *
  * DESCRIPTION
  *
- *    Returns the name of the cipher.
+ *    Returns the full name of the cipher (eg. 'aes-256-ctr').
  *
  ***/
 const char *silc_cipher_get_name(SilcCipher cipher);
+
+/****f* silccrypt/SilcCipherAPI/silc_cipher_get_alg_name
+ *
+ * SYNOPSIS
+ *
+ *    const char *silc_cipher_get_alg_name(SilcCipher cipher);
+ *
+ * DESCRIPTION
+ *
+ *    Returns the algorithm name of the cipher (eg. 'aes').
+ *
+ ***/
+const char *silc_cipher_get_alg_name(SilcCipher cipher);
 
 /****f* silccrypt/SilcCipherAPI/silc_cipher_get_mode
  *

@@ -4,7 +4,7 @@
 
   Author: Pekka Riikonen <priikone@silcnet.org>
 
-  Copyright (C) 1997 - 2007 Pekka Riikonen
+  Copyright (C) 2008 Pekka Riikonen
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -24,18 +24,17 @@
 
 /* Cipher's context */
 typedef struct {
-  u4byte l_key[40];
-  u4byte s_key[4];
-  SilcUInt16 k_len;
-  SilcUInt16 padlen;
-} TwofishContext;
+  SilcUInt32 S[4][256];
+  SilcUInt32 K[40];
+  SilcUInt32 padlen;
+} twofish_key;
 
 /* Prototypes */
-u4byte *twofish_set_key(TwofishContext *ctx,
-			const u4byte in_key[], const u4byte key_len);
-void twofish_encrypt(TwofishContext *ctx,
-		     const u4byte in_blk[4], u4byte out_blk[]);
-void twofish_decrypt(TwofishContext *ctx,
-		     const u4byte in_blk[4], u4byte out_blk[4]);
+int twofish_setup(const unsigned char *key, int keylen, int num_rounds,
+		  twofish_key *skey);
+int twofish_encrypt(const SilcUInt32 pt[4], SilcUInt32 ct[4],
+		    twofish_key *skey);
+int twofish_decrypt(const SilcUInt32 ct[4], SilcUInt32 pt[4],
+		    twofish_key *skey);
 
-#endif
+#endif /* TWOFISH_INTERNAL_H */

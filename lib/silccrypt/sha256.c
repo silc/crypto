@@ -40,7 +40,7 @@ SILC_HASH_API_CONTEXT_LEN(sha256)
 #pragma intrinsic(_lrotr,_lrotl)
 #define RORc(x,n) _lrotr(x,n)
 #else
-#define RORc(x, y) silc_ror(x, y)
+#define RORc(x, y) silc_rorc(x, y)
 #endif /* _MSC_VER */
 
 /* Various logical functions */

@@ -24,13 +24,9 @@ SILC_CIPHER_API_SET_IV(des)
 {
   des_key *des = context;
 
-  switch (cipher->mode) {
+  switch (ops->mode) {
 
   case SILC_CIPHER_MODE_CTR:
-    /* Starts new block. */
-    des->padlen = 0;
-    break;
-
   case SILC_CIPHER_MODE_CFB:
     /* Starts new block. */
     des->padlen = 8;
@@ -41,29 +37,56 @@ SILC_CIPHER_API_SET_IV(des)
   }
 }
 
-/* Returns the size of the cipher context. */
+/* Initialize */
 
-SILC_CIPHER_API_CONTEXT_LEN(des)
+SILC_CIPHER_API_INIT(des)
 {
-  return sizeof(des_key);
+  des_key *des = silc_calloc(1, sizeof(des_key));
+  if (des)
+    des->padlen = 8;
+}
+
+/* Uninitialize */
+
+SILC_CIPHER_API_UNINIT(des)
+{
+  des_key *des = context;
+  memset(des, 0, sizeof(*des));
+  silc_free(des);
 }
 
 SILC_CIPHER_API_ENCRYPT(des)
 {
   des_key *des = context;
-  SilcUInt32 tmp[2], ctr[2];
+  SilcUInt32 tmp[2];
   int i;
 
-  switch (cipher->mode) {
+  switch (ops->mode) {
+
+  case SILC_CIPHER_MODE_CTR:
+    SILC_CTR_MSB_64_32(iv, tmp, cipher->block, des->padlen, src, dst,
+		       des_encrypt(des, tmp, tmp));
+    break;
+
+  case SILC_CIPHER_MODE_ECB:
+    {
+      SilcUInt32 nb = len >> 3;
+
+      while (nb--) {
+        SILC_GET32_MSB(tmp[0], src);
+        SILC_GET32_MSB(tmp[1], src + 4);
+        des_encrypt(des, tmp, tmp);
+        SILC_PUT32_MSB(tmp[0], dst);
+        SILC_PUT32_MSB(tmp[1], dst + 4);
+        src += 8;
+        dst += 8;
+      }
+    }
+    break;
 
   case SILC_CIPHER_MODE_CBC:
     SILC_CBC_ENC_MSB_64_32(len, iv, tmp, src, dst, i,
 			   des_encrypt(des, tmp, tmp));
-    break;
-
-  case SILC_CIPHER_MODE_CTR:
-    SILC_CTR_MSB_64_32(iv, ctr, tmp, des->padlen, src, dst,
-		       des_encrypt(des, ctr, tmp));
     break;
 
   case SILC_CIPHER_MODE_CFB:
@@ -84,15 +107,31 @@ SILC_CIPHER_API_DECRYPT(des)
   SilcUInt32 tmp[2], tmp2[2], tiv[2];
   int i;
 
-  switch (cipher->mode) {
+  switch (ops->mode) {
+
+  case SILC_CIPHER_MODE_CTR:
+    return silc_des_encrypt(cipher, ops, context, src, dst, len, iv);
+    break;
+
+  case SILC_CIPHER_MODE_ECB:
+    {
+      SilcUInt32 nb = len >> 3;
+
+      while (nb--) {
+        SILC_GET32_MSB(tmp[0], src);
+        SILC_GET32_MSB(tmp[1], src + 4);
+        des_decrypt(des, tmp, tmp);
+        SILC_PUT32_MSB(tmp[0], dst);
+        SILC_PUT32_MSB(tmp[1], dst + 4);
+        src += 8;
+        dst += 8;
+      }
+    }
+    break;
 
   case SILC_CIPHER_MODE_CBC:
     SILC_CBC_DEC_MSB_64_32(len, iv, tiv, tmp, tmp2, src, dst, i,
 			   des_decrypt(des, tmp, tmp2));
-    break;
-
-  case SILC_CIPHER_MODE_CTR:
-    return silc_des_encrypt(cipher, context, src, dst, len, iv);
     break;
 
   case SILC_CIPHER_MODE_CFB:
@@ -120,13 +159,9 @@ SILC_CIPHER_API_SET_IV(3des)
 {
   des3_key *des = context;
 
-  switch (cipher->mode) {
+  switch (ops->mode) {
 
   case SILC_CIPHER_MODE_CTR:
-    /* Starts new block. */
-    des->padlen = 0;
-    break;
-
   case SILC_CIPHER_MODE_CFB:
     /* Starts new block. */
     des->padlen = 8;
@@ -137,29 +172,56 @@ SILC_CIPHER_API_SET_IV(3des)
   }
 }
 
-/* Returns the size of the cipher context. */
+/* Initialize */
 
-SILC_CIPHER_API_CONTEXT_LEN(3des)
+SILC_CIPHER_API_INIT(3des)
 {
-  return sizeof(des3_key);
+  des3_key *des = silc_calloc(1, sizeof(des3_key));
+  if (!des)
+    des->padlen = 8;
+}
+
+/* Uninitialize */
+
+SILC_CIPHER_API_UNINIT(3des)
+{
+  des3_key *des = context;
+  memset(des, 0, sizeof(*des));
+  silc_free(des);
 }
 
 SILC_CIPHER_API_ENCRYPT(3des)
 {
   des3_key *des = context;
-  SilcUInt32 tmp[2], ctr[2];
+  SilcUInt32 tmp[2];
   int i;
 
-  switch (cipher->mode) {
+  switch (ops->mode) {
+
+  case SILC_CIPHER_MODE_CTR:
+    SILC_CTR_MSB_64_32(iv, tmp, cipher->block, des->padlen, src, dst,
+		       des3_encrypt(des, tmp, tmp));
+    break;
+
+  case SILC_CIPHER_MODE_ECB:
+    {
+      SilcUInt32 nb = len >> 3;
+
+      while (nb--) {
+        SILC_GET32_MSB(tmp[0], src);
+        SILC_GET32_MSB(tmp[1], src + 4);
+        des3_encrypt(des, tmp, tmp);
+        SILC_PUT32_MSB(tmp[0], dst);
+        SILC_PUT32_MSB(tmp[1], dst + 4);
+        src += 8;
+        dst += 8;
+      }
+    }
+    break;
 
   case SILC_CIPHER_MODE_CBC:
     SILC_CBC_ENC_MSB_64_32(len, iv, tmp, src, dst, i,
 			   des3_encrypt(des, tmp, tmp));
-    break;
-
-  case SILC_CIPHER_MODE_CTR:
-    SILC_CTR_MSB_64_32(iv, ctr, tmp, des->padlen, src, dst,
-		       des3_encrypt(des, ctr, tmp));
     break;
 
   case SILC_CIPHER_MODE_CFB:
@@ -180,15 +242,31 @@ SILC_CIPHER_API_DECRYPT(3des)
   SilcUInt32 tmp[2], tmp2[2], tiv[2];
   int i;
 
-  switch (cipher->mode) {
+  switch (ops->mode) {
+
+  case SILC_CIPHER_MODE_CTR:
+    return silc_3des_encrypt(cipher, ops, context, src, dst, len, iv);
+    break;
+
+  case SILC_CIPHER_MODE_ECB:
+    {
+      SilcUInt32 nb = len >> 3;
+
+      while (nb--) {
+        SILC_GET32_MSB(tmp[0], src);
+        SILC_GET32_MSB(tmp[1], src + 4);
+        des3_decrypt(des, tmp, tmp);
+        SILC_PUT32_MSB(tmp[0], dst);
+        SILC_PUT32_MSB(tmp[1], dst + 4);
+        src += 8;
+        dst += 8;
+      }
+    }
+    break;
 
   case SILC_CIPHER_MODE_CBC:
     SILC_CBC_DEC_MSB_64_32(len, iv, tiv, tmp, tmp2, src, dst, i,
 			   des3_decrypt(des, tmp, tmp2));
-    break;
-
-  case SILC_CIPHER_MODE_CTR:
-    return silc_3des_encrypt(cipher, context, src, dst, len, iv);
     break;
 
   case SILC_CIPHER_MODE_CFB:
@@ -212,7 +290,7 @@ SILC_CIPHER_API_DECRYPT(3des)
 #pragma intrinsic(_lrotr,_lrotl)
 #define RORc(x,n) _lrotr(x,n)
 #else
-#define RORc(x, y) silc_ror(x, y)
+#define RORc(x, y) silc_rorc(x, y)
 #endif /* _MSC_VER */
 
 static const SilcUInt32 bytebit[8] =

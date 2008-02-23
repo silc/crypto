@@ -1,5 +1,5 @@
 
-#include "silc.h"
+#include "silccrypto.h"
 
 /* Test vectors from RFC3602. */
 

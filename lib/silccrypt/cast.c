@@ -87,11 +87,20 @@ SILC_CIPHER_API_SET_IV(cast_cbc)
 
 }
 
-/* Returns the size of the cipher context. */
+/* Initialize */
 
-SILC_CIPHER_API_CONTEXT_LEN(cast_cbc)
+SILC_CIPHER_API_INIT(cast_cbc)
 {
-  return sizeof(CastContext);
+  return silc_calloc(1, sizeof(CastContext));
+}
+
+/* Uninitialize */
+
+SILC_CIPHER_API_UNINIT(cast_cbc)
+{
+  CastContext *cast = context;
+  memset(cast, 0, sizeof(*cast));
+  silc_free(cast);
 }
 
 /* Encrypts with the cipher in CBC mode. Source and destination buffers

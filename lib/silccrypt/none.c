@@ -34,9 +34,14 @@ SILC_CIPHER_API_SET_IV(none)
 
 }
 
-SILC_CIPHER_API_CONTEXT_LEN(none)
+SILC_CIPHER_API_INIT(none)
 {
-  return 1;
+  return (void *)0x01;
+}
+
+SILC_CIPHER_API_UNINIT(none)
+{
+
 }
 
 SILC_CIPHER_API_ENCRYPT(none)

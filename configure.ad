@@ -141,6 +141,9 @@ case "$host_cpu" in
 
   # Intel IA-64, 64-bit CPU (not x86_64 compatible)
   ia64)
+    AC_DEFINE([SILC_IA64], [], [SILC_IA64])
+    cpu_ia64=true
+
     # Check for specific CPU features
     SILC_CPU_FLAG(mmx, true, AC_DEFINE([SILC_CPU_MMX], [], [SILC_CPU_MMX]), [])
     SILC_CPU_FLAG(sse2, true, AC_DEFINE([SILC_CPU_SSE2], [], [SILC_CPU_SSE2]), [])
@@ -151,6 +154,8 @@ case "$host_cpu" in
 
   # AMD/Intel x86_64, 64-bit CPU
   x86_64)
+    cpu_x86_64=true
+
     # Check for specific CPU features
     SILC_CPU_FLAG(mmx, true, AC_DEFINE([SILC_CPU_MMX], [], [SILC_CPU_MMX]), [])
     SILC_CPU_FLAG(sse2, true, AC_DEFINE([SILC_CPU_SSE2], [], [SILC_CPU_SSE2]), [])
@@ -161,6 +166,7 @@ case "$host_cpu" in
 
   # PowerPC, 32-bit and 64-bit CPUs
   powerpc*)
+    cpu_ppc=true
     ;;
 esac
 AM_CONDITIONAL(SILC_I386, test x$cpu_i386 = xtrue)
@@ -176,17 +182,15 @@ if test x$want_cpu_optimizations = xtrue; then
   # Set some compiler options based on CPU
   if test "x$CC" = "xicc"; then
     # ICC flags
-    if test x$x_have_cpu_sse2 = xtrue; then
-      SILC_ADD_CFLAGS(-axW)
-    fi
-    if test x$x_have_cpu_sse3 = xtrue; then
-      SILC_ADD_CFLAGS(-axP)
+    if test x$x_have_cpu_sse4 = xtrue; then
+      SILC_ADD_CFLAGS(-axS)
     fi
     if test x$x_have_cpu_ssse3 = xtrue; then
       SILC_ADD_CFLAGS(-axT)
-    fi
-    if test x$x_have_cpu_sse4 = xtrue; then
-      SILC_ADD_CFLAGS(-axS)
+    elif test x$x_have_cpu_pni = xtrue; then
+      SILC_ADD_CFLAGS(-axP)
+    elif test x$x_have_cpu_sse2 = xtrue; then
+      SILC_ADD_CFLAGS(-axW)
     fi
   else
     # Other compilers
@@ -491,6 +495,9 @@ SILC_LIB_INCLUDES="$SILC_LIB_INCLUDES -I$SILC_TOP_SRCDIR/lib/silcssh"
 #ifdef SILC_DIST_PGP
 SILC_LIB_INCLUDES="$SILC_LIB_INCLUDES -I$SILC_TOP_SRCDIR/lib/silcpgp"
 #endif SILC_DIST_PGP
+#ifdef SILC_DIST_PKIX
+SILC_LIB_INCLUDES="$SILC_LIB_INCLUDES -I$SILC_TOP_SRCDIR/lib/silcpkix"
+#endif SILC_DIST_PKIX
 
 # SILC Runtime Toolkit checking
 AC_ARG_WITH(srt-includes,
@@ -660,6 +667,10 @@ lib/silcssh/tests/Makefile
 lib/silcpgp/Makefile
 lib/silcpgp/tests/Makefile
 #endif SILC_DIST_PGP
+#ifdef SILC_DIST_PKIX
+lib/silcpkix/Makefile
+lib/silcpkix/tests/Makefile
+#endif SILC_DIST_PKIX
 lib/silcskr/Makefile
 lib/silcskr/tests/Makefile
 lib/silcmath/Makefile

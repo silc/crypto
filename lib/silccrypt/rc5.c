@@ -65,11 +65,20 @@ SILC_CIPHER_API_SET_IV(rc5_cbc)
 
 }
 
-/* Returns the size of the cipher context. */
+/* Initialize */
 
-SILC_CIPHER_API_CONTEXT_LEN(rc5_cbc)
+SILC_CIPHER_API_INIT(rc5_cbc)
 {
-  return sizeof(RC5Context);
+  return silc_calloc(1, sizeof(RC5Context));
+}
+
+/* Initialize */
+
+SILC_CIPHER_API_UNINIT(rc5_cbc)
+{
+  RC5Context *rc5 = context;
+  memset(rc5, 0, sizeof(*rc5));
+  silc_free(rc5);
 }
 
 /* Encrypts with the cipher in CBC mode. Source and destination buffers

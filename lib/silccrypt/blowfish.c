@@ -56,11 +56,20 @@ SILC_CIPHER_API_SET_IV(blowfish_cbc)
 
 }
 
-/* Returns the size of the cipher context. */
+/* Initialize */
 
-SILC_CIPHER_API_CONTEXT_LEN(blowfish_cbc)
+SILC_CIPHER_API_INIT(blowfish_cbc)
 {
-  return sizeof(BlowfishContext);
+  return silc_calloc(1, sizeof(BlowfishContext));
+}
+
+/* Unnitialize */
+
+SILC_CIPHER_API_UNINIT(blowfish_cbc)
+{
+  BlowfishContext *b = context;
+  memset(b, 0, sizeof(*b));
+  silc_free(b);
 }
 
 /* Encrypts with the cipher in CBC mode. Source and destination buffers
