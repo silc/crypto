@@ -44,6 +44,7 @@ SILC_CIPHER_API_INIT(des)
   des_key *des = silc_calloc(1, sizeof(des_key));
   if (des)
     des->padlen = 8;
+  return des;
 }
 
 /* Uninitialize */
@@ -179,6 +180,7 @@ SILC_CIPHER_API_INIT(3des)
   des3_key *des = silc_calloc(1, sizeof(des3_key));
   if (!des)
     des->padlen = 8;
+  return des;
 }
 
 /* Uninitialize */

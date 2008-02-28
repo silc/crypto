@@ -45,6 +45,7 @@ SILC_CIPHER_API_INIT(twofish)
   twofish_key *twofish = silc_calloc(1, sizeof(twofish_key));
   if (twofish)
     twofish->padlen = 16;
+  return twofish;
 }
 
 /* Uninitialize */

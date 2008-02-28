@@ -44,6 +44,7 @@ SILC_CIPHER_API_INIT(cast5)
   cast5_key *cast5 = silc_calloc(1, sizeof(cast5_key));
   if (cast5)
     cast5->padlen = 8;
+  return cast5;
 }
 
 /* Uninitialize */

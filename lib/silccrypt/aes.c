@@ -91,6 +91,7 @@ SILC_CIPHER_API_INIT(aes)
   AesContext *aes = silc_calloc(1, sizeof(AesContext));
   if (aes)
     aes->u.enc.inf.b[2] = 16;
+  return aes;
 }
 
 /* Unnitialize */
