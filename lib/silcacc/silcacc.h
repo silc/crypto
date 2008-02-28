@@ -17,9 +17,21 @@
 
 */
 
-/****h* silcskr/SILC Accelerator Interface
+/****h* silcacc/Crypto Accelerator Interface
  *
  * DESCRIPTION
+ *
+ * SILC Crypto Accelerator Interface provides a generic interface for
+ * cryptographic accelerators.  The interface can access different kind of
+ * accelerators, such as hardware accelerators.  Using an accelerator can
+ * significantly improve encryption, decryption, signature and verification
+ * performance.
+ *
+ * Third-party accelerators can be registered into the accelerator interface
+ * and used through the same generic interface.
+ *
+ * The interface can be used to accelerate public and private keys, and
+ * ciphers.
  *
  ***/
 
@@ -47,9 +59,9 @@ typedef struct SilcAcceleratorObject {
 		   va_list va);		    /* Initialize accelerator */
   SilcBool (*uninit)(void);		    /* Uninitialize accelerator */
   const SilcPKCSAlgorithm *pkcs;            /* Accelerated PKCS algorithms */
+  const SilcCipherObject *cipher;	    /* Accelerated ciphers */
 #if 0
   const SilcDHObject *dh;                   /* Accelerated Diffie-Hellmans */
-  const SilcCipherObject *cipher;	    /* Accelerated ciphers */
   const SilcHashObject *hash;		    /* Accelerated hashes */
   const SilcHmacObject *hmac;		    /* Accelerated HMACs */
   const SilcRngObject *rng;		    /* Accelerated RNG's */
@@ -188,6 +200,10 @@ const char *silc_acc_get_name(SilcAccelerator acc);
  *    The associated `public_key' can be retrieved from the returned
  *    public key by calling silc_acc_get_public_key.
  *
+ *    If this returns NULL the public key could not be accelerated.  This
+ *    usually should not be considered serious error.  Instead, the public
+ *    key should be used without acceleration.
+ *
  ***/
 SilcPublicKey silc_acc_public_key(SilcAccelerator acc,
 				  SilcPublicKey public_key);
@@ -210,6 +226,10 @@ SilcPublicKey silc_acc_public_key(SilcAccelerator acc,
  *
  *    The associated `private_key' can be retrieved from the returned
  *    private key by calling silc_acc_get_private_key.
+ *
+ *    If this returns NULL the private key could not be accelerated.  This
+ *    usually should not be considered serious error.  Instead, the private
+ *    key should be used without acceleration.
  *
  ***/
 SilcPrivateKey silc_acc_private_key(SilcAccelerator acc,
@@ -248,5 +268,46 @@ SilcPublicKey silc_acc_get_public_key(SilcAccelerator acc,
  ***/
 SilcPrivateKey silc_acc_get_private_key(SilcAccelerator acc,
 					SilcPrivateKey private_key);
+
+/****f* silcacc/silc_acc_cipher
+ *
+ * SYNOPSIS
+ *
+ *    SilcCipher silc_acc_cipher(SilcAccelerator acc, SilcCipher cipher);
+ *
+ * DESCRIPTION
+ *
+ *    Accelerate the cipher indicated by `cipher'.  Returns new accelerated
+ *    SilcCipher context.  It can be used just as normal cipher and must be
+ *    freed by calilng silc_cipher_free.  The associated `cipher' is not
+ *    freed when the accelerated cipher is freed.  The `cipher' must not be
+ *    freed as long as it is accelerated.
+ *
+ *    When key and IV is set for the accelerated cipher, it is also set to
+ *    the associated cipher.
+ *
+ *    The associated `cipher' can be retrieved from the accelerated cipher
+ *    by calling silc_acc_get_cipher.
+ *
+ *    If this returns NULL the cipher could not be accelerated.  This
+ *    usually should not be considered serious error.  Instead, the cipher
+ *    should be used without acceleration.
+ *
+ ***/
+SilcCipher silc_acc_cipher(SilcAccelerator acc, SilcCipher cipher);
+
+/****f* silcacc/silc_acc_get_cipher
+ *
+ * SYNOPSIS
+ *
+ *    SilcCipher silc_acc_get_cipher(SilcAccelerator acc, SilcCipher cipher);
+ *
+ * DESCRIPTION
+ *
+ *    Returns the underlaying cipher from the accelerated cipher indicated
+ *    by `cipher'.  Returns NULL if `cipher' is not accelerated cipher.
+ *
+ ***/
+SilcCipher silc_acc_get_cipher(SilcAccelerator acc, SilcCipher cipher);
 
 #endif /* SILCACC_H */

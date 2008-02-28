@@ -22,11 +22,6 @@
 
 /************************** Types and definitions ***************************/
 
-#ifndef SILC_SYMBIAN
-/* Dynamically registered list of accelerators. */
-SilcDList silc_acc_list = NULL;
-#endif /* SILC_SYMBIAN */
-
 /* Static list of accelerators */
 const SilcAcceleratorStruct *silc_default_accs[] =
 {
@@ -43,13 +38,18 @@ const SilcAcceleratorStruct *silc_default_accs[] =
 
 SilcBool silc_acc_register(const SilcAccelerator acc)
 {
+  SilcDList silc_acc_list;
+
   if (!acc)
     return FALSE;
 
+  silc_acc_list = silc_global_get_var("silc_acc_list", FALSE);
   if (!silc_acc_list) {
-    silc_acc_list = silc_dlist_init();
+    silc_acc_list = silc_global_set_var("silc_acc_list",
+					sizeof(*silc_acc_list), NULL, FALSE);
     if (!silc_acc_list)
       return FALSE;
+    silc_dlist_init_static(silc_acc_list);
   }
 
   SILC_LOG_DEBUG(("Register accelerator %p, name %s", acc, acc->name));
@@ -62,19 +62,20 @@ SilcBool silc_acc_register(const SilcAccelerator acc)
 
 void silc_acc_unregister(SilcAccelerator acc)
 {
+  SilcDList silc_acc_list;
+
   if (!acc)
     return;
 
+  silc_acc_list = silc_global_get_var("silc_acc_list", FALSE);
   if (!silc_acc_list)
     return;
 
   SILC_LOG_DEBUG(("Unregister accelerator %p, name %s", acc, acc->name));
   silc_dlist_del(silc_acc_list, acc);
 
-  if (!silc_dlist_count(silc_acc_list)) {
-    silc_dlist_uninit(silc_acc_list);
-    silc_acc_list = NULL;
-  }
+  if (!silc_dlist_count(silc_acc_list))
+    silc_global_del_var("silc_acc_list", FALSE);
 }
 
 /* Initialize accelerator */
@@ -111,6 +112,7 @@ SilcBool silc_acc_uninit(SilcAccelerator acc)
 
 SilcDList silc_acc_get_supported(void)
 {
+  SilcDList silc_acc_list;
   SilcDList list;
   SilcAccelerator acc;
   int i;
@@ -119,6 +121,7 @@ SilcDList silc_acc_get_supported(void)
   if (!list)
     return NULL;
 
+  silc_acc_list = silc_global_get_var("silc_acc_list", FALSE);
   if (silc_acc_list) {
     silc_dlist_start(silc_acc_list);
     while ((acc = silc_dlist_get(silc_acc_list)))
@@ -135,6 +138,7 @@ SilcDList silc_acc_get_supported(void)
 
 SilcAccelerator silc_acc_find(const char *name)
 {
+  SilcDList silc_acc_list;
   SilcAccelerator acc;
   int i;
 
@@ -143,6 +147,7 @@ SilcAccelerator silc_acc_find(const char *name)
 
   SILC_LOG_DEBUG(("Find accelerator %s", name));
 
+  silc_acc_list = silc_global_get_var("silc_acc_list", FALSE);
   if (silc_acc_list) {
     silc_dlist_start(silc_acc_list);
     while ((acc = silc_dlist_get(silc_acc_list))) {

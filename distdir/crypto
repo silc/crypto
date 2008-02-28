@@ -12,11 +12,16 @@ license-header distdir/GPL-header distdir/CRYPTO-header
 # Distdefs
 define SILC_DIST_SSH
 define SILC_DIST_PGP
-define SILC_DIST_TMA
 define SILC_DIST_ASN1UTILS
 
-# TFM not enabled for now
-#define SILC_DIST_TFM
+# Math library
+define SILC_DIST_TFM
+#define SILC_DIST_TMA
+
+# Accelerator library
+define SILC_DIST_SOFTACC
+define SILC_DIST_SOFTACC_PKCS
+define SILC_DIST_SOFTACC_CIPHER
 
 # Includes
 include README.WIN32

@@ -126,30 +126,6 @@ SKR Library, lib/silcskr/
 SILC Accelerator Library
 ========================
 
- o Add SilcCipher support to SilcAccelerator and software accelerator.
-   Accelerate at least ciphers using CTR mode which can be done in
-   parallel.  Do it in producer/consumer fashion where threads generate
-   key stream and other thread(s) encrypt using the key stream.
-
- o Add init options to SilcAcceleratorObject as a SilcAcceleratorOption
-   structure.  Each accelerator defines the options that they support and
-   can be retrieved from the SilcAccelerator with silc_acc_get_options.
-   The format must also be machine parseable.  The structure can be of the
-   following format:
-
-	typedef struct SilcAcceleratorOptionStruct {
-	  const char *option;			/* Option name */
-	  const char *display_name;		/* Option displayable name */
-	  SilcParamType type;			/* Option data format */
-	  void *default_value;			/* Option's default value */
-	  SilcUInt32 default_value_len;		/* Default value length */
-	} *SilcAcceleratorOption;
-
-   For software accelerator it could be for example:
-
-   { "min_threads", "Minimum threads", SILC_PARAM_UINT32, (void *)2, 4 },
-   { "max_threads", "Maximum threads", SILC_PARAM_UINT32, (void *)4, 4 },
-
  o Diffie-Hellman acceleration
 
  o SILC Accelerator API.  Provides generic way to use different kind of
@@ -160,6 +136,11 @@ SILC Accelerator Library
  o Implement software accelerator.  It is a thread pool system where the
    public key and private key operations are executed in threads.
    (***DONE)
+
+ o Add SilcCipher support to SilcAccelerator and software accelerator.
+   Accelerate at least ciphers using CTR mode which can be done in
+   parallel.  Do it in producer/consumer fashion where threads generate
+   key stream and other thread(s) encrypt using the key stream. (***DONE)
 
 
 lib/silcmath

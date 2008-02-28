@@ -19,10 +19,27 @@ AUTOMAKE_OPTIONS = 1.0 no-dependencies foreign
 
 noinst_LTLIBRARIES = libsilcacc.la
 
-libsilcacc_la_SOURCES = silcacc.c silcacc_pkcs.c softacc.c
+libsilcacc_la_SOURCES = silcacc.c		\
+		      	silcacc_pkcs.c		\
+		      	silcacc_cipher.c	\
+			silcacc.h		\
+#ifdef SILC_DIST_SOFTACC
+			softacc.c		\
+			softacc.h		\
+			softacc_i.h		\
+#ifdef SILC_DIST_SOFTACC_PKCS
+			softacc_pkcs.c		\
+#endif SILC_DIST_SOFTACC_PKCS
+#ifdef SILC_DIST_SOFTACC_CIPHER
+			softacc_cipher.c	\
+#endif SILC_DIST_SOFTACC_CIPHER
+#endif SILC_DIST_SOFTACC
 
-include_HEADERS = silcacc.h
+include_HEADERS =	silcacc.h		\
+#ifdef SILC_DIST_SOFTACC
+			softacc.h
+#endif SILC_DIST_SOFTACC
 
-EXTRA_DIST = *.h $(SILC_EXTRA_DIST)
+EXTRA_DIST = $(SILC_EXTRA_DIST)
 
 include $(top_srcdir)/Makefile.defines.in

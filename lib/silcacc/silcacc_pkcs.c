@@ -332,7 +332,7 @@ SilcPublicKey silc_acc_public_key(SilcAccelerator acc,
   /* Accelerate the public key.  Returns accelerator context. */
   if (!acc->pkcs[i].import_public_key(&acc->pkcs[i], public_key, 0,
 				      &acc_pubkey->context)) {
-    SILC_LOG_ERROR(("Error accelerating public key with accelerator '%s'",
+    SILC_LOG_DEBUG(("Error accelerating public key with accelerator '%s'",
 		    acc->name));
     silc_free(acc_pubkey);
     silc_free(pubkey->pkcs);
@@ -417,7 +417,8 @@ SilcPrivateKey silc_acc_private_key(SilcAccelerator acc,
   acc_privkey->acc = acc;
   acc_privkey->pkcs_index = i;
 
-  /* Accelerate the public key.  Returns accelerator context. */
+  /* Accelerate the public key.  Returns accelerator context.  The
+     import_public_key operation is used to accelerate the key. */
   if (!acc->pkcs[i].import_private_key(&acc->pkcs[i], private_key, 0,
 				       &acc_privkey->context)) {
     SILC_LOG_ERROR(("Error accelerating private key with accelerator '%s'",
