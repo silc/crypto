@@ -19,6 +19,7 @@ AC_MSG_NOTICE([configuring crypto library])
 SILC_CRYPTO_CFLAGS=
 
 aes_asm=false
+SILC_AES_ASM_FLAGS=
 
 case "$host_cpu" in
   i?86)
@@ -35,8 +36,9 @@ case "$host_cpu" in
   x86_64)
 
     if test "${pic_mode:-default}" != "yes" ; then
-      if test x$have_assembler = xtrue -a "$enable_shared" != "yes"; then
+      if test x$have_assembler = xtrue; then
         aes_asm=true
+	SILC_AES_ASM_FLAGS=-prefer-non-pic
         AC_DEFINE([SILC_AES_ASM], [], [SILC_AES_ASM])
       fi
     fi
@@ -52,6 +54,7 @@ if test x$summary_debug = xno -a x$want_cc_optimizations = xtrue; then
 fi
 
 AC_SUBST(SILC_CRYPTO_CFLAGS)
+AC_SUBST(SILC_AES_ASM_FLAGS)
 
 # AM_CONDITIONAL is so bad that it itself cannot be defined in conditional
 AM_CONDITIONAL(SILC_AES_ASM, test x$aes_asm = xtrue)

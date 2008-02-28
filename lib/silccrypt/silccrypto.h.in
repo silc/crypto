@@ -98,6 +98,7 @@ extern "C" {
 #include <silcber.h>
 #include <silcskr.h>
 #include <silcacc.h>
+#include <softacc.h>
 #ifdef SILC_DIST_SSH
 #include <silcssh.h>
 #endif /* SILC_DIST_SSH */

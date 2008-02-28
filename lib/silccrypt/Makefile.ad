@@ -72,7 +72,7 @@ SILC_EXTRA_DIST = tests
 SUFFIXES = .asm
 
 .asm.lo:
-	$(LIBTOOL) --tag=CC --mode=compile @SILC_ASSEMBLER@ $<
+	$(LIBTOOL) --tag=CC --mode=compile @SILC_ASSEMBLER@ $< @SILC_AES_ASM_FLAGS@
 
 EXTRA_DIST = *.h *.asm $(SILC_EXTRA_DIST)
 

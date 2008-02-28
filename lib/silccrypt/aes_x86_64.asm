@@ -1,4 +1,3 @@
-
 ; ---------------------------------------------------------------------------
 ; Copyright (c) 2002, Dr Brian Gladman, Worcester, UK.   All rights reserved.
 ;
