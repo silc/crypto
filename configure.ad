@@ -674,6 +674,7 @@ lib/silcpkix/tests/Makefile
 lib/silcskr/Makefile
 lib/silcskr/tests/Makefile
 lib/silcmath/Makefile
+lib/silcmath/tests/Makefile
 lib/sct.pc
 )
 

@@ -4,7 +4,7 @@
 
   Author: Pekka Riikonen <priikone@silcnet.org>
 
-  Copyright (C) 1997 - 2005 Pekka Riikonen
+  Copyright (C) 1997 - 2008 Pekka Riikonen
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -45,7 +45,7 @@ typedef struct {
    not needed by the algorithm so it does not have to be included.)
 */
 
-void silc_mp_modinv(SilcMPInt *inv, SilcMPInt *a, SilcMPInt *n)
+SilcBool silc_mp_modinv(SilcMPInt *inv, SilcMPInt *a, SilcMPInt *n)
 {
   int i;
   SilcMPInt y;
@@ -96,4 +96,5 @@ void silc_mp_modinv(SilcMPInt *inv, SilcMPInt *a, SilcMPInt *n)
   silc_mp_uninit(&v[0].x);
   silc_mp_uninit(&v[1].x);
   silc_mp_uninit(&v[2].x);
+  return TRUE;
 }

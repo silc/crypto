@@ -4,7 +4,7 @@
 
   Author: Pekka Riikonen <priikone@silcnet.org>
 
-  Copyright (C) 2005 - 2007 Pekka Riikonen
+  Copyright (C) 2005 - 2008 Pekka Riikonen
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -20,27 +20,19 @@
 #include "silccrypto.h"
 #include "mp_tma.h"
 
-void silc_mp_init(SilcMPInt *mp)
+SilcBool silc_mp_init(SilcMPInt *mp)
 {
-  (void)tma_mp_init(mp);
+  return tma_mp_init(mp) == MP_OKAY;
 }
 
 SilcBool silc_mp_sinit(SilcStack stack, SilcMPInt *mp)
 {
-  /* XXX TODO */
-  tma_mp_init(mp);
-  return TRUE;
+  return tma_mp_init(mp) == MP_OKAY;
 }
 
 void silc_mp_uninit(SilcMPInt *mp)
 {
   tma_mp_clear(mp);
-}
-
-void silc_mp_suninit(SilcStack stack, SilcMPInt *mp)
-{
-  if (!stack)
-    tma_mp_clear(mp);
 }
 
 size_t silc_mp_size(SilcMPInt *mp)
@@ -57,24 +49,28 @@ size_t silc_mp_sizeinbase(SilcMPInt *mp, int base)
   return size;
 }
 
-void silc_mp_set(SilcMPInt *dst, SilcMPInt *src)
+SilcBool silc_mp_set(SilcMPInt *dst, SilcMPInt *src)
 {
   (void)tma_mp_copy(src, dst);
+  return TRUE;
 }
 
-void silc_mp_set_ui(SilcMPInt *dst, SilcUInt32 ui)
+SilcBool silc_mp_set_ui(SilcMPInt *dst, SilcUInt32 ui)
 {
   (void)tma_mp_set_int(dst, ui);
+  return TRUE;
 }
 
-void silc_mp_set_si(SilcMPInt *dst, SilcInt32 si)
+SilcBool silc_mp_set_si(SilcMPInt *dst, SilcInt32 si)
 {
   (void)tma_mp_set_int(dst, si);
+  return TRUE;
 }
 
-void silc_mp_set_str(SilcMPInt *dst, const char *str, int base)
+SilcBool silc_mp_set_str(SilcMPInt *dst, const char *str, int base)
 {
   (void)tma_mp_read_radix(dst, str, base);
+  return TRUE;
 }
 
 SilcUInt32 silc_mp_get_ui(SilcMPInt *mp)
@@ -89,108 +85,120 @@ char *silc_mp_get_str(char *str, SilcMPInt *mp, int base)
   return str;
 }
 
-void silc_mp_add(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2)
+SilcBool silc_mp_add(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2)
 {
   (void)tma_mp_add(mp1, mp2, dst);
+  return TRUE;
 }
 
-void silc_mp_add_ui(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 ui)
+SilcBool silc_mp_add_ui(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 ui)
 {
   tma_mp_add_d(mp1, (tma_mp_digit)ui, dst);
+  return TRUE;
 }
 
-void silc_mp_sub(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2)
+SilcBool silc_mp_sub(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2)
 {
   (void)tma_mp_sub(mp1, mp2, dst);
+  return TRUE;
 }
 
-void silc_mp_sub_ui(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 ui)
+SilcBool silc_mp_sub_ui(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 ui)
 {
   (void)tma_mp_sub_d(mp1, (tma_mp_digit)ui, dst);
+  return TRUE;
 }
 
-void silc_mp_mul(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2)
+SilcBool silc_mp_mul(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2)
 {
   (void)tma_mp_mul(mp1, mp2, dst);
+  return TRUE;
 }
 
-void silc_mp_mul_ui(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 ui)
+SilcBool silc_mp_mul_ui(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 ui)
 {
   (void)tma_mp_mul_d(mp1, (tma_mp_digit)ui, dst);
+  return TRUE;
 }
 
-void silc_mp_mul_2exp(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 exp)
+SilcBool silc_mp_mul_2exp(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 exp)
 {
   (void)tma_mp_mul_2d(mp1, exp, dst);
+  return TRUE;
 }
 
-void silc_mp_sqrt(SilcMPInt *dst, SilcMPInt *src)
+SilcBool silc_mp_sqrt(SilcMPInt *dst, SilcMPInt *src)
 {
   (void)tma_mp_sqrt(src, dst);
+  return TRUE;
 }
 
-void silc_mp_div(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2)
+SilcBool silc_mp_div(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2)
 {
   (void)tma_mp_div(mp1, mp2, dst, NULL);
+  return TRUE;
 }
 
-void silc_mp_div_ui(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 ui)
+SilcBool silc_mp_div_ui(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 ui)
 {
   (void)tma_mp_div_d(mp1, (tma_mp_digit)ui, dst, NULL);
+  return TRUE;
 }
 
-void silc_mp_div_qr(SilcMPInt *q, SilcMPInt *r, SilcMPInt *mp1,
+SilcBool silc_mp_div_qr(SilcMPInt *q, SilcMPInt *r, SilcMPInt *mp1,
 		    SilcMPInt *mp2)
 {
   (void)tma_mp_div(mp1, mp2, q, r);
+  return TRUE;
 }
 
-void silc_mp_div_2exp(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 exp)
+SilcBool silc_mp_div_2exp(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 exp)
 {
   (void)tma_mp_div_2d(mp1, exp, dst, NULL);
+  return TRUE;
 }
 
-void silc_mp_div_2exp_qr(SilcMPInt *q, SilcMPInt *r, SilcMPInt *mp1,
+SilcBool silc_mp_div_2exp_qr(SilcMPInt *q, SilcMPInt *r, SilcMPInt *mp1,
 			 SilcUInt32 exp)
 {
   (void)tma_mp_div_2d(mp1, exp, q, r);
+  return TRUE;
 }
 
-void silc_mp_mod(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2)
+SilcBool silc_mp_mod(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2)
 {
   (void)tma_mp_mod(mp1, mp2, dst);
+  return TRUE;
 }
 
-void silc_mp_mod_ui(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 ui)
+SilcBool silc_mp_mod_ui(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 ui)
 {
   tma_mp_digit d;
   (void)tma_mp_mod_d(mp1, ui, &d);
   silc_mp_set_ui(dst, d);
+  return TRUE;
 }
 
-void silc_mp_mod_2exp(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 ui)
+SilcBool silc_mp_mod_2exp(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 ui)
 {
   (void)tma_mp_mod_2d(mp1, ui, dst);
+  return TRUE;
 }
 
-void silc_mp_pow(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *exp)
-{
-  SILC_NOT_IMPLEMENTED("silc_mp_pow");
-  assert(FALSE);
-}
-
-void silc_mp_pow_ui(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 exp)
+SilcBool silc_mp_pow_ui(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 exp)
 {
   (void)tma_mp_expt_d(mp1, (tma_mp_digit)exp, dst);
+  return TRUE;
 }
 
-void silc_mp_pow_mod(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *exp,
+SilcBool silc_mp_pow_mod(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *exp,
 		     SilcMPInt *mod)
 {
   (void)tma_mp_exptmod(mp1, exp, mod, dst);
+  return TRUE;
 }
 
-void silc_mp_pow_mod_ui(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 exp,
+SilcBool silc_mp_pow_mod_ui(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 exp,
 			SilcMPInt *mod)
 {
   SilcMPInt tmp;
@@ -198,17 +206,13 @@ void silc_mp_pow_mod_ui(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 exp,
   silc_mp_set_ui(&tmp, exp);
   silc_mp_pow_mod(dst, mp1, &tmp, mod);
   silc_mp_uninit(&tmp);
+  return TRUE;
 }
 
-void silc_mp_gcd(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2)
+SilcBool silc_mp_gcd(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2)
 {
   (void)tma_mp_gcd(mp1, mp2, dst);
-}
-
-void silc_mp_gcdext(SilcMPInt *g, SilcMPInt *s, SilcMPInt *t, SilcMPInt *mp1,
-		    SilcMPInt *mp2)
-{
-  (void)tma_mp_exteuclid(mp1, mp2, s, t, g);
+  return TRUE;
 }
 
 int silc_mp_cmp(SilcMPInt *mp1, SilcMPInt *mp2)
@@ -226,27 +230,32 @@ int silc_mp_cmp_ui(SilcMPInt *mp1, SilcUInt32 ui)
   return tma_mp_cmp_d(mp1, ui);
 }
 
-void silc_mp_abs(SilcMPInt *dst, SilcMPInt *src)
+SilcBool silc_mp_abs(SilcMPInt *dst, SilcMPInt *src)
 {
   (void)tma_mp_abs(src, dst);
+  return TRUE;
 }
 
-void silc_mp_neg(SilcMPInt *dst, SilcMPInt *src)
+SilcBool silc_mp_neg(SilcMPInt *dst, SilcMPInt *src)
 {
   (void)tma_mp_neg(src, dst);
+  return TRUE;
 }
 
-void silc_mp_and(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2)
+SilcBool silc_mp_and(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2)
 {
   (void)tma_mp_and(mp1, mp2, dst);
+  return TRUE;
 }
 
-void silc_mp_or(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2)
+SilcBool silc_mp_or(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2)
 {
   (void)tma_mp_or(mp1, mp2, dst);
+  return TRUE;
 }
 
-void silc_mp_xor(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2)
+SilcBool silc_mp_xor(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2)
 {
   (void)tma_mp_xor(mp1, mp2, dst);
+  return TRUE;
 }

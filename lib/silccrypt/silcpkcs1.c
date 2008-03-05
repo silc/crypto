@@ -501,8 +501,8 @@ SILC_PKCS_ALG_ENCRYPT(silc_pkcs1_encrypt)
   encrypt_cb(TRUE, padded, len, context);
 
   memset(padded, 0, sizeof(padded));
-  silc_mp_suninit(stack, &mp_tmp);
-  silc_mp_suninit(stack, &mp_dst);
+  silc_mp_uninit(&mp_tmp);
+  silc_mp_uninit(&mp_dst);
   silc_stack_free(stack);
 
   return NULL;
@@ -541,8 +541,8 @@ SILC_PKCS_ALG_DECRYPT(silc_pkcs1_decrypt)
 			 unpadded, sizeof(unpadded), &dst_len)) {
     memset(padded, 0, padded_len);
     silc_free(padded);
-    silc_mp_suninit(stack, &mp_tmp);
-    silc_mp_suninit(stack, &mp_dst);
+    silc_mp_uninit(&mp_tmp);
+    silc_mp_uninit(&mp_dst);
     decrypt_cb(FALSE, NULL, 0, context);
     return NULL;
   }
@@ -553,8 +553,8 @@ SILC_PKCS_ALG_DECRYPT(silc_pkcs1_decrypt)
   memset(padded, 0, padded_len);
   memset(unpadded, 0, sizeof(unpadded));
   silc_free(padded);
-  silc_mp_suninit(stack, &mp_tmp);
-  silc_mp_suninit(stack, &mp_dst);
+  silc_mp_uninit(&mp_tmp);
+  silc_mp_uninit(&mp_dst);
   silc_stack_free(stack);
 
   return NULL;
@@ -648,8 +648,8 @@ SILC_PKCS_ALG_SIGN(silc_pkcs1_sign)
   memset(padded, 0, sizeof(padded));
   if (compute_hash)
     memset(hashr, 0, sizeof(hashr));
-  silc_mp_suninit(stack, &mp_tmp);
-  silc_mp_suninit(stack, &mp_dst);
+  silc_mp_uninit(&mp_tmp);
+  silc_mp_uninit(&mp_dst);
   silc_asn1_free(asn1);
   silc_stack_free(stack);
 
@@ -760,8 +760,8 @@ SILC_PKCS_ALG_VERIFY(silc_pkcs1_verify)
   memset(verify, 0, verify_len);
   memset(unpadded, 0, sizeof(unpadded));
   silc_free(verify);
-  silc_mp_suninit(stack, &mp_tmp2);
-  silc_mp_suninit(stack, &mp_dst);
+  silc_mp_uninit(&mp_tmp2);
+  silc_mp_uninit(&mp_dst);
   if (hash)
     memset(hashr, 0, sizeof(hashr));
   if (ihash)
@@ -774,8 +774,8 @@ SILC_PKCS_ALG_VERIFY(silc_pkcs1_verify)
  err:
   memset(verify, 0, verify_len);
   silc_free(verify);
-  silc_mp_suninit(stack, &mp_tmp2);
-  silc_mp_suninit(stack, &mp_dst);
+  silc_mp_uninit(&mp_tmp2);
+  silc_mp_uninit(&mp_dst);
   if (ihash)
     silc_hash_free(ihash);
   silc_asn1_free(asn1);
@@ -837,8 +837,8 @@ SILC_PKCS_ALG_SIGN(silc_pkcs1_sign_no_oid)
   memset(padded, 0, sizeof(padded));
   if (compute_hash)
     memset(hashr, 0, sizeof(hashr));
-  silc_mp_suninit(stack, &mp_tmp);
-  silc_mp_suninit(stack, &mp_dst);
+  silc_mp_uninit(&mp_tmp);
+  silc_mp_uninit(&mp_dst);
   silc_stack_free(stack);
 
   return NULL;
@@ -877,8 +877,8 @@ SILC_PKCS_ALG_VERIFY(silc_pkcs1_verify_no_oid)
 			 unpadded, sizeof(unpadded), &len)) {
     memset(verify, 0, verify_len);
     silc_free(verify);
-    silc_mp_suninit(stack, &mp_tmp2);
-    silc_mp_suninit(stack, &mp_dst);
+    silc_mp_uninit(&mp_tmp2);
+    silc_mp_uninit(&mp_dst);
     silc_stack_free(stack);
     verify_cb(FALSE, context);
     return NULL;
@@ -903,8 +903,8 @@ SILC_PKCS_ALG_VERIFY(silc_pkcs1_verify_no_oid)
   if (hash)
     memset(hashr, 0, sizeof(hashr));
   silc_free(verify);
-  silc_mp_suninit(stack, &mp_tmp2);
-  silc_mp_suninit(stack, &mp_dst);
+  silc_mp_uninit(&mp_tmp2);
+  silc_mp_uninit(&mp_dst);
   silc_stack_free(stack);
 
   return NULL;

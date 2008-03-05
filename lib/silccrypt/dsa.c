@@ -524,11 +524,11 @@ SILC_PKCS_ALG_SIGN(silc_dsa_sign)
   memset(kbuf, 0, sizeof(kbuf));
   if (compute_hash)
     memset(hashr, 0, sizeof(hashr));
-  silc_mp_suninit(stack, &k);
-  silc_mp_suninit(stack, &kinv);
-  silc_mp_suninit(stack, &r);
-  silc_mp_suninit(stack, &s);
-  silc_mp_suninit(stack, &tmp);
+  silc_mp_uninit(&k);
+  silc_mp_uninit(&kinv);
+  silc_mp_uninit(&r);
+  silc_mp_uninit(&s);
+  silc_mp_uninit(&tmp);
   silc_asn1_free(asn1);
   silc_stack_free(stack);
 
@@ -622,10 +622,10 @@ SILC_PKCS_ALG_VERIFY(silc_dsa_verify)
 
   if (hash)
     memset(hashr, 0, sizeof(hashr));
-  silc_mp_suninit(stack, &v);
-  silc_mp_suninit(stack, &w);
-  silc_mp_suninit(stack, &u1);
-  silc_mp_suninit(stack, &u2);
+  silc_mp_uninit(&v);
+  silc_mp_uninit(&w);
+  silc_mp_uninit(&u1);
+  silc_mp_uninit(&u2);
   silc_asn1_free(asn1);
   silc_stack_free(stack);
 
