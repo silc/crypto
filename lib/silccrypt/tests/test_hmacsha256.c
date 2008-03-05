@@ -1,4 +1,4 @@
-#include "silc.h"
+#include "silccrypto.h"
 
 /* Test vectors from draft-ietf-ipsec-ciph-sha-256-01.txt */
 
@@ -39,21 +39,19 @@ int main(int argc, char **argv)
     silc_log_set_debug_string("*crypt*,*hash*,*sha256*,*hmac*");
   }
 
-  SILC_LOG_DEBUG(("Registering builtin hash functions"));
-  silc_hash_register_default();
-  silc_hmac_register_default();
+  silc_crypto_init(NULL);
 
   SILC_LOG_DEBUG(("Allocating sha256 HMAC"));
-  if (!silc_hmac_alloc("hmac-sha256", NULL, &hmac)) {
+  if (!silc_mac_alloc("hmac-sha256", &hmac)) {
     SILC_LOG_DEBUG(("Allocating sha256 HMAC failed"));
     goto err;
   }
 
   /* First test vector */
   SILC_LOG_DEBUG(("First test vector"));
-  silc_hmac_init_with_key(hmac, key1, key1_len);
-  silc_hmac_update(hmac, data1, strlen(data1));
-  silc_hmac_final(hmac, digest, &len);
+  silc_mac_init_with_key(hmac, key1, key1_len);
+  silc_mac_update(hmac, data1, strlen(data1));
+  silc_mac_final(hmac, digest, &len);
   SILC_LOG_HEXDUMP(("Key"), (unsigned char *)key1, key1_len);
   SILC_LOG_HEXDUMP(("Message"), (unsigned char *)data1, strlen(data1));
   SILC_LOG_HEXDUMP(("Digest"), digest, len);
@@ -66,9 +64,9 @@ int main(int argc, char **argv)
 
   /* Second test vector */
   SILC_LOG_DEBUG(("Second test vector"));
-  silc_hmac_init_with_key(hmac, key2, key2_len);
-  silc_hmac_update(hmac, data2, strlen(data2));
-  silc_hmac_final(hmac, digest, &len);
+  silc_mac_init_with_key(hmac, key2, key2_len);
+  silc_mac_update(hmac, data2, strlen(data2));
+  silc_mac_final(hmac, digest, &len);
   SILC_LOG_HEXDUMP(("Key"), (unsigned char *)key2, key2_len);
   SILC_LOG_HEXDUMP(("Message"), (unsigned char *)data2, strlen(data2));
   SILC_LOG_HEXDUMP(("Digest"), digest, len);
@@ -81,9 +79,9 @@ int main(int argc, char **argv)
 
   /* Third test vector */
   SILC_LOG_DEBUG(("Third test vector"));
-  silc_hmac_init_with_key(hmac, key3, key3_len);
-  silc_hmac_update(hmac, data3, strlen(data3));
-  silc_hmac_final(hmac, digest, &len);
+  silc_mac_init_with_key(hmac, key3, key3_len);
+  silc_mac_update(hmac, data3, strlen(data3));
+  silc_mac_final(hmac, digest, &len);
   SILC_LOG_HEXDUMP(("Key"), (unsigned char *)key3, key3_len);
   SILC_LOG_HEXDUMP(("Message"), (unsigned char *)data3, strlen(data3));
   SILC_LOG_HEXDUMP(("Digest"), digest, len);
@@ -97,9 +95,9 @@ int main(int argc, char **argv)
   /* Fourth test vector */
   SILC_LOG_DEBUG(("Fourth test vector"));
   memset(key4, '\xaa', key4_len);
-  silc_hmac_init_with_key(hmac, key4, key4_len);
-  silc_hmac_update(hmac, data4, strlen(data4));
-  silc_hmac_final(hmac, digest, &len);
+  silc_mac_init_with_key(hmac, key4, key4_len);
+  silc_mac_update(hmac, data4, strlen(data4));
+  silc_mac_final(hmac, digest, &len);
   SILC_LOG_HEXDUMP(("Key"), (unsigned char *)key4, key4_len);
   SILC_LOG_HEXDUMP(("Message"), (unsigned char *)data4, sizeof(data4));
   SILC_LOG_HEXDUMP(("Digest"), digest, len);
@@ -116,8 +114,8 @@ int main(int argc, char **argv)
   SILC_LOG_DEBUG(("Testing was %s", success ? "SUCCESS" : "FAILURE"));
   fprintf(stderr, "Testing was %s\n", success ? "SUCCESS" : "FAILURE");
 
-  silc_hmac_free(hmac);
-  silc_hash_unregister_all();
-  silc_hmac_unregister_all();
+  silc_mac_free(hmac);
+  silc_crypto_uninit();
+
   return success;
 }

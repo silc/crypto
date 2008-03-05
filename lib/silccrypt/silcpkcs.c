@@ -171,10 +171,32 @@ const SilcPKCSAlgorithm silc_default_pkcs_alg[] =
     silc_pkcs1_verify
   },
 
-  /* DSS */
+  /* DSS, FIPS186-3 */
   {
     "dsa",
     "dss",
+    "sha1",
+    silc_dsa_generate_key,
+    silc_dsa_import_public_key,
+    silc_dsa_export_public_key,
+    silc_dsa_public_key_bitlen,
+    silc_dsa_public_key_copy,
+    silc_dsa_public_key_compare,
+    silc_dsa_public_key_free,
+    silc_dsa_import_private_key,
+    silc_dsa_export_private_key,
+    silc_dsa_private_key_bitlen,
+    silc_dsa_private_key_free,
+    silc_dsa_encrypt,
+    silc_dsa_decrypt,
+    silc_dsa_sign,
+    silc_dsa_verify
+  },
+
+  /* DSS, FIPS186-2 */
+  {
+    "dsa",
+    "dss-fips186-2",
     "sha1",
     silc_dsa_generate_key,
     silc_dsa_import_public_key,
@@ -216,12 +238,12 @@ const SilcPKCSAlgorithm silc_default_pkcs_alg[] =
     silc_pkcs1_verify
   },
 
-  /* DSS, SSH2 style public keys */
+  /* DSS FIPS186-2, SSH2 style public keys */
   {
     "dsa",
     "ssh",
     "sha1,sha224,sha256,sha384,sha512",
-    silc_dsa_generate_key,
+    silc_dsa_fips186_2_generate_key,
     silc_ssh_dsa_import_public_key,
     silc_ssh_dsa_export_public_key,
     silc_dsa_public_key_bitlen,
@@ -636,24 +658,41 @@ SilcBool silc_pkcs_public_key_alloc(SilcPKCSType type,
   if (!public_key)
     return FALSE;
 
-  pkcs = silc_pkcs_find_pkcs(type);
-  public_key->pkcs = (SilcPKCSObject *)pkcs;
-  if (!public_key->pkcs) {
-    silc_free(public_key);
-    return FALSE;
+  if (type == SILC_PKCS_ANY) {
+    /* Try loading all types until one succeeds. */
+    for (type = SILC_PKCS_SILC; type <= SILC_PKCS_SPKI; type++) {
+      pkcs = (SilcPKCSObject *)silc_pkcs_find_pkcs(type);
+      if (!pkcs)
+	continue;
+
+      /* Import the PKCS public key */
+      if (pkcs->import_public_key(pkcs, NULL, key, key_len,
+				  &public_key->public_key,
+				  &public_key->alg)) {
+	public_key->pkcs = (SilcPKCSObject *)pkcs;
+	*ret_public_key = public_key;
+	return TRUE;
+      }
+    }
+  } else {
+    pkcs = silc_pkcs_find_pkcs(type);
+    public_key->pkcs = (SilcPKCSObject *)pkcs;
+    if (!public_key->pkcs) {
+      silc_free(public_key);
+      return FALSE;
+    }
+
+    /* Import the PKCS public key */
+    if (pkcs->import_public_key(pkcs, NULL, key, key_len,
+				&public_key->public_key,
+				&public_key->alg)) {
+      *ret_public_key = public_key;
+      return TRUE;
+    }
   }
 
-  /* Import the PKCS public key */
-  if (!pkcs->import_public_key(pkcs, NULL, key, key_len,
-			       &public_key->public_key,
-			       &public_key->alg)) {
-    silc_free(public_key);
-    return FALSE;
-  }
-
-  *ret_public_key = public_key;
-
-  return TRUE;
+  silc_free(public_key);
+  return FALSE;
 }
 
 /* Frees the public key */
@@ -757,13 +796,73 @@ void silc_pkcs_private_key_free(SilcPrivateKey private_key)
   silc_free(private_key);
 }
 
+/* PKCS operation context */
+typedef struct {
+  unsigned char *dst;
+  SilcUInt32 *dst_len;
+  SilcUInt32 dst_size;
+  SilcBool result;
+} SilcPKCSOperation;
+
+/* Encrypt, decrypt, sign callback */
+
+static void silc_pkcs_op_cb(SilcBool success,
+			    const unsigned char *data,
+			    SilcUInt32 data_len, void *context)
+{
+  SilcPKCSOperation *ctx = context;
+
+  ctx->result = success;
+
+  if (!success)
+    return;
+
+  if (data_len > ctx->dst_size) {
+    ctx->result = FALSE;
+    return;
+  }
+
+  memcpy(ctx->dst, data, data_len);
+  if (ctx->dst_len)
+    *ctx->dst_len = data_len;
+}
+
+/* Verify callback */
+
+static void silc_pkcs_verify_cb(SilcBool success, void *context)
+{
+  SilcPKCSOperation *ctx = context;
+  ctx->result = success;
+}
+
 /* Encrypts */
 
-SilcAsyncOperation silc_pkcs_encrypt(SilcPublicKey public_key,
-				     unsigned char *src, SilcUInt32 src_len,
-				     SilcRng rng,
-				     SilcPKCSEncryptCb encrypt_cb,
-				     void *context)
+SilcBool silc_pkcs_encrypt(SilcPublicKey public_key,
+			   unsigned char *src, SilcUInt32 src_len,
+			   unsigned char *dst, SilcUInt32 dst_size,
+			   SilcUInt32 *dst_len, SilcRng rng)
+{
+  SilcPKCSOperation ctx;
+
+  ctx.dst = dst;
+  ctx.dst_size = dst_size;
+  ctx.dst_len = dst_len;
+
+  public_key->pkcs->encrypt(public_key->pkcs,
+			    public_key->public_key, src, src_len,
+			    rng, silc_pkcs_op_cb, &ctx);
+
+  return ctx.result;
+}
+
+/* Encrypts, async */
+
+SilcAsyncOperation
+silc_pkcs_encrypt_async(SilcPublicKey public_key,
+			unsigned char *src, SilcUInt32 src_len,
+			SilcRng rng,
+			SilcPKCSEncryptCb encrypt_cb,
+			void *context)
 {
   return public_key->pkcs->encrypt(public_key->pkcs,
 				   public_key->public_key, src, src_len,
@@ -772,10 +871,31 @@ SilcAsyncOperation silc_pkcs_encrypt(SilcPublicKey public_key,
 
 /* Decrypts */
 
-SilcAsyncOperation silc_pkcs_decrypt(SilcPrivateKey private_key,
-				     unsigned char *src, SilcUInt32 src_len,
-				     SilcPKCSDecryptCb decrypt_cb,
-				     void *context)
+SilcBool silc_pkcs_decrypt(SilcPrivateKey private_key,
+			   unsigned char *src, SilcUInt32 src_len,
+			   unsigned char *dst, SilcUInt32 dst_size,
+			   SilcUInt32 *dst_len)
+{
+  SilcPKCSOperation ctx;
+
+  ctx.dst = dst;
+  ctx.dst_size = dst_size;
+  ctx.dst_len = dst_len;
+
+  private_key->pkcs->decrypt(private_key->pkcs,
+			     private_key->private_key, src, src_len,
+			     silc_pkcs_op_cb, &ctx);
+
+  return ctx.result;
+}
+
+/* Decrypts, async */
+
+SilcAsyncOperation
+silc_pkcs_decrypt_async(SilcPrivateKey private_key,
+			unsigned char *src, SilcUInt32 src_len,
+			SilcPKCSDecryptCb decrypt_cb,
+			void *context)
 {
   return private_key->pkcs->decrypt(private_key->pkcs,
 				    private_key->private_key, src, src_len,
@@ -784,14 +904,36 @@ SilcAsyncOperation silc_pkcs_decrypt(SilcPrivateKey private_key,
 
 /* Generates signature */
 
-SilcAsyncOperation silc_pkcs_sign(SilcPrivateKey private_key,
-				  unsigned char *src,
-				  SilcUInt32 src_len,
-				  SilcBool compute_hash,
-				  SilcHash hash,
-				  SilcRng rng,
-				  SilcPKCSSignCb sign_cb,
-				  void *context)
+SilcBool silc_pkcs_sign(SilcPrivateKey private_key,
+			unsigned char *src, SilcUInt32 src_len,
+			unsigned char *dst, SilcUInt32 dst_size,
+			SilcUInt32 *dst_len, SilcBool compute_hash,
+			SilcHash hash, SilcRng rng)
+{
+  SilcPKCSOperation ctx;
+
+  ctx.dst = dst;
+  ctx.dst_size = dst_size;
+  ctx.dst_len = dst_len;
+
+  private_key->pkcs->sign(private_key->pkcs,
+			  private_key->private_key, src, src_len,
+			  compute_hash, hash, rng,
+			  silc_pkcs_op_cb, &ctx);
+
+  return ctx.result;
+}
+
+/* Generates signature, async */
+
+SilcAsyncOperation silc_pkcs_sign_async(SilcPrivateKey private_key,
+					unsigned char *src,
+					SilcUInt32 src_len,
+					SilcBool compute_hash,
+					SilcHash hash,
+					SilcRng rng,
+					SilcPKCSSignCb sign_cb,
+					void *context)
 {
   return private_key->pkcs->sign(private_key->pkcs,
 				 private_key->private_key, src, src_len,
@@ -800,18 +942,41 @@ SilcAsyncOperation silc_pkcs_sign(SilcPrivateKey private_key,
 
 /* Verifies signature */
 
-SilcAsyncOperation silc_pkcs_verify(SilcPublicKey public_key,
-				    unsigned char *signature,
-				    SilcUInt32 signature_len,
-				    unsigned char *data,
-				    SilcUInt32 data_len,
-				    SilcHash hash,
-				    SilcPKCSVerifyCb verify_cb,
-				    void *context)
+SilcBool silc_pkcs_verify(SilcPublicKey public_key,
+			  unsigned char *signature,
+			  SilcUInt32 signature_len,
+			  unsigned char *data,
+			  SilcUInt32 data_len,
+			  SilcBool compute_hash,
+			  SilcHash hash)
+{
+  SilcPKCSOperation ctx;
+
+  public_key->pkcs->verify(public_key->pkcs,
+			   public_key->public_key, signature,
+			   signature_len, data, data_len,
+			   compute_hash, hash, NULL,
+			   silc_pkcs_verify_cb, &ctx);
+
+  return ctx.result;
+}
+
+/* Verifies signature, async */
+
+SilcAsyncOperation silc_pkcs_verify_async(SilcPublicKey public_key,
+					  unsigned char *signature,
+					  SilcUInt32 signature_len,
+					  unsigned char *data,
+					  SilcUInt32 data_len,
+					  SilcBool compute_hash,
+					  SilcHash hash,
+					  SilcPKCSVerifyCb verify_cb,
+					  void *context)
 {
   return public_key->pkcs->verify(public_key->pkcs,
 				  public_key->public_key, signature,
-				  signature_len, data, data_len, hash, NULL,
+				  signature_len, data, data_len,
+				  compute_hash, hash, NULL,
 				  verify_cb, context);
 }
 

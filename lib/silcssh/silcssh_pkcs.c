@@ -573,7 +573,7 @@ SILC_PKCS_IMPORT_PRIVATE_KEY_FILE(silc_pkcs_ssh_import_private_key_file)
   }
 
   /* Decode the private key */
-  ret = silc_pkcs_ssh_import_private_key(pkcs, alg, NULL, 0, filedata, 
+  ret = silc_pkcs_ssh_import_private_key(pkcs, alg, NULL, 0, filedata,
 					 filedata_len, (void *)&privkey,
 					 ret_alg);
   silc_free(data);
@@ -1046,7 +1046,7 @@ SILC_PKCS_VERIFY(silc_pkcs_ssh_verify)
   /* Verify */
   op = pubkey->pkcs->verify(pubkey->pkcs, pubkey->public_key,
 			    signature, signature_len,
-			    data, data_len, hash, rng,
+			    data, data_len, compute_hash, hash, rng,
 			    verify_cb, context);
 
   silc_free(signame);

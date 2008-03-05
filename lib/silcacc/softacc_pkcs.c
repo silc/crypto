@@ -198,23 +198,25 @@ void silc_softacc_pkcs_thread(SilcSchedule schedule, void *context)
   /* Call the operation */
   switch (e->type) {
   case SILC_SOFTACC_ENCRYPT:
-    silc_pkcs_encrypt(e->key.public_key, e->src, e->src_len, e->rng,
-		      silc_softacc_pkcs_data_cb, e);
+    silc_pkcs_encrypt_async(e->key.public_key, e->src, e->src_len, e->rng,
+			    silc_softacc_pkcs_data_cb, e);
     break;
 
   case SILC_SOFTACC_DECRYPT:
-    silc_pkcs_decrypt(e->key.private_key, e->src, e->src_len,
-		      silc_softacc_pkcs_data_cb, e);
+    silc_pkcs_decrypt_async(e->key.private_key, e->src, e->src_len,
+			    silc_softacc_pkcs_data_cb, e);
     break;
 
   case SILC_SOFTACC_SIGN:
-    silc_pkcs_sign(e->key.private_key, e->src, e->src_len, e->compute_hash,
-		   e->hash, e->rng, silc_softacc_pkcs_data_cb, e);
+    silc_pkcs_sign_async(e->key.private_key, e->src, e->src_len,
+			 e->compute_hash, e->hash, e->rng,
+			 silc_softacc_pkcs_data_cb, e);
     break;
 
   case SILC_SOFTACC_VERIFY:
-    silc_pkcs_verify(e->key.public_key, e->src, e->src_len, e->data,
-		     e->data_len, e->hash, silc_softacc_pkcs_verify_cb, e);
+    silc_pkcs_verify_async(e->key.public_key, e->src, e->src_len, e->data,
+			   e->data_len, e->compute_hash, e->hash,
+			   silc_softacc_pkcs_verify_cb, e);
     break;
   }
 }
@@ -453,6 +455,7 @@ SILC_PKCS_ALG_VERIFY(silc_softacc_verify)
   e->src_len = signature_len;
   e->data = silc_smemdup(stack, data, data_len);
   e->data_len = data_len;
+  e->compute_hash = compute_hash;
   e->hash = hash;
   e->key.public_key = pubkey->key;
   e->cb.verify_cb = verify_cb;

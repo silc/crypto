@@ -4,10 +4,11 @@ bug-report silc-devel@lists.silcnet.org
 prereq 1.3.2
 
 # License
-license distdir/CRYPTO
-include distdir/GPL GPL
-include distdir/BSD BSD
-license-header distdir/GPL-header distdir/CRYPTO-header
+license distdir/GPL
+#license distdir/CRYPTO
+#include distdir/GPL GPL
+#include distdir/BSD BSD
+#license-header distdir/GPL-header distdir/CRYPTO-header
 
 # Distdefs
 define SILC_DIST_SSH

@@ -21,7 +21,7 @@
 
 #define ENC_LEN 0x00100000	/* enc data len (at least) */
 #define ENC_ROUND 512		/* enc rounds (at least) */
-#define ENC_MIN_TIME 3.0        /* seconds to run the test (at least) */
+#define ENC_MIN_TIME 8.0        /* seconds to run the test (at least) */
 
 SilcTimerStruct timer;
 SilcCipher cipher;

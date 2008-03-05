@@ -252,7 +252,8 @@ SILC_PKCS_VERIFY(silc_acc_pkcs_verify)
   /* Accelerate */
   return pub->acc->pkcs[pub->pkcs_index].verify(
 		       &pub->acc->pkcs[pub->pkcs_index], pub->context,
-		       signature, signature_len, data, data_len, hash, rng,
+		       signature, signature_len, data, data_len,
+		       compute_hash, hash, rng,
 		       verify_cb, context);
 }
 

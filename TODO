@@ -14,25 +14,6 @@ to silc-devel mailing list or appear on 'silc' channel on SILCNet.
 Crypto Library, lib/silccrypt/
 ==============================
 
- o SilcHmac must be replaced with generic SilcMac so that we can add
-   others than just HMAC algorithms.  Backwards support (via #define's)
-   must be preserved.
-
- o Change the DSA implementation to support FIPS186-3.  This means that
-   the q length is determined by the key length.  Also note that specific
-   hash functions must be used with different q lengths.
-
- o AES CBC is missing proper alignment code (see silc_1_1_branch).
-
- o The asynchronous functions to perhaps to _async to preserve backwards
-   compatibility with synchronous versions, and make easier to migrate
-   from 1.1 to 1.2.
-
- o Do GCC vs ICC benchmarks of all key algorithms.
-
- o silc_pkcs_public_key_alloc should accept also SILC_PKCS_ANY as argument
-   and try all supported PKCS until one succeeds (ala load_public_key).
-
  o Add fingerprint to SilcSILCPublicKey and retrieval to silcpk.h, and
    possibly to silcpkcs.h.
 
@@ -43,9 +24,49 @@ Crypto Library, lib/silccrypt/
 			     const char **hash_algorithm,
 			     SilcUInt32 *fingerprint_len);
 
- o Add DSA support to SILC public key.
+ o Add CMAC and maybe others.  Change needs rewrite of the internals of
+   the SILC Mac API, currently it's suitable only for HMACs.
 
  o Global RNG must be changed to use SILC Global API.
+
+ o Add FIPS compliant RNG.
+
+ o Implement the defined SilcDH API.  The definition is in
+   lib/silccrypt/silcdh.h.  Make sure it is asynchronous so that it can
+   be accelerated.  Also take into account that it could use elliptic
+   curves.
+
+ o Add ECDSA support.
+
+ o Add ECDH support.
+
+ o Add PKCS#1 RSAES-OAEP and RSASSA-PSS.
+
+ o Do GCC vs ICC benchmarks of all key algorithms.
+
+ o Add DSA support to SILC public key.
+
+ o The asynchronous functions to perhaps to _async to preserve backwards
+   compatibility with synchronous versions, and make easier to migrate
+   from 1.1 to 1.2. (***DONE)
+
+ o AES CBC is missing proper alignment code. (***DONE)
+
+ o silc_pkcs_public_key_alloc should accept also SILC_PKCS_ANY as argument
+   and try all supported PKCS until one succeeds. (***DONE)
+
+ o Associate a default hash function with all PKCS algorithms.  User can
+   override it in silc_pkcs_sign.  DSA with FIPS186-3 determines the
+   hash algorithm by the key length. (***DONE)
+
+ o Document all cipher names, hash names, mac names, pkcs names. (***DONE)
+
+ o SilcHmac must be replaced with generic SilcMac so that we can add
+   others than just HMAC algorithms.  Backwards support (via #define's)
+   must be preserved. (***DONE)
+
+ o Change the DSA implementation to support FIPS186-3.  This means that
+   the q length is determined by the key length.  (***DONE)
 
  o Add silc_crypto_init and silc_crypto_uninit.  The _init should take
    SilcStack that will act as global memory pool for all of crypto
@@ -66,17 +87,8 @@ Crypto Library, lib/silccrypt/
 
  o Add DSS support. (***DONE)
 
- o Implement the defined SilcDH API.  The definition is in
-   lib/silccrypt/silcdh.h.  Make sure it is asynchronous so that it can
-   be accelerated.  Also take into account that it could use elliptic
-   curves.
-
  o All cipher, hash, hmac etc. allocation routines should take their name
    in as const char * not const unsigned char *. (***DONE)
-
- o Add ECDSA support.
-
- o Add ECDH support.
 
 
 SKR Library, lib/silcskr/
@@ -126,7 +138,13 @@ SKR Library, lib/silcskr/
 SILC Accelerator Library
 ========================
 
- o Diffie-Hellman acceleration
+ o Diffie-Hellman software acceleration.
+
+ o Hardware acceleration through OCF (OCF-Linux,
+   http://ocf-linux.sourceforge.net).
+
+ o VIA Padlock support. See http://www.logix.cz/michal/devel/padlock/ and
+   Gladman's code.
 
  o SILC Accelerator API.  Provides generic way to use different kind of
    accelerators.  Basically implements SILC PKCS API so that SilcPublicKey
@@ -161,9 +179,8 @@ lib/silcmath
  o The SILC MP API function must start returning indication of success
    and failure of the operation. (***DONE)
 
- o Do SilcStack support for silc_mp_init, silc_mp_init_size and other
-   any other MP function (including utility ones) that may allocate
-   memory. (***DONE)
+ o Do SilcStack support for silc_mp_init and other MP function
+   (including utility ones) that may allocate memory. (***DONE)
 
 
 lib/silcasn1
@@ -219,3 +236,15 @@ lib/silcpkix
 ============
 
  o PKIX implementation
+
+
+lib/silccms
+===========
+
+ o Cryptographic Message Syntax (RFC 3852), the former PKCS #7
+
+
+lib/silcsmime
+=============
+
+ o S/MIME (RFC 3851)
