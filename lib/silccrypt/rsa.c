@@ -46,7 +46,6 @@
   everything else too about cryptography.
 
 */
-/* $Id$ */
 
 /*
    ChangeLog
@@ -97,6 +96,10 @@ SilcBool silc_rsa_generate_keys(SilcUInt32 bits, SilcMPInt *p, SilcMPInt *q,
   *ret_private_key = privkey = silc_calloc(1, sizeof(*privkey));
   if (!privkey)
     return FALSE;
+
+  /* Default hash shall be sha1 */
+  silc_hash_alloc("sha1", &pubkey->hash);
+  silc_hash_alloc("sha1", &privkey->hash);
 
   /* Initialize variables */
   silc_mp_init(&privkey->n);

@@ -338,6 +338,7 @@ SILC_PKCS_ALG_PUBLIC_KEY_FREE(silc_pkcs1_public_key_free)
 
   silc_mp_uninit(&key->n);
   silc_mp_uninit(&key->e);
+  silc_hash_free(key->hash);
   silc_free(key);
 }
 
@@ -457,6 +458,7 @@ SILC_PKCS_ALG_PRIVATE_KEY_FREE(silc_pkcs1_private_key_free)
   silc_mp_uninit(&key->qP);
   silc_mp_uninit(&key->p);
   silc_mp_uninit(&key->q);
+  silc_hash_free(key->hash);
   silc_free(key);
 }
 
@@ -598,6 +600,8 @@ SILC_PKCS_ALG_SIGN(silc_pkcs1_sign)
 
   /* Compute hash */
   if (compute_hash) {
+    if (!hash)
+      hash = key->hash;
     silc_hash_make(hash, src, src_len, hashr);
     src = hashr;
     src_len = silc_hash_len(hash);
@@ -702,33 +706,35 @@ SILC_PKCS_ALG_VERIFY(silc_pkcs1_verify)
   silc_buffer_set(&di, unpadded, len);
 
   /* If hash isn't given, allocate the one given in digest info */
-  if (!hash) {
-    has_null = FALSE;
+  if (compute_hash) {
+    if (!hash) {
+      has_null = FALSE;
 
-    /* Decode digest info */
-    if (!silc_asn1_decode(asn1, &di,
-			  SILC_ASN1_OPTS(SILC_ASN1_ACCUMUL),
-			  SILC_ASN1_SEQUENCE,
+      /* Decode digest info */
+      if (!silc_asn1_decode(asn1, &di,
+			    SILC_ASN1_OPTS(SILC_ASN1_ACCUMUL),
 			    SILC_ASN1_SEQUENCE,
-			      SILC_ASN1_OID(&oid),
-			      SILC_ASN1_NULL_T(SILC_ASN1_OPTIONAL,
-					       SILC_ASN1_TAG_NULL, &has_null),
-			    SILC_ASN1_END,
-			  SILC_ASN1_END, SILC_ASN1_END))
-      goto err;
+			      SILC_ASN1_SEQUENCE,
+			        SILC_ASN1_OID(&oid),
+			        SILC_ASN1_NULL_T(SILC_ASN1_OPTIONAL,
+						 SILC_ASN1_TAG_NULL, &has_null),
+			      SILC_ASN1_END,
+			    SILC_ASN1_END, SILC_ASN1_END))
+	goto err;
 
-    if (!silc_hash_alloc_by_oid(oid, &ihash)) {
-      SILC_LOG_DEBUG(("Unknown OID %s", oid));
-      goto err;
+      if (!silc_hash_alloc_by_oid(oid, &ihash)) {
+	SILC_LOG_DEBUG(("Unknown OID %s", oid));
+	goto err;
+      }
+      hash = ihash;
     }
-    hash = ihash;
-  }
 
-  /* Hash the data */
-  silc_hash_make(hash, data, data_len, hashr);
-  data = hashr;
-  data_len = silc_hash_len(hash);
-  oid = (char *)silc_hash_get_oid(hash);
+    /* Hash the data */
+    silc_hash_make(hash, data, data_len, hashr);
+    data = hashr;
+    data_len = silc_hash_len(hash);
+    oid = (char *)silc_hash_get_oid(hash);
+  }
 
   /* Encode digest info for comparison */
   memset(&ldi, 0, sizeof(ldi));
@@ -762,7 +768,7 @@ SILC_PKCS_ALG_VERIFY(silc_pkcs1_verify)
   silc_free(verify);
   silc_mp_uninit(&mp_tmp2);
   silc_mp_uninit(&mp_dst);
-  if (hash)
+  if (compute_hash)
     memset(hashr, 0, sizeof(hashr));
   if (ihash)
     silc_hash_free(ihash);
@@ -805,6 +811,8 @@ SILC_PKCS_ALG_SIGN(silc_pkcs1_sign_no_oid)
 
   /* Compute hash if requested */
   if (compute_hash) {
+    if (!hash)
+      hash = key->hash;
     silc_hash_make(hash, src, src_len, hashr);
     src = hashr;
     src_len = silc_hash_len(hash);
@@ -885,7 +893,9 @@ SILC_PKCS_ALG_VERIFY(silc_pkcs1_verify_no_oid)
   }
 
   /* Hash data if requested */
-  if (hash) {
+  if (compute_hash) {
+    if (!hash)
+      hash = key->hash;
     silc_hash_make(hash, data, data_len, hashr);
     data = hashr;
     data_len = silc_hash_len(hash);
@@ -900,7 +910,7 @@ SILC_PKCS_ALG_VERIFY(silc_pkcs1_verify_no_oid)
 
   memset(verify, 0, verify_len);
   memset(unpadded, 0, sizeof(unpadded));
-  if (hash)
+  if (compute_hash)
     memset(hashr, 0, sizeof(hashr));
   silc_free(verify);
   silc_mp_uninit(&mp_tmp2);

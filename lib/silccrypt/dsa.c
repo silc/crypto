@@ -59,17 +59,26 @@
 
 */
 
-/* Generates DSA key pair.  For now this uses group size of 160 bits. */
+/* Generates DSA key pair.  The q length and hash comes as argument. */
 
-SILC_PKCS_ALG_GENERATE_KEY(silc_dsa_generate_key)
+static SilcBool
+silc_dsa_generate_key_int(const struct SilcPKCSAlgorithmStruct *pkcs,
+			  SilcUInt32 q_len, const char *hash,
+			  SilcUInt32 keylen, SilcRng rng,
+			  void **ret_public_key, void **ret_private_key)
 {
   DsaPublicKey *pubkey;
   DsaPrivateKey *privkey;
   SilcMPInt tmp, tmp2;
   unsigned char rnd[4096];
-  int i, len = (keylen + 7) / 8, q_len = 160 / 8;
+  int i, len = (keylen + 7) / 8;
+
+  q_len /= 8;
 
   if (keylen < 768 || keylen > 16384)
+    return FALSE;
+
+  if (!silc_hash_is_supported(hash))
     return FALSE;
 
   pubkey = silc_calloc(1, sizeof(*pubkey));
@@ -81,6 +90,9 @@ SILC_PKCS_ALG_GENERATE_KEY(silc_dsa_generate_key)
     silc_free(pubkey);
     return FALSE;
   }
+
+  silc_hash_alloc(hash, &pubkey->hash);
+  silc_hash_alloc(hash, &privkey->hash);
 
   silc_mp_init(&tmp);
   silc_mp_init(&tmp2);
@@ -101,8 +113,7 @@ SILC_PKCS_ALG_GENERATE_KEY(silc_dsa_generate_key)
   silc_mp_add(&tmp, &privkey->q, &privkey->q);
 
   do {
-    /* Create p.  Take random data, this returns non-zero bytes.  Make the
-       number even. */
+    /* Create p.  Take random data, this returns non-zero bytes. */
     silc_rng_get_rn_data(rng, len - q_len, rnd, sizeof(rnd));
     rnd[(len - q_len) - 1] &= ~1;
     silc_mp_bin2mp(rnd, len - q_len, &tmp2);
@@ -154,6 +165,37 @@ SILC_PKCS_ALG_GENERATE_KEY(silc_dsa_generate_key)
     *ret_private_key = privkey;
 
   return TRUE;
+}
+
+/* Generates DSA key pair.  Complies with FIPS186-2.  Uses 160 bit q. */
+
+SILC_PKCS_ALG_GENERATE_KEY(silc_dsa_fips186_2_generate_key)
+{
+  return silc_dsa_generate_key_int(pkcs, 160, "sha1", keylen, rng,
+				   ret_public_key, ret_private_key);
+}
+
+/* Generates DSA key pair.  Complies with FIPS186-3.  Same as the FIPS186-2
+   but determines the length of q automatically. */
+
+SILC_PKCS_ALG_GENERATE_KEY(silc_dsa_generate_key)
+{
+  SilcUInt32 q_len;
+  const char *hash;
+
+  if (keylen <= 1024) {
+    q_len = 160;
+    hash = "sha1";
+  } else if (keylen <= 2048) {
+    q_len = 224;
+    hash = "sha224";
+  } else {
+    q_len = 256;
+    hash = "sha256";
+  }
+
+  return silc_dsa_generate_key_int(pkcs, q_len, hash, keylen, rng,
+				   ret_public_key, ret_private_key);
 }
 
 /* Import DSA public key */
@@ -303,6 +345,7 @@ SILC_PKCS_ALG_PUBLIC_KEY_FREE(silc_dsa_public_key_free)
   silc_mp_uninit(&key->q);
   silc_mp_uninit(&key->g);
   silc_mp_uninit(&key->y);
+  silc_hash_free(key->hash);
   silc_free(key);
 }
 
@@ -414,6 +457,7 @@ SILC_PKCS_ALG_PRIVATE_KEY_FREE(silc_dsa_private_key_free)
   silc_mp_uninit(&key->g);
   silc_mp_uninit(&key->y);
   silc_mp_uninit(&key->x);
+  silc_hash_free(key->hash);
   silc_free(key);
 }
 
@@ -461,9 +505,13 @@ SILC_PKCS_ALG_SIGN(silc_dsa_sign)
 
   /* Compute hash if requested */
   if (compute_hash) {
+    if (!hash)
+      hash = key->hash;
     silc_hash_make(hash, src, src_len, hashr);
     src = hashr;
     src_len = silc_hash_len(hash);
+    if (src_len > key->group_order)
+      src_len = key->group_order;
   }
 
   stack = silc_stack_alloc(2048, silc_crypto_stack());
@@ -583,10 +631,14 @@ SILC_PKCS_ALG_VERIFY(silc_dsa_verify)
   }
 
   /* Hash data if requested */
-  if (hash) {
+  if (compute_hash) {
+    if (!hash)
+      hash = key->hash;
     silc_hash_make(hash, data, data_len, hashr);
     data = hashr;
     data_len = silc_hash_len(hash);
+    if (data_len > key->group_order)
+      data_len = key->group_order;
   }
 
   silc_mp_sinit(stack, &v);
@@ -620,7 +672,7 @@ SILC_PKCS_ALG_VERIFY(silc_dsa_verify)
   /* Deliver result */
   verify_cb(ret, context);
 
-  if (hash)
+  if (compute_hash)
     memset(hashr, 0, sizeof(hashr));
   silc_mp_uninit(&v);
   silc_mp_uninit(&w);

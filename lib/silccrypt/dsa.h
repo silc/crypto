@@ -4,7 +4,7 @@
 
   Author: Pekka Riikonen <priikone@silcnet.org>
 
-  Copyright (C) 2007 Pekka Riikonen
+  Copyright (C) 2007 - 2008 Pekka Riikonen
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -22,6 +22,7 @@
 
 /* DSA Public key */
 typedef struct {
+  SilcHash hash;		/* Default hash function */
   SilcMPInt g;			/* generator */
   SilcMPInt p;			/* prime */
   SilcMPInt q;			/* prime */
@@ -32,6 +33,7 @@ typedef struct {
 
 /* DSA Private key */
 typedef struct {
+  SilcHash hash;		/* Default hash function */
   SilcMPInt g;			/* generator */
   SilcMPInt p;			/* prime */
   SilcMPInt q;			/* prime */
@@ -41,6 +43,7 @@ typedef struct {
   SilcUInt16 group_order;	/* group order (size) */
 } DsaPrivateKey;
 
+SILC_PKCS_ALG_GENERATE_KEY(silc_dsa_fips186_2_generate_key);
 SILC_PKCS_ALG_GENERATE_KEY(silc_dsa_generate_key);
 SILC_PKCS_ALG_IMPORT_PUBLIC_KEY(silc_dsa_import_public_key);
 SILC_PKCS_ALG_EXPORT_PUBLIC_KEY(silc_dsa_export_public_key);

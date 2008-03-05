@@ -4,7 +4,7 @@
 
   Author: Pekka Riikonen <priikone@silcnet.org>
 
-  Copyright (C) 2003 - 2005 Pekka Riikonen
+  Copyright (C) 2003 - 2008 Pekka Riikonen
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@
 #ifndef SILCPKCS1_H
 #define SILCPKCS1_H
 
-/****d* silccrypt/SilcPKCS1API/SilcPkcs1BlockType
+/****d* silccrypt/SilcPkcs1BlockType
  *
  * NAME
  *
@@ -52,7 +52,7 @@ typedef enum {
 } SilcPkcs1BlockType;
 /***/
 
-/****f* silccrypt/SilcPKCS1API/silc_pkcs1_encode
+/****f* silccrypt/silc_pkcs1_encode
  *
  * SYNOPSIS
  *
@@ -84,7 +84,7 @@ SilcBool silc_pkcs1_encode(SilcPkcs1BlockType bt,
 			   SilcUInt32 dest_data_size,
 			   SilcRng rng);
 
-/****f* silccrypt/SilcPKCS1API/silc_pkcs1_decode
+/****f* silccrypt/silc_pkcs1_decode
  *
  * SYNOPSIS
  *

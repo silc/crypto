@@ -4,7 +4,7 @@
 
   Author: Pekka Riikonen <priikone@silcnet.org>
 
-  Copyright (C) 1997 - 2007 Pekka Riikonen
+  Copyright (C) 1997 - 2008 Pekka Riikonen
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -36,7 +36,7 @@
 #ifndef SILCRNG_H
 #define SILCRNG_H
 
-/****s* silccrypt/SilcRNGAPI/SilcRng
+/****s* silccrypt/SilcRng
  *
  * NAME
  *
@@ -54,7 +54,7 @@ typedef struct SilcRngStruct *SilcRng;
 
 /* Prototypes */
 
-/****f* silccrypt/SilcRNGAPI/silc_rng_alloc
+/****f* silccrypt/silc_rng_alloc
  *
  * SYNOPSIS
  *
@@ -70,7 +70,7 @@ typedef struct SilcRngStruct *SilcRng;
  ***/
 SilcRng silc_rng_alloc(void);
 
-/****f* silccrypt/SilcRNGAPI/silc_rng_free
+/****f* silccrypt/silc_rng_free
  *
  * SYNOPSIS
  *
@@ -84,7 +84,7 @@ SilcRng silc_rng_alloc(void);
  ***/
 void silc_rng_free(SilcRng rng);
 
-/****f* silccrypt/SilcRNGAPI/silc_rng_init
+/****f* silccrypt/silc_rng_init
  *
  * SYNOPSIS
  *
@@ -105,7 +105,7 @@ void silc_rng_free(SilcRng rng);
  ***/
 void silc_rng_init(SilcRng rng);
 
-/****f* silccrypt/SilcRNGAPI/silc_rng_get_byte
+/****f* silccrypt/silc_rng_get_byte
  *
  * SYNOPSIS
  *
@@ -118,7 +118,7 @@ void silc_rng_init(SilcRng rng);
  ***/
 SilcUInt8 silc_rng_get_byte(SilcRng rng);
 
-/****f* silccrypt/SilcRNGAPI/silc_rng_get_byte_fast
+/****f* silccrypt/silc_rng_get_byte_fast
  *
  * SYNOPSIS
  *
@@ -139,7 +139,7 @@ SilcUInt8 silc_rng_get_byte(SilcRng rng);
  ***/
 SilcUInt8 silc_rng_get_byte_fast(SilcRng rng);
 
-/****f* silccrypt/SilcRNGAPI/silc_rng_get_rn16
+/****f* silccrypt/silc_rng_get_rn16
  *
  * SYNOPSIS
  *
@@ -152,7 +152,7 @@ SilcUInt8 silc_rng_get_byte_fast(SilcRng rng);
  ***/
 SilcUInt16 silc_rng_get_rn16(SilcRng rng);
 
-/****f* silccrypt/SilcRNGAPI/silc_rng_get_rn32
+/****f* silccrypt/silc_rng_get_rn32
  *
  * SYNOPSIS
  *
@@ -165,7 +165,7 @@ SilcUInt16 silc_rng_get_rn16(SilcRng rng);
  ***/
 SilcUInt32 silc_rng_get_rn32(SilcRng rng);
 
-/****f* silccrypt/SilcRNGAPI/silc_rng_get_rn_string
+/****f* silccrypt/silc_rng_get_rn_string
  *
  * SYNOPSIS
  *
@@ -180,7 +180,7 @@ SilcUInt32 silc_rng_get_rn32(SilcRng rng);
  ***/
 unsigned char *silc_rng_get_rn_string(SilcRng rng, SilcUInt32 len);
 
-/****f* silccrypt/SilcRNGAPI/silc_rng_get_rn_data
+/****f* silccrypt/silc_rng_get_rn_data
  *
  * SYNOPSIS
  *
@@ -197,7 +197,7 @@ unsigned char *silc_rng_get_rn_string(SilcRng rng, SilcUInt32 len);
 SilcBool silc_rng_get_rn_data(SilcRng rng, SilcUInt32 len,
 			      unsigned char *buf, SilcUInt32 buf_size);
 
-/****f* silccrypt/SilcRNGAPI/silc_rng_add_noise
+/****f* silccrypt/silc_rng_add_noise
  *
  * SYNOPSIS
  *
@@ -212,7 +212,7 @@ SilcBool silc_rng_get_rn_data(SilcRng rng, SilcUInt32 len,
  ***/
 void silc_rng_add_noise(SilcRng rng, unsigned char *buffer, SilcUInt32 len);
 
-/****f* silccrypt/SilcRNGAPI/silc_rng_global_init
+/****f* silccrypt/silc_rng_global_init
  *
  * SYNOPSIS
  *
@@ -238,7 +238,7 @@ void silc_rng_add_noise(SilcRng rng, unsigned char *buffer, SilcUInt32 len);
  ***/
 SilcBool silc_rng_global_init(SilcRng rng);
 
-/****f* silccrypt/SilcRNGAPI/silc_rng_global_uninit
+/****f* silccrypt/silc_rng_global_uninit
  *
  * SYNOPSIS
  *
@@ -252,7 +252,7 @@ SilcBool silc_rng_global_init(SilcRng rng);
  ***/
 SilcBool silc_rng_global_uninit(void);
 
-/****f* silccrypt/SilcRNGAPI/silc_rng_global_get_byte
+/****f* silccrypt/silc_rng_global_get_byte
  *
  * SYNOPSIS
  *
@@ -265,7 +265,7 @@ SilcBool silc_rng_global_uninit(void);
  ***/
 SilcUInt8 silc_rng_global_get_byte(void);
 
-/****f* silccrypt/SilcRNGAPI/silc_rng_global_get_byte_fast
+/****f* silccrypt/silc_rng_global_get_byte_fast
  *
  * SYNOPSIS
  *
@@ -286,7 +286,7 @@ SilcUInt8 silc_rng_global_get_byte(void);
  ***/
 SilcUInt8 silc_rng_global_get_byte_fast(void);
 
-/****f* silccrypt/SilcRNGAPI/silc_rng_global_get_rn16
+/****f* silccrypt/silc_rng_global_get_rn16
  *
  * SYNOPSIS
  *
@@ -299,7 +299,7 @@ SilcUInt8 silc_rng_global_get_byte_fast(void);
  ***/
 SilcUInt16 silc_rng_global_get_rn16(void);
 
-/****f* silccrypt/SilcRNGAPI/silc_rng_global_get_rn32
+/****f* silccrypt/silc_rng_global_get_rn32
  *
  * SYNOPSIS
  *
@@ -312,7 +312,7 @@ SilcUInt16 silc_rng_global_get_rn16(void);
  ***/
 SilcUInt32 silc_rng_global_get_rn32(void);
 
-/****f* silccrypt/SilcRNGAPI/silc_rng_global_get_rn_string
+/****f* silccrypt/silc_rng_global_get_rn_string
  *
  * SYNOPSIS
  *
@@ -327,7 +327,7 @@ SilcUInt32 silc_rng_global_get_rn32(void);
  ***/
 unsigned char *silc_rng_global_get_rn_string(SilcUInt32 len);
 
-/****f* silccrypt/SilcRNGAPI/silc_rng_global_get_rn_data
+/****f* silccrypt/silc_rng_global_get_rn_data
  *
  * SYNOPSIS
  *
@@ -345,7 +345,7 @@ unsigned char *silc_rng_global_get_rn_string(SilcUInt32 len);
 SilcBool silc_rng_global_get_rn_data(SilcRng rng, SilcUInt32 len,
 				     unsigned char *buf, SilcUInt32 buf_size);
 
-/****f* silccrypt/SilcRNGAPI/silc_rng_global_add_noise
+/****f* silccrypt/silc_rng_global_add_noise
  *
  * SYNOPSIS
  *
