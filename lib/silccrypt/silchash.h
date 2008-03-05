@@ -4,7 +4,7 @@
 
   Author: Pekka Riikonen <priikone@silcnet.org>
 
-  Copyright (C) 1997 - 2007 Pekka Riikonen
+  Copyright (C) 1997 - 2008 Pekka Riikonen
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@
  *
  ***/
 
-/****s* silccrypt/SilcHashAPI/SilcHash
+/****s* silccrypt/SilcHash
  *
  * NAME
  *
@@ -47,22 +47,26 @@
  ***/
 typedef struct SilcHashStruct *SilcHash;
 
-/****s* silccrypt/SilcHashAPI/SilcHashObject
+/****d* silccrypt/Hashes
  *
  * NAME
  *
- *    typedef struct { ... } SilcHashObject;
+ *    Hash functions
  *
  * DESCRIPTION
  *
- *    This structure represents one hash function.  The hash function's
- *    name, digest length and block length are defined in the structure.
- *    This structure is then given as argument to the silc_hash_register.
- *    That function is used to register all hash functions into SILC.
- *    They can be then allocated by the name found in this structure by
- *    calling the silc_hash_alloc.
+ *    Supported hash function names.  These names can be given as argument
+ *    to silc_hash_alloc.
  *
- ***/
+ * SOURCE
+ */
+#define SILC_HASH_SHA256          "sha256"       /* SHA-256 */
+#define SILC_HASH_SHA512          "sha512"       /* SHA-512 */
+#define SILC_HASH_SHA1            "sha1"	 /* SHA-1 */
+#define SILC_HASH_MD5             "md5"		 /* MD5 */
+/***/
+
+/* Hash implementation object */
 typedef struct {
   char *name;
   char *oid;
@@ -83,24 +87,13 @@ typedef struct {
 /* Default hash functions for silc_hash_register_default(). */
 extern DLLAPI const SilcHashObject silc_default_hash[];
 
-/* Default HASH function in the SILC protocol */
-#define SILC_DEFAULT_HASH "sha1"
+/* Max hash length */
 #define SILC_HASH_MAXLEN 64
 
 /* Macros */
 
 /* Following macros are used to implement the SILC Hash API. These
    macros should be used instead of declaring functions by hand. */
-
-/* Function names in SILC Hash modules. The name of the hash function
-   is appended into these names and used to the get correct symbol out
-   of the module. All SILC Hash API compliant modules has to support
-   these names as function names (use macros below to assure this). */
-#define SILC_HASH_SIM_INIT "init"
-#define SILC_HASH_SIM_UPDATE "update"
-#define SILC_HASH_SIM_FINAL "final"
-#define SILC_HASH_SIM_TRANSFORM "transform"
-#define SILC_HASH_SIM_CONTEXT_LEN "context_len"
 
 /* Macros that can be used to declare SILC Hash API functions. */
 #define SILC_HASH_API_INIT(hash)					\
@@ -117,7 +110,7 @@ SilcUInt32 silc_##hash##_context_len()
 
 /* Prototypes */
 
-/****f* silccrypt/SilcHashAPI/silc_hash_register
+/****f* silccrypt/silc_hash_register
  *
  * SYNOPSIS
  *
@@ -125,18 +118,18 @@ SilcUInt32 silc_##hash##_context_len()
  *
  * DESCRIPTION
  *
- *    Registers a new hash function into the SILC.  This function is used
- *    at the initialization of the SILC.  All registered hash functions
- *    should be unregistered with silc_hash_unregister.  The `hash' includes
- *    the name of the hash function, digest length and block length.  Usually
- *    this function is not called directly.  Instead, application can call
- *    the silc_hash_register_default to register all default hash functions
- *    that are builtin the sources.  Returns FALSE on error.
+ *    Registers a new hash function into the SILC.  This function can be
+ *    used at the initialization.  All registered hash functions should be
+ *    unregistered with silc_hash_unregister.  Returns FALSE on error.
+ *    Usually this function is not needed.  The default hash functions are
+ *    automatically registered.  This can be used to change the order of
+ *    the registered hash functions by re-registering them in desired order,
+ *    or add new hash functions.
  *
  ***/
 SilcBool silc_hash_register(const SilcHashObject *hash);
 
-/****f* silccrypt/SilcHashAPI/silc_hash_unregister
+/****f* silccrypt/silc_hash_unregister
  *
  * SYNOPSIS
  *
@@ -145,13 +138,13 @@ SilcBool silc_hash_register(const SilcHashObject *hash);
  * DESCRIPTION
  *
  *    Unregister a hash function from SILC by the SilcHashObject `hash'.
- *    This should be called for all registered hash functions.  Returns
- *    FALSE on error.
+ *    This should be called for all hash functions registered with
+ *    silc_hash_register.  Returns FALSE on error.
  *
  ***/
 SilcBool silc_hash_unregister(SilcHashObject *hash);
 
-/****f* silccrypt/SilcHashAPI/silc_hash_register_default
+/****f* silccrypt/silc_hash_register_default
  *
  * SYNOPSIS
  *
@@ -159,18 +152,14 @@ SilcBool silc_hash_unregister(SilcHashObject *hash);
  *
  * DESCRIPTION
  *
- *    Registers all default hash functions into the SILC.  These are the
- *    hash functions that are builtin in the sources.  See the list of
- *    default hash functions in the silchash.c source file.  The application
- *    may use this to register default hash functions if specific hash
- *    function in any specific order is not wanted (application's
- *    configuration usually may decide the order of the registration, in
- *    which case this function should not be used).
+ *    Registers all default hash functions into the SILC.  Application
+ *    need not call this directly.  By calling silc_crypto_init this function
+ *    is called.
  *
  ***/
 SilcBool silc_hash_register_default(void);
 
-/****f* silccrypt/SilcHashAPI/silc_hash_unregister_all
+/****f* silccrypt/silc_hash_unregister_all
  *
  * SYNOPSIS
  *
@@ -178,12 +167,14 @@ SilcBool silc_hash_register_default(void);
  *
  * DESCRIPTION
  *
- *    Unregisters all registered hash functions.
+ *    Unregisters all registered hash functions.  Application need not
+ *    call this directly.  By calling silc_crypto_uninit this function is
+ *    called.
  *
  ***/
 SilcBool silc_hash_unregister_all(void);
 
-/****f* silccrypt/SilcHashAPI/silc_hash_alloc
+/****f* silccrypt/silc_hash_alloc
  *
  * SYNOPSIS
  *
@@ -198,7 +189,7 @@ SilcBool silc_hash_unregister_all(void);
  ***/
 SilcBool silc_hash_alloc(const char *name, SilcHash *new_hash);
 
-/****f* silccrypt/SilcHashAPI/silc_hash_alloc_by_oid
+/****f* silccrypt/silc_hash_alloc_by_oid
  *
  * SYNOPSIS
  *
@@ -213,7 +204,7 @@ SilcBool silc_hash_alloc(const char *name, SilcHash *new_hash);
  ***/
 SilcBool silc_hash_alloc_by_oid(const char *oid, SilcHash *new_hash);
 
-/****f* silccrypt/SilcHashAPI/silc_hash_free
+/****f* silccrypt/silc_hash_free
  *
  * SYNOPSIS
  *
@@ -226,7 +217,7 @@ SilcBool silc_hash_alloc_by_oid(const char *oid, SilcHash *new_hash);
  ***/
 void silc_hash_free(SilcHash hash);
 
-/****f* silccrypt/SilcHashAPI/silc_hash_is_supported
+/****f* silccrypt/silc_hash_is_supported
  *
  * SYNOPSIS
  *
@@ -239,7 +230,7 @@ void silc_hash_free(SilcHash hash);
  ***/
 SilcBool silc_hash_is_supported(const char *name);
 
-/****f* silccrypt/SilcHashAPI/silc_hash_get_supported
+/****f* silccrypt/silc_hash_get_supported
  *
  * SYNOPSIS
  *
@@ -255,7 +246,7 @@ SilcBool silc_hash_is_supported(const char *name);
  ***/
 char *silc_hash_get_supported(void);
 
-/****f* silccrypt/SilcHashAPI/silc_hash_len
+/****f* silccrypt/silc_hash_len
  *
  * SYNOPSIS
  *
@@ -268,7 +259,7 @@ char *silc_hash_get_supported(void);
  ***/
 SilcUInt32 silc_hash_len(SilcHash hash);
 
-/****f* silccrypt/SilcHashAPI/silc_hash_block_len
+/****f* silccrypt/silc_hash_block_len
  *
  * SYNOPSIS
  *
@@ -281,7 +272,7 @@ SilcUInt32 silc_hash_len(SilcHash hash);
  ***/
 SilcUInt32 silc_hash_block_len(SilcHash hash);
 
-/****f* silccrypt/SilcHashAPI/silc_hash_get_name
+/****f* silccrypt/silc_hash_get_name
  *
  * SYNOPSIS
  *
@@ -294,7 +285,7 @@ SilcUInt32 silc_hash_block_len(SilcHash hash);
  ***/
 const char *silc_hash_get_name(SilcHash hash);
 
-/****f* silccrypt/SilcHashAPI/silc_hash_get_oid
+/****f* silccrypt/silc_hash_get_oid
  *
  * SYNOPSIS
  *
@@ -308,7 +299,7 @@ const char *silc_hash_get_name(SilcHash hash);
  ***/
 const char *silc_hash_get_oid(SilcHash hash);
 
-/****f* silccrypt/SilcHashAPI/silc_hash_make
+/****f* silccrypt/silc_hash_make
  *
  * SYNOPSIS
  *
@@ -326,7 +317,7 @@ const char *silc_hash_get_oid(SilcHash hash);
 void silc_hash_make(SilcHash hash, const unsigned char *data,
 		    SilcUInt32 len, unsigned char *return_hash);
 
-/****f* silccrypt/SilcHashAPI/silc_hash_init
+/****f* silccrypt/silc_hash_init
  *
  * SYNOPSIS
  *
@@ -347,7 +338,7 @@ void silc_hash_make(SilcHash hash, const unsigned char *data,
  ***/
 void silc_hash_init(SilcHash hash);
 
-/****f* silccrypt/SilcHashAPI/silc_hash_update
+/****f* silccrypt/silc_hash_update
  *
  * SYNOPSIS
  *
@@ -375,7 +366,7 @@ void silc_hash_init(SilcHash hash);
 void silc_hash_update(SilcHash hash, const unsigned char *data,
 		      SilcUInt32 data_len);
 
-/****f* silccrypt/SilcHashAPI/silc_hash_final
+/****f* silccrypt/silc_hash_final
  *
  * SYNOPSIS
  *
@@ -392,7 +383,7 @@ void silc_hash_update(SilcHash hash, const unsigned char *data,
  ***/
 void silc_hash_final(SilcHash hash, unsigned char *return_hash);
 
-/****f* silccrypt/SilcHashAPI/silc_hash_transform
+/****f* silccrypt/silc_hash_transform
  *
  * SYNOPSIS
  *
@@ -410,7 +401,7 @@ void silc_hash_final(SilcHash hash, unsigned char *return_hash);
 void silc_hash_transform(SilcHash hash, void *state,
 			 const unsigned char *data);
 
-/****f* silccrypt/SilcHashAPI/silc_hash_fingerprint
+/****f* silccrypt/silc_hash_fingerprint
  *
  * SYNOPSIS
  *
@@ -431,7 +422,7 @@ void silc_hash_transform(SilcHash hash, void *state,
 char *silc_hash_fingerprint(SilcHash hash, const unsigned char *data,
 			    SilcUInt32 data_len);
 
-/****f* silccrypt/SilcHashAPI/silc_hash_babbleprint
+/****f* silccrypt/silc_hash_babbleprint
  *
  * SYNOPSIS
  *
