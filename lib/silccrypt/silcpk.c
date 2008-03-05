@@ -903,7 +903,7 @@ SILC_PKCS_IMPORT_PRIVATE_KEY_FILE(silc_pkcs_silc_import_private_key_file)
   }
 
   /* Allocate HMAC */
-  if (!silc_hmac_alloc("hmac-sha1-96", NULL, &sha1hmac)) {
+  if (!silc_mac_alloc("hmac-sha1-96", &sha1hmac)) {
     SILC_LOG_ERROR(("Could not allocate SHA1 HMAC, probably not registered"));
     silc_hash_free(sha1);
     silc_cipher_free(aes);
@@ -926,15 +926,15 @@ SILC_PKCS_IMPORT_PRIVATE_KEY_FILE(silc_pkcs_silc_import_private_key_file)
   silc_cipher_set_key(aes, keymat, 256, FALSE);
 
   /* First, verify the MAC of the private key data */
-  mac_len = silc_hmac_len(sha1hmac);
-  silc_hmac_init_with_key(sha1hmac, keymat, 16);
-  silc_hmac_update(sha1hmac, filedata, len - mac_len);
-  silc_hmac_final(sha1hmac, tmp, NULL);
+  mac_len = silc_mac_len(sha1hmac);
+  silc_mac_init_with_key(sha1hmac, keymat, 16);
+  silc_mac_update(sha1hmac, filedata, len - mac_len);
+  silc_mac_final(sha1hmac, tmp, NULL);
   if (memcmp(tmp, filedata + (len - mac_len), mac_len)) {
     SILC_LOG_DEBUG(("Integrity check for private key failed"));
     memset(keymat, 0, sizeof(keymat));
     memset(tmp, 0, sizeof(tmp));
-    silc_hmac_free(sha1hmac);
+    silc_mac_free(sha1hmac);
     silc_hash_free(sha1);
     silc_cipher_free(aes);
     return FALSE;
@@ -949,7 +949,7 @@ SILC_PKCS_IMPORT_PRIVATE_KEY_FILE(silc_pkcs_silc_import_private_key_file)
     SILC_LOG_DEBUG(("Bad private key length in buffer!"));
     memset(keymat, 0, sizeof(keymat));
     memset(tmp, 0, sizeof(tmp));
-    silc_hmac_free(sha1hmac);
+    silc_mac_free(sha1hmac);
     silc_hash_free(sha1);
     silc_cipher_free(aes);
     return FALSE;
@@ -960,7 +960,7 @@ SILC_PKCS_IMPORT_PRIVATE_KEY_FILE(silc_pkcs_silc_import_private_key_file)
   /* Cleanup */
   memset(keymat, 0, sizeof(keymat));
   memset(tmp, 0, sizeof(tmp));
-  silc_hmac_free(sha1hmac);
+  silc_mac_free(sha1hmac);
   silc_hash_free(sha1);
   silc_cipher_free(aes);
 
@@ -1322,7 +1322,7 @@ SILC_PKCS_EXPORT_PRIVATE_KEY_FILE(silc_pkcs_silc_export_private_key_file)
   }
 
   /* Allocate HMAC */
-  if (!silc_hmac_alloc("hmac-sha1-96", NULL, &sha1hmac)) {
+  if (!silc_mac_alloc("hmac-sha1-96", &sha1hmac)) {
     SILC_LOG_ERROR(("Could not allocate SHA1 HMAC, probably not registered"));
     silc_sfree(stack, key);
     silc_hash_free(sha1);
@@ -1349,12 +1349,12 @@ SILC_PKCS_EXPORT_PRIVATE_KEY_FILE(silc_pkcs_silc_export_private_key_file)
      block size of the cipher. */
 
   /* Allocate buffer for encryption */
-  len = silc_hmac_len(sha1hmac);
+  len = silc_mac_len(sha1hmac);
   padlen = 16 + (16 - ((key_len + 4) % blocklen));
   enc = silc_buffer_salloc_size(stack, 4 + 4 + key_len + padlen + len);
   if (!enc) {
     silc_sfree(stack, key);
-    silc_hmac_free(sha1hmac);
+    silc_mac_free(sha1hmac);
     silc_hash_free(sha1);
     silc_cipher_free(aes);
     return FALSE;
@@ -1385,16 +1385,16 @@ SILC_PKCS_EXPORT_PRIVATE_KEY_FILE(silc_pkcs_silc_export_private_key_file)
   /* Compute HMAC over the encrypted data and append the MAC to data.
      The key is the first digest of the original key material. */
   key_len = silc_buffer_len(enc) - len;
-  silc_hmac_init_with_key(sha1hmac, keymat, 16);
-  silc_hmac_update(sha1hmac, enc->data, key_len);
+  silc_mac_init_with_key(sha1hmac, keymat, 16);
+  silc_mac_update(sha1hmac, enc->data, key_len);
   silc_buffer_pull(enc, key_len);
-  silc_hmac_final(sha1hmac, enc->data, NULL);
+  silc_mac_final(sha1hmac, enc->data, NULL);
   silc_buffer_push(enc, key_len);
 
   /* Cleanup */
   memset(keymat, 0, sizeof(keymat));
   memset(tmp, 0, sizeof(tmp));
-  silc_hmac_free(sha1hmac);
+  silc_mac_free(sha1hmac);
   silc_hash_free(sha1);
   silc_cipher_free(aes);
 
@@ -1655,6 +1655,6 @@ SILC_PKCS_VERIFY(silc_pkcs_silc_verify)
   return silc_pubkey->pkcs->verify(silc_pubkey->pkcs,
 				   silc_pubkey->public_key,
 				   signature, signature_len,
-				   data, data_len, hash, rng,
+				   data, data_len, hash != NULL, hash, rng,
 				   verify_cb, context);
 }

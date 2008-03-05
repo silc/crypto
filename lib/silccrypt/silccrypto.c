@@ -43,7 +43,7 @@ SilcBool silc_crypto_init(SilcStack stack)
     SILC_LOG_ERROR(("Error registering hash functions"));
     goto err;
   }
-  if (!silc_hmac_register_default()) {
+  if (!silc_mac_register_default()) {
     SILC_LOG_ERROR(("Error registering hash HMACs"));
     goto err;
   }
@@ -75,7 +75,7 @@ void silc_crypto_uninit(void)
 
   /* Uninit crypto library */
   silc_pkcs_unregister_all();
-  silc_hmac_unregister_all();
+  silc_mac_unregister_all();
   silc_hash_unregister_all();
   silc_cipher_unregister_all();
 

@@ -47,7 +47,7 @@ libsilccrypt_la_SOURCES = 	\
 	silccrypto.c		\
 	silccipher.c 		\
 	silchash.c 		\
-	silchmac.c 		\
+	silcmac.c 		\
 	silcrng.c 		\
 	silcpkcs.c 		\
 	silcpkcs1.c		\
@@ -60,7 +60,7 @@ include_HEADERS =		\
 	silccipher.h		\
 	silccipher_i.h		\
 	silchash.h		\
-	silchmac.h		\
+	silcmac.h		\
 	silcpkcs.h		\
 	silcpkcs_i.h		\
 	silcrng.h		\

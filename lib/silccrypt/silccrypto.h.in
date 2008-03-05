@@ -26,7 +26,7 @@
  * silc_crypto_init function.  It needs to be called only once per-process
  * but must be called before any crypto functions are used.
  *
- * In initialization all builtin ciphers, hash functions, HMACs, PKCSs
+ * In initialization all builtin ciphers, hash functions, MACs, PKCSs
  * and other algorithms will be registered to the crypto library.  If user
  * wants to register new algorithms or change the order of the automatically
  * registered algorithms, user can do this by re-registering the algorithms
@@ -89,7 +89,7 @@ extern "C" {
 #include <silccrypto.h>
 #include <silccipher.h>
 #include <silchash.h>
-#include <silchmac.h>
+#include <silcmac.h>
 #include <silcrng.h>
 #include <silcpkcs.h>
 #include <silcpk.h>
