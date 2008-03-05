@@ -130,24 +130,8 @@ SILC_CIPHER_API_ENCRYPT(aes)
     break;
 
   case SILC_CIPHER_MODE_CBC:
-    {
-      SilcUInt32 nb = len >> 4;
-
-      SILC_ASSERT((len & (16 - 1)) == 0);
-      if (len & (16 - 1))
-	return FALSE;
-
-      while(nb--) {
-	lp32(iv)[0] ^= lp32(src)[0];
-	lp32(iv)[1] ^= lp32(src)[1];
-	lp32(iv)[2] ^= lp32(src)[2];
-	lp32(iv)[3] ^= lp32(src)[3];
-	aes_encrypt(iv, iv, &aes->u.enc);
-	memcpy(dst, iv, 16);
-	src += 16;
-	dst += 16;
-      }
-    }
+    SILC_CBC_ENC_MSB_128_8(len, iv, src, dst, i,
+			   aes_encrypt(iv, iv, &aes->u.enc));
     break;
 
   case SILC_CIPHER_MODE_CFB:
@@ -168,6 +152,8 @@ SILC_CIPHER_API_ENCRYPT(aes)
 SILC_CIPHER_API_DECRYPT(aes)
 {
   AesContext *aes = context;
+  unsigned char prev[16];
+  int i;
 
   switch (ops->mode) {
   case SILC_CIPHER_MODE_CTR:
@@ -187,25 +173,8 @@ SILC_CIPHER_API_DECRYPT(aes)
     break;
 
   case SILC_CIPHER_MODE_CBC:
-    {
-      unsigned char tmp[16];
-      SilcUInt32 nb = len >> 4;
-
-      if (len & (16 - 1))
-	return FALSE;
-
-      while(nb--) {
-	memcpy(tmp, src, 16);
-	aes_decrypt(src, dst, &aes->u.dec);
-	lp32(dst)[0] ^= lp32(iv)[0];
-	lp32(dst)[1] ^= lp32(iv)[1];
-	lp32(dst)[2] ^= lp32(iv)[2];
-	lp32(dst)[3] ^= lp32(iv)[3];
-	memcpy(iv, tmp, 16);
-	src += 16;
-	dst += 16;
-      }
-    }
+    SILC_CBC_DEC_MSB_128_8(len, iv, prev, src, dst, i,
+			   aes_decrypt(src, dst, &aes->u.dec));
     break;
 
   case SILC_CIPHER_MODE_CFB:

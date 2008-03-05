@@ -46,12 +46,14 @@ SILC_CIPHER_API_UNINIT(none)
 
 SILC_CIPHER_API_ENCRYPT(none)
 {
-  memmove(dst, src, len);
+  if (src != dst)
+    memcpy(dst, src, len);
   return TRUE;
 }
 
 SILC_CIPHER_API_DECRYPT(none)
 {
-  memmove(dst, src, len);
+  if (src != dst)
+    memcpy(dst, src, len);
   return TRUE;
 }

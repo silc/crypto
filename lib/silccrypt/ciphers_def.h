@@ -42,7 +42,93 @@ do {						\
     SILC_GET32_LSB(d[_i], s + (_i * 4));	\
 } while(0);
 
-/* CBC mode 128-bit block, LSB, 32-bit block argument must be encrypted */
+/* CBC mode 128-bit block, LSB, 8-bit iv argument must be encrypted */
+
+#ifndef WORDS_BIGENDIAN
+#ifdef SILC_X86_64
+/* x86-64 */
+#define SILC_CBC_ENC_MSB_128_8(len, iv, src, dst, i, enc)		\
+do {									\
+  SILC_ASSERT((len & (16 - 1)) == 0);					\
+  if (len & (16 - 1))							\
+    return FALSE;							\
+  									\
+  for (i = 0; i < len; i += 16) {					\
+    *(SilcUInt64 *)iv ^= *(SilcUInt64 *)src;				\
+    *(SilcUInt64 *)(iv + 8) ^= *(SilcUInt64 *)(src + 8);		\
+									\
+    enc;								\
+									\
+    *(SilcUInt64 *)dst = *(SilcUInt64 *)iv;				\
+    *(SilcUInt64 *)(dst + 8) = *(SilcUInt64 *)(iv + 8);			\
+									\
+    dst += 16;								\
+    src += 16;								\
+  }									\
+} while(0)
+#else /* !SILC_X86_64 */
+/* x86 */
+#define SILC_CBC_ENC_MSB_128_8(len, iv, src, dst, i, enc)		\
+do {									\
+  SILC_ASSERT((len & (16 - 1)) == 0);					\
+  if (len & (16 - 1))							\
+    return FALSE;							\
+  									\
+  for (i = 0; i < len; i += 16) {					\
+    *(SilcUInt32 *)iv ^= *(SilcUInt32 *)src;				\
+    *(SilcUInt32 *)(iv + 4) ^= *(SilcUInt32 *)(src + 4);		\
+    *(SilcUInt32 *)(iv + 8) ^= *(SilcUInt32 *)(src + 8);		\
+    *(SilcUInt32 *)(iv + 12) ^= *(SilcUInt32 *)(src + 12);		\
+									\
+    enc;								\
+									\
+    memcpy(dst, iv, 16);						\
+    dst += 16;								\
+    src += 16;								\
+  }									\
+} while(0)
+#endif /* SILC_X86_64 */
+#else /* WORDS_BIGENDIAN */
+/* big-endian machines */
+#define SILC_CBC_ENC_MSB_128_8(len, iv, src, dst, i, enc)		\
+do {									\
+  SilcUInt32 tmp[4], tmp2[4];						\
+									\
+  SILC_ASSERT((len & (16 - 1)) == 0);					\
+  if (len & (16 - 1))							\
+    return FALSE;							\
+  									\
+  for (i = 0; i < len; i += 16) {					\
+    SILC_GET32_MSB(tmp[0], &iv[0]);					\
+    SILC_GET32_MSB(tmp[1], &iv[4]);					\
+    SILC_GET32_MSB(tmp[2], &iv[8]);					\
+    SILC_GET32_MSB(tmp[3], &iv[12]);					\
+									\
+    SILC_GET32_MSB(tmp2[0], &src[0]);					\
+    SILC_GET32_MSB(tmp2[1], &src[4]);					\
+    SILC_GET32_MSB(tmp2[2], &src[8]);					\
+    SILC_GET32_MSB(tmp2[3], &src[12]);					\
+									\
+    tmp[0] = tmp[0] ^ tmp2[0];						\
+    tmp[1] = tmp[1] ^ tmp2[1];						\
+    tmp[2] = tmp[2] ^ tmp2[2];						\
+    tmp[3] = tmp[3] ^ tmp2[3];						\
+									\
+    SILC_PUT32_MSB(tmp[0], &iv[0]);					\
+    SILC_PUT32_MSB(tmp[1], &iv[4]);					\
+    SILC_PUT32_MSB(tmp[2], &iv[8]);					\
+    SILC_PUT32_MSB(tmp[3], &iv[12]);					\
+									\
+    enc;								\
+									\
+    memcpy(dst, iv, 16);						\
+    dst += 16;								\
+    src += 16;								\
+  }									\
+} while(0)
+#endif /* !WORDS_BIGENDIAN */
+
+/* CBC mode 128-bit block, MSB, 32-bit block argument must be encrypted */
 
 #define SILC_CBC_ENC_LSB_128_32(len, iv, block, src, dst, i, enc)	\
 do {									\
@@ -159,6 +245,100 @@ do {									\
   SILC_PUT32_MSB(block[2], &iv[8]);					\
   SILC_PUT32_MSB(block[3], &iv[12]);					\
 } while(0)
+
+/* CBC mode 128-bit block, LSB, 8-bit src argument must be decrypted
+   to dst. */
+
+#ifndef WORDS_BIGENDIAN
+#ifdef SILC_X86_64
+/* x86-64 */
+#define SILC_CBC_DEC_MSB_128_8(len, iv, prev, src, dst, i, dec)		\
+{									\
+  SILC_ASSERT((len & (16 - 1)) == 0);					\
+  if (len & (16 - 1))							\
+    return FALSE;							\
+  									\
+  for (i = 0; i < len; i += 16) {					\
+    *(SilcUInt64 *)prev = *(SilcUInt64 *)src;				\
+    *(SilcUInt64 *)(prev + 8) = *(SilcUInt64 *)(src + 8);		\
+									\
+    dec;								\
+									\
+    *(SilcUInt64 *)dst ^= *(SilcUInt64 *)iv;				\
+    *(SilcUInt64 *)(dst + 8) ^= *(SilcUInt64 *)(iv + 8);		\
+    *(SilcUInt64 *)iv = *(SilcUInt64 *)prev;				\
+    *(SilcUInt64 *)(iv + 8) = *(SilcUInt64 *)(prev + 8);		\
+									\
+    dst += 16;								\
+    src += 16;								\
+  }									\
+} while(0)
+#else /* !SILC_X86_64 */
+/* x86 */
+#define SILC_CBC_DEC_MSB_128_8(len, iv, prev, src, dst, i, dec)		\
+do {									\
+  SILC_ASSERT((len & (16 - 1)) == 0);					\
+  if (len & (16 - 1))							\
+    return FALSE;							\
+  									\
+  for (i = 0; i < len; i += 16) {					\
+    memcpy(prev, src, 16);						\
+									\
+    dec;								\
+									\
+    *(SilcUInt32 *)dst ^= *(SilcUInt32 *)iv;				\
+    *(SilcUInt32 *)(dst + 4) ^= *(SilcUInt32 *)(iv + 4);		\
+    *(SilcUInt32 *)(dst + 8) ^= *(SilcUInt32 *)(iv + 8);		\
+    *(SilcUInt32 *)(dst + 12) ^= *(SilcUInt32 *)(iv + 12);		\
+    memcpy(iv, prev, 16);						\
+									\
+    dst += 16;								\
+    src += 16;								\
+  }									\
+} while(0)
+#endif /* SILC_X86_64 */
+#else /* WORDS_BIGENDIAN */
+/* big-endian machines */
+#define SILC_CBC_DEC_MSB_128_8(len, iv, prev, src, dst, i, dec)		\
+do {									\
+  SilcUInt32 tmp2[4], tmp3[4];						\
+									\
+  SILC_ASSERT((len & (16 - 1)) == 0);					\
+  if (len & (16 - 1))							\
+    return FALSE;							\
+  									\
+  for (i = 0; i < len; i += 16) {					\
+    memcpy(prev, src, 16);						\
+									\
+    dec;								\
+									\
+    SILC_GET32_MSB(tmp2[0], &iv[0]);					\
+    SILC_GET32_MSB(tmp2[1], &iv[4]);					\
+    SILC_GET32_MSB(tmp2[2], &iv[8]);					\
+    SILC_GET32_MSB(tmp2[3], &iv[12]);					\
+									\
+    SILC_GET32_MSB(tmp3[0], &dst[0]);					\
+    SILC_GET32_MSB(tmp3[1], &dst[4]);					\
+    SILC_GET32_MSB(tmp3[2], &dst[8]);					\
+    SILC_GET32_MSB(tmp3[3], &dst[12]);					\
+									\
+    tmp2[0] = tmp3[0] ^ tmp2[0];					\
+    tmp2[1] = tmp3[1] ^ tmp2[1];					\
+    tmp2[2] = tmp3[2] ^ tmp2[2];					\
+    tmp2[3] = tmp3[3] ^ tmp2[3];					\
+									\
+    SILC_PUT32_MSB(tmp2[0], &dst[0]);					\
+    SILC_PUT32_MSB(tmp2[1], &dst[4]);					\
+    SILC_PUT32_MSB(tmp2[2], &dst[8]);					\
+    SILC_PUT32_MSB(tmp2[3], &dst[12]);					\
+									\
+    memcpy(iv, prev, 16);						\
+									\
+    dst += 16;								\
+    src += 16;								\
+  }									\
+} while(0)
+#endif /* !WORDS_BIGENDIAN */
 
 /* CBC mode 128-bit block, MSB, decrypt block to block_dec. */
 
