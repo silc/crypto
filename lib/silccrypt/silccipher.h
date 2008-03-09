@@ -17,13 +17,29 @@
 
 */
 
-/****h* silccrypt/SILC Cipher Interface
+/****h* silccrypt/Cipher Interface
  *
  * DESCRIPTION
  *
  * This is the interface for cipher functions.  It provides cipher
  * registering and unregistering routines, encryption and decryption
  * routines.
+ *
+ * EXAMPLE
+ *
+ * // Allocate AES-128 cipher in CBC mode
+ * SilcCipher aes;
+ *
+ * silc_cipher_alloc(SILC_CIPHER_AES_128_CBC, &aes);
+ *
+ * // Set key for encryption, key length must in bits
+ * silc_cipher_set_key(aes, key, key_len * 8, TRUE);
+ *
+ * // Set IV
+ * silc_cipher_set_iv(aes, iv);
+ *
+ * // Encrypt data
+ * silc_cipher_encrypt(aes, src, dst, len, NULL);
  *
  ***/
 
@@ -125,7 +141,7 @@ typedef struct SilcCipherStruct *SilcCipher;
 #define SILC_CIPHER_NONE                 "none"
 /***/
 
-/****d* silccrypt/Cipher Algorithms
+/****d* silccrypt/Cipher-Algorithms
  *
  * NAME
  *
@@ -292,10 +308,12 @@ SilcBool silc_cipher_unregister_all(void);
  *    argument. The caller must set the key to the cipher after this
  *    function has returned by calling the silc_cipher_set_key.
  *
+ *    See Ciphers for supported ciphers.
+ *
  ***/
 SilcBool silc_cipher_alloc(const char *name, SilcCipher *new_cipher);
 
-/****f* silccrypt/silc_cipher_alloc
+/****f* silccrypt/silc_cipher_alloc_full
  *
  * SYNOPSIS
  *
@@ -307,6 +325,8 @@ SilcBool silc_cipher_alloc(const char *name, SilcCipher *new_cipher);
  *
  *    Same as silc_cipher_alloc but takes the cipher algorithm name,
  *    key length and mode as separate arguments.
+ *
+ *    See Cipher-Algorithms for supported algorithms.
  *
  ***/
 SilcBool silc_cipher_alloc_full(const char *alg_name, SilcUInt32 key_len,

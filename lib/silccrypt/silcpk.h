@@ -4,7 +4,7 @@
 
   Author: Pekka Riikonen <priikone@silcnet.org>
 
-  Copyright (C) 1997 - 2007 Pekka Riikonen
+  Copyright (C) 1997 - 2008 Pekka Riikonen
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 
 */
 
-/****h* silccrypt/SILC Public Key Interface
+/****h* silccrypt/SILC Interface
  *
  * DESCRIPTION
  *
@@ -29,7 +29,7 @@
 #ifndef SILCPK_H
 #define SILCPK_H
 
-/****s* silccrypt/SilcPubkeyAPI/SilcPublicKeyIdentifier
+/****s* silccrypt/SilcPublicKeyIdentifier
  *
  * NAME
  *
@@ -54,7 +54,7 @@ typedef struct SilcPublicKeyIdentifierObject {
 } *SilcPublicKeyIdentifier, SilcPublicKeyIdentifierStruct;
 /***/
 
-/****s* silccrypt/SilcPubkeyAPI/SilcSILCPublicKey
+/****s* silccrypt/SilcSILCPublicKey
  *
  * NAME
  *
@@ -76,7 +76,7 @@ typedef struct SilcSILCPublicKeyStruct {
 } *SilcSILCPublicKey;
 /***/
 
-/****s* silccrypt/SilcPubkeyAPI/SilcSILCPrivateKey
+/****s* silccrypt/SilcSILCPrivateKey
  *
  * NAME
  *
@@ -95,7 +95,7 @@ typedef struct SilcSILCPrivateKeyStruct {
 } *SilcSILCPrivateKey;
 /***/
 
-/****f* silccrypt/SilcPubkeyAPI/silc_pkcs_silc_generate_key
+/****f* silccrypt/silc_pkcs_silc_generate_key
  *
  * SYNOPSIS
  *
@@ -109,8 +109,8 @@ typedef struct SilcSILCPrivateKeyStruct {
  * DESCRIPTION
  *
  *    Generate a new SILC key pair of the algorithm type `algorithm' with
- *    the key length in bits of `bits_key_len'.  The `scheme' may be NULL.
- *    Returns FALSE if key generation failed.
+ *    the key length in bits of `bits_key_len'.  Returns FALSE if key
+ *    generation failed.
  *
  * EXAMPLE
  *
@@ -126,7 +126,7 @@ SilcBool silc_pkcs_silc_generate_key(const char *algorithm,
 				     SilcPublicKey *ret_public_key,
 				     SilcPrivateKey *ret_private_key);
 
-/****f* silccrypt/SilcPubkeyAPI/silc_pkcs_silc_encode_identifier
+/****f* silccrypt/silc_pkcs_silc_encode_identifier
  *
  * SYNOPSIS
  *
@@ -151,7 +151,7 @@ char *silc_pkcs_silc_encode_identifier(SilcStack stack,
 				       char *org, char *country,
 				       char *version);
 
-/****f* silccrypt/SilcPubkeyAPI/silc_pkcs_silc_decode_identifier
+/****f* silccrypt/silc_pkcs_silc_decode_identifier
  *
  * SYNOPSIS
  *
@@ -168,7 +168,7 @@ char *silc_pkcs_silc_encode_identifier(SilcStack stack,
 SilcBool silc_pkcs_silc_decode_identifier(const char *identifier,
 					  SilcPublicKeyIdentifier ident);
 
-/****f* silccrypt/SilcPubkeyAPI/silc_pkcs_silc_public_key_version
+/****f* silccrypt/silc_pkcs_silc_public_key_version
  *
  * SYNOPSIS
  *

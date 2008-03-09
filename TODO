@@ -29,6 +29,8 @@ Crypto Library, lib/silccrypt/
 
  o Global RNG must be changed to use SILC Global API.
 
+ o Global cipher, hash, mac, and pkcs tables must use SILC Global API.
+
  o Add FIPS compliant RNG.
 
  o Implement the defined SilcDH API.  The definition is in
@@ -36,11 +38,15 @@ Crypto Library, lib/silccrypt/
    be accelerated.  Also take into account that it could use elliptic
    curves.
 
+ o Add Elgamal.
+
  o Add ECDSA support.
 
  o Add ECDH support.
 
  o Add PKCS#1 RSAES-OAEP and RSASSA-PSS.
+
+ o Add GCM mode.
 
  o Do GCC vs ICC benchmarks of all key algorithms.
 
@@ -105,38 +111,24 @@ SKR Library, lib/silcskr/
    file.  Add support for exporting the repository (different formats for
    different key types?).
 
- o Change the entire silc_skr_find API.  Remove SilcSKRFind and just simply
-   add the find constraints as variable argument list to silc_skr_find, eg:
+ o Add find rule AND and OR.  The default is always AND.  Add
+   silc_skr_find_set_rule.
 
-  silc_skr_find(skr, schedule, callback, context,
-		SILC_SKR_FIND_PUBLIC_KEY, public_key,
-		SILC_SKR_FIND_COUNTRY, "FI",
-		SILC_SKR_FIND_USAGE, SILC_SKR_USAGE_AUTH,
-		SILC_SKR_FIND_END);
+ o Add silc_skr_find_add_search_file that can be used to add a file to
+   search for the public keys.  More than one can be set.  Add support
+   for searching keys from file.
 
-   NULL argument would be ignored and skipped.
-
- o Add OR logical rule in addition of the current default AND, eg:
-
-  // Found key(s) MUST have this public key AND this country.
-  silc_skr_find(skr, schedule, callback, context,
-		SILC_SKR_FIND_RULE_AND,
-		SILC_SKR_FIND_PUBLIC_KEY, public_key,
-		SILC_SKR_FIND_COUNTRY, "FI",
-		SILC_SKR_FIND_END);
-
-  // Found key(s) MUST have this public key OR this key context
-  silc_skr_find(skr, schedule, callback, context,
-		SILC_SKR_FIND_RULE_OR,
-		SILC_SKR_FIND_PUBLIC_KEY, public_key,
-		SILC_SKR_FIND_CONTEXT, key_context,
-		SILC_SKR_FIND_END);
+ o Add silc_skr_find_add_search_dir that can be used to add a directory to
+   search for the public keys.  More than one can be set.  Add support
+   for seraching keys from directory.
 
  o SilcStack to SKR API.
 
 
 SILC Accelerator Library
 ========================
+
+ o Diffie-Hellman acceleration to SILC Accelerator API.
 
  o Diffie-Hellman software acceleration.
 
@@ -145,6 +137,10 @@ SILC Accelerator Library
 
  o VIA Padlock support. See http://www.logix.cz/michal/devel/padlock/ and
    Gladman's code.
+
+ o Implement GCM software acceleration.
+
+ o Add hash function acceleration to SILC Accelerator API.
 
  o SILC Accelerator API.  Provides generic way to use different kind of
    accelerators.  Basically implements SILC PKCS API so that SilcPublicKey

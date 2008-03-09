@@ -28,7 +28,7 @@
 /************************** Types and definitions ***************************/
 
 /* Software accelerator operations */
-const SilcAcceleratorStruct softacc =
+const SilcAcceleratorStruct silc_softacc =
 {
   "softacc", silc_softacc_init, silc_softacc_uninit,
 #ifdef SILC_DIST_SOFTACC_PKCS

@@ -87,51 +87,67 @@
  *
  * "min_threads"
  *
- *  The minimum amount of threads that the softacc will always run.  If
- *  this isn't given the default number is 0 (does not start any threads
- *  when initialized).
+ * The minimum amount of threads that the softacc will always run.  If
+ * this isn't given the default number is 0 (does not start any threads
+ * when initialized).
  *
  * "max_threads"
  *
- *  The maximum amount of threads the software accelerator can use.  If
- *  you are using the softacc only for accelerating public key and private
- *  key operations this number should be the number of CPU cores in your
- *  machine.  If you are using it also for accelerating ciphers this number
- *  may need to be fairly large.  Each acclerated cipher will reserve
- *  "cipher_threads" many threads from the softacc.  Always leave some
- *  threads free for the public key and private key acceleration to work.
- *  If this option is not given the default number is 4.
+ * The maximum amount of threads the software accelerator can use.  If
+ * you are using the softacc only for accelerating public key and private
+ * key operations this number should be the number of CPU cores in your
+ * machine.  If you are using it also for accelerating ciphers this number
+ * may need to be fairly large.  Each acclerated cipher will reserve
+ * "cipher_threads" many threads from the softacc.  Always leave some
+ * threads free for the public key and private key acceleration to work.
+ * If this option is not given the default number is 4.
  *
  * "cipher_threads"
  *
- *  The number of threads each accelerated cipher will use.  Note that,
- *  each accelerated cipher will reserve this many threads from the softacc.
- *  The "max_threads" will determine the final maximum number of threads
- *  the softacc can use.  If the "max_threads" limit is reached no more
- *  ciphers can be accelerated (also note that if this happens, public key
- *  and private key acceleration does not work anymore).  The threads are
- *  reserved as long as the cipher is accelerated.  If this option is not
- *  given the default number is 2.
+ * The number of threads each accelerated cipher will use.  Note that,
+ * each accelerated cipher will reserve this many threads from the softacc.
+ * The "max_threads" will determine the final maximum number of threads
+ * the softacc can use.  If the "max_threads" limit is reached no more
+ * ciphers can be accelerated (also note that if this happens, public key
+ * and private key acceleration does not work anymore).  The threads are
+ * reserved as long as the cipher is accelerated.  If this option is not
+ * given the default number is 2.
  *
  * "cipher_blocks"
  *
- *  The number of cipher blocks the softacc will pre-compute.  Each cipher
- *  block consumes 16 or 8 bytes of memory, depending on the size of the
- *  actual cipher block size.  This value can be used to tweak the
- *  performance of the softacc.  If this option is not given the default
- *  number is 4096.  The number must be multiple of 16.
+ * The number of cipher blocks the softacc will pre-compute.  Each cipher
+ * block consumes 16 or 8 bytes of memory, depending on the size of the
+ * actual cipher block size.  This value can be used to tweak the
+ * performance of the softacc.  If this option is not given the default
+ * number is 4096.  The number must be multiple of 16.
  *
  * "cipher_streams"
  *
- *  The number of pre-computation streams each accelerated cipher will use.
- *  Each stream will use "cipher_blocks" many blocks in the stream.  This
- *  number can be used to tweak the performance of the softacc.  If this
- *  option is not given the default number is 2 * "cipher_threads".
+ * The number of pre-computation streams each accelerated cipher will use.
+ * Each stream will use "cipher_blocks" many blocks in the stream.  This
+ * number can be used to tweak the performance of the softacc.  If this
+ * option is not given the default number is 2 * "cipher_threads".
  *
  * EXAMPLE
  *
  * // Initialize the software accelerator.
- * silc_acc_init(SILC_SOFTACC, "min_threads", 2, "max_threads", 8, NULL);
+ * silc_acc_init(SILC_SOFTACC, NULL, "min_threads", 2, "max_threads", 8, NULL);
+ *
+ * // Accelerate cipher
+ * SilcCipher acc_cipher;
+ *
+ * acc_cipher = silc_acc_cipher(SILC_SOFTACC, cipher);
+ * silc_cipher_set_key(acc_cipher, key, key_len, TRUE);
+ * silc_cipher_set_iv(acc_cipher, iv);
+ *
+ * // Encrypt with the accelerated cipher
+ * silc_cipher_encrypt(acc_cipher, src, dst, len, NULL);
+ *
+ * // Free accelerated cipher
+ * silc_cipher_free(acc_cipher);
+ *
+ * // Free the original associated cipher
+ * silc_cipher_free(cipher);
  *
  ***/
 
@@ -142,7 +158,7 @@
  *
  * NAME
  *
- *    SILC_SOFTACC
+ *    silc_softacc
  *
  * DESCRIPTION
  *
@@ -166,7 +182,7 @@
  *    silc_acc_init(SILC_SOFTACC, "min_threads", 2, "max_threads", 8, NULL);
  *
  ***/
-extern DLLAPI const SilcAcceleratorStruct softacc;
+extern DLLAPI const SilcAcceleratorStruct silc_softacc;
 
 /****d* silcacc/SILC_SOFTACC
  *
@@ -176,10 +192,10 @@ extern DLLAPI const SilcAcceleratorStruct softacc;
  *
  * DESCRIPTION
  *
- *    The name of the software accelerator.
+ *    Softacc context macro that can be used with silc_acc_init.
  *
  ***/
-#define SILC_SOFTACC (SilcAccelerator)&softacc
+#define SILC_SOFTACC (SilcAccelerator)&silc_softacc
 
 /****d* silcacc/SILC_SOFTACC_NAME
  *

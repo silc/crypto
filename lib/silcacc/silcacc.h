@@ -133,7 +133,8 @@ SilcAccelerator silc_acc_find(const char *name);
  *
  * EXAMPLE
  *
- *    silc_acc_init(softacc, "min_threads", 2, "max_threads", 16, NULL);
+ *    silc_acc_init(softacc, schedule,
+ *                  "min_threads", 2, "max_threads", 16, NULL);
  *
  ***/
 SilcBool silc_acc_init(SilcAccelerator acc, SilcSchedule schedule, ...);

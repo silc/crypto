@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./runtime.css" type="text/css" />
+<title>SILC Runtime Toolkit</title>
+</head>
+<body>
+
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Runtime Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+</div> <!-- navigation -->
+<div id="content">
+<h3>Introduction</h3>
+<p>
+SILC Runtime Toolkit (SRT) provides useful utility functions for
+application programmers.  SRT can be used as the sole and main runtime
+in any application.  It provides application main loop, hash table, lists,
+atomic operations, threads, locks, queues, file descriptor stream, socket
+stream, network routines, a finite state machine, memory pool, random
+number generator, buffers, regular expressions, and many many other
+features.
+</p>
+
+<p>
+SRT natively supports multiple platforms; Unix/Linux, Windows, Mac OS X
+and Symbian OS, and all APIs work identically or nearly identically on all
+support platforms.  The SRT does not have any special third party
+dependencies.  On most Unix/Linux platforms only external dependency is
+POSIX threads library.  On Windows and Symbian OS no special dependencies
+exist.
+ </p>
+
+<p>
+SRT and all of its APIs are entirely reentrant as long as different
+context is used in each thread.  None of the APIs use global or static
+variables, or access shared data without locking.  Some APIs are also
+completely thread safe and can be freely used in multithreaded environment
+without restrictions.  The Toolkit Reference Manual will always specify
+which API is thread safe.
+</p>
+
+</div> <!-- content -->
+
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Runtime Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+ </tr>
+</table>
+</div>
+
+</body>
+</html>

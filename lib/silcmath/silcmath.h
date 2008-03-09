@@ -17,7 +17,7 @@
 
 */
 
-/****h* silcmath/SILC Math Interface
+/****h* silcmath/Math Interface
  *
  * DESCRIPTION
  *

@@ -92,7 +92,7 @@ typedef enum {
   SILC_SKR_USAGE_IDENTIFICATION        = 0x0008,  /* Identifying key owner */
   SILC_SKR_USAGE_SERVICE_AUTHORIZATION = 0x0010,  /* Service authorization */
 
-  /* From 0x0100 reserved for private/application use. */
+  /* 0x0200 - 0x8000 reserved for private/application use. */
 } SilcSKRKeyUsage;
 /***/
 
@@ -427,8 +427,8 @@ SilcBool silc_skr_find_set_realname(SilcSKRFind find, const char *realname);
  *
  * DESCRIPTION
  *
- *    Sets email address as search constraint.  This specific address must be
- *    present in the key.
+ *    Sets email address (user FQDN) as search constraint.  This specific
+ *    address must be present in the key.
  *
  *    This may be used with SILC_PKCS_SILC PKCS type only.
  *

@@ -17,7 +17,7 @@
 
 */
 
-/****h* silccrypt/SILC PKCS1 Interface
+/****h* silccrypt/PKCS#1 Interface
  *
  * DESCRIPTION
  *

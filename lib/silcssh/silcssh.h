@@ -17,7 +17,7 @@
 
 */
 
-/****h* silcssh/SILC SSH Interface
+/****h* silcssh/SSH Interface
  *
  * DESCRIPTION
  *
@@ -87,6 +87,7 @@ typedef enum {
   SILC_SSH_KEY_OPENSSH   = 1,	   /* OpenSSH public/private key (default) */
   SILC_SSH_KEY_SSH2      = 2,	   /* SSH2 public key, RFC 4716 */
 } SilcSshKeyType;
+/***/
 
 /****s* silcssh/SilcSshPublicKey
  *

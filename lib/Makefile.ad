@@ -42,7 +42,8 @@ else
 LIBTOOL_OPTS= -release $(CRYPTO_BASE_VERSION) -rpath $(DESTDIR)$(libdir)
 endif
 LIBTOOL_CRYPTO_VERSION = \
-   -version-info $(CRYPTO_CURRENT):$(CRYPTO_REVISION):$(CRYPTO_AGE)
+   -version-info $(CRYPTO_CURRENT):$(CRYPTO_REVISION):$(CRYPTO_AGE) \
+   -export-symbols-regex '^silc_'
 else
 LIBTOOL_OPTS=
 LIBTOOL_CRYPTO_VERSION =

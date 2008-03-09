@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./crypto.css" type="text/css" />
+<title>SILC Crypto Toolkit</title>
+</head>
+<body>
+
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+</div> <!-- navigation -->
+<div id="content">
+<h2>SILC Crypto Toolkit Reference Manual</h2>
+<p>
+Version: @VERSION@<br />
+Copyright &copy; 1997 - 2008 The SILC Project<br />
+Updated: @DATE@
+</p>
+<p>
+Welcome to the SILC Crypto Toolkit Reference Manual.  The manual is a
+complete developer guide and reference for the application programmer.
+The manual is intended for programmers who would like to use the SILC
+Crypto Toolkit as their primary cryptographic library in their application.</p>
+<p>
+The application programming interfaces are automatically generated from the
+Toolkit sources, and the documentation is constantly evolving.  New versions
+of the Toolkit always delivers the latest version of this reference manual.
+</p>
+
+<p class="item_name">GUIDES</p>
+<ul class="toc_entries">
+
+<li class="toc_entries"><a href="intro.html">Introduction</a><br />
+<li class="toc_entries"><a href="platforms.html">Supported Platforms</a>
+<li class="toc_entries"><a href="building.html">Building the Toolkit</a>
+</ul>
+
+<p class="item_name">TOOLKIT REFERENCE</p>
+<ul class="toc_entries">
+
+<li class="toc_entries"><a href="./silccrypto_hsilccrypt2FCrypto20Toolkit20Interface.html">Crypto Toolkit Interface</a>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FASN2E120Interface.html">ASN.1 Interface</a>
+<li class="toc_entries"><a href="./silcber_hsilcasn12FBER20Interface.html#robo60"  >BER Interface</a>
+<li class="toc_entries"><a href="./silccipher_hsilccrypt2FCipher20Interface.html">Cipher Interface</a>
+<li class="toc_entries"><a href="./silcacc_hsilcacc2FCrypto20Accelerator20Interface.html">Crypto Accelerator Interface</a>
+<li class="toc_entries"><a href="./silchash_hsilccrypt2FHash20Function20Interface.html">Hash Function Interface</a>
+<li class="toc_entries"><a href="./silcskr_hsilcskr2FKey20Manager20and20Repository.html">Key Manager and Repository</a>
+<li class="toc_entries"><a href="./silcmac_hsilccrypt2FMAC20Interface.html">MAC Interface</a>
+<li class="toc_entries"><a href="./silcmath_hsilcmath2FMath20Interface.html">Math Interface</a>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2FMP20Integer20Interface.html">MP Integer Interface</a>
+<li class="toc_entries"><a href="./silcpgp_hsilcpgp2FOpenPGP20Interface.html">OpenPGP Interface</a>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2FPKCS20Interface.html">PKCS Interface</a>
+<li class="toc_entries"><a href="./silcpkcs1_hsilccrypt2FPKCS23120Interface.html">PKCS#1 Interface</a>
+<li class="toc_entries"><a href="./silcrng_hsilccrypt2FRNG20Interface.html">RNG Interface</a>
+<li class="toc_entries"><a href="./silcpk_hsilccrypt2FSILC20Interface.html">SILC Interface</a>
+<li class="toc_entries"><a href="./softacc_hsilcacc2FSoftware20Accelerator.html">Software Accelerator</a>
+<li class="toc_entries"><a href="./silcssh_hsilcssh2FSSH20Interface.html">SSH Interface</a>
+
+<li class="toc_entries"><a href="masterindex.html">Toolkit Index</a><br />
+</ul>
+
+</div> <!-- content -->
+
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+ </tr>
+</table>
+</div>
+
+</body>
+</html>

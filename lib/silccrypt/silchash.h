@@ -20,14 +20,32 @@
 #ifndef SILCHASH_H
 #define SILCHASH_H
 
-/****h* silccrypt/SILC Hash Interface
+/****h* silccrypt/Hash Function Interface
  *
  * DESCRIPTION
  *
- *    This is the interface for hash functions which are used to create
- *    message digests.  The routines are used in various cryptographic
- *    operations.  SILC Hash Interface is used for example by the
- *    SILC HMAC Interface (SilcHmac).
+ * This is the interface for hash functions which are used to create message
+ * digests.  The routines are used in various cryptographic operations.
+ *
+ * EXAMPLE
+ *
+ * SilcHash sha1hash;
+ *
+ * // Allocate SHA-1 hash function
+ * silc_hash_alloc(SILC_HASH_SHA1, &sha1hash);
+ *
+ * // Hash some data
+ * unsigned char digest[SILC_HASH_MAXLEN];
+ *
+ * silc_hash_init(sha1hash);
+ * silc_hash_update(sha1hash, "foobar", 6);
+ * silc_hash_final(sha1hash, digest);
+ *
+ * // Same can be done in one call also
+ * silc_hash_make(sha1hash, "foobar", 6, digest);
+ *
+ * // Free hash
+ * silc_hash_free(sha1hash);
  *
  ***/
 
@@ -66,6 +84,46 @@ typedef struct SilcHashStruct *SilcHash;
 #define SILC_HASH_MD5             "md5"		 /* MD5 */
 /***/
 
+/****d* silccrypt/Hash-OIDs
+ *
+ * NAME
+ *
+ *    Hash functions
+ *
+ * DESCRIPTION
+ *
+ *    Supported hash function OIDs.  These names can be given as argument
+ *    to silc_hash_alloc_by_oid.
+ *
+ * SOURCE
+ */
+#define SILC_HASH_OID_SHA256    "2.16.840.1.101.3.4.2.1"
+#define SILC_HASH_OID_SHA512    "2.16.840.1.101.3.4.2.3"
+#define SILC_HASH_OID_SHA1      "1.3.14.3.2.26"
+#define SILC_HASH_OID_MD5       "1.2.840.113549.2.5"
+/***/
+
+/****d* silccrypt/SILC_HASH_MAXLEN
+ *
+ * NAME
+ *
+ *    #define SILC_HASH_MAXLEN 64
+ *
+ * DESCRIPTION
+ *
+ *    Maximum size of digest any algorithm supported by SILC Crypto Toolkit
+ *    would produce.  You can use this to define static digest buffers and
+ *    safely use it with any hash function.
+ *
+ * EXAMPLE
+ *
+ *   unsigned char digest[SILC_HASH_MAXLEN];
+ *
+ *   silc_hash_make(hash, data, data_len, digest);
+ *
+ ***/
+#define SILC_HASH_MAXLEN 64
+
 /* Hash implementation object */
 typedef struct {
   char *name;
@@ -86,9 +144,6 @@ typedef struct {
 
 /* Default hash functions for silc_hash_register_default(). */
 extern DLLAPI const SilcHashObject silc_default_hash[];
-
-/* Max hash length */
-#define SILC_HASH_MAXLEN 64
 
 /* Macros */
 
@@ -186,6 +241,8 @@ SilcBool silc_hash_unregister_all(void);
  *    hash function is returned into `new_hash' pointer.  This function
  *    returns FALSE if such hash function does not exist.
  *
+ *    See Hashes for supported hash functions.
+ *
  ***/
 SilcBool silc_hash_alloc(const char *name, SilcHash *new_hash);
 
@@ -200,6 +257,8 @@ SilcBool silc_hash_alloc(const char *name, SilcHash *new_hash);
  *    Same as silc_hash_alloc but allocates the hash algorithm by the
  *    hash algorithm OID string indicated by `oid'. Returns FALSE if such
  *    hash function does not exist.
+ *
+ *    See Hash-OIDs for supported hash function OIDs.
  *
  ***/
 SilcBool silc_hash_alloc_by_oid(const char *oid, SilcHash *new_hash);

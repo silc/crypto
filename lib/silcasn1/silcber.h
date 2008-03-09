@@ -45,7 +45,8 @@
  *
  *    Defines the BER classes.
  *
- ***/
+ * SOURCE
+ */
 typedef enum {
   SILC_BER_CLASS_UNIVERSAL       = 0x00,   /* Universal */
   SILC_BER_CLASS_APPLICATION     = 0x01,   /* Application */
@@ -64,7 +65,8 @@ typedef enum {
  *
  *    Defines the BER encoding type.
  *
- ***/
+ * SOURCE
+ */
 typedef enum {
   SILC_BER_ENC_PRIMITIVE         = 0x00,
   SILC_BER_ENC_CONSTRUCTED       = 0x01,

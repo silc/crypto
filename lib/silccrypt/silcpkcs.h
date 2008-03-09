@@ -17,7 +17,7 @@
 
 */
 
-/****h* silccrypt/SILC PKCS Interface
+/****h* silccrypt/PKCS Interface
  *
  * DESCRIPTION
  *
@@ -25,6 +25,34 @@
  * public key cryptography related operations with different types of
  * public and private keys.  Support for loading and saving of different
  * types of public key and private keys are also provided.
+ *
+ * This interface is used to perform operations with public keys and private
+ * keys but the interface cannot be used to generate new key pairs.  Instead,
+ * PKCS implementations provide functions to generate key pairs.  Call
+ * silc_pkcs_silc_generate_key to generate SILC protocol key pair.  Call
+ * silc_ssh_generate_key to generate SSH2 protocol key pair.  Call
+ * silc_pgp_generate_key to generate OpenPGP key pair.
+ *
+ * EXAMPLE
+ *
+ * // Load public and private keys
+ * SilcPublicKey public_key;
+ * SilcPrivateKey private_key;
+ *
+ * silc_pkcs_load_public_key("pubkey.pub", SILC_PKCS_ANY, &public_key);
+ * silc_pkcs_load_private_key("privkey, prv", passphrase, passphrase_len,
+ *                            SILC_PKCS_ANY, &public_key);
+ *
+ * // Compute signature
+ * unsigned char dst[2048];
+ * SilcUInt32 sig_len;
+ *
+ * silc_pkcs_sign(private_key, src, src_len, dst, sizeof(dst), &sig_len,
+ *               TRUE, NULL, rng);
+ *
+ * // Free keys
+ * silc_pkcs_public_key_free(public_key);
+ * silc_pkcs_private_key_free(private_key);
  *
  ***/
 
@@ -57,7 +85,7 @@ typedef enum {
 } SilcPKCSType;
 /***/
 
-/****d* silccrypt/SilcPKCSAlgorithms
+/****d* silccrypt/PKCS-Algorithms
  *
  * NAME
  *
@@ -74,7 +102,7 @@ typedef enum {
 #define SILC_PKCS_ALG_DSA    "dsa"	   /* DSA algorithm */
 /***/
 
-/****d* silccrypt/SilcPKCSSchemes
+/****d* silccrypt/PKCS-Schemes
  *
  * NAME
  *
@@ -205,9 +233,9 @@ typedef enum {
  * DESCRIPTION
  *
  *    Encryption callback.  This callback is given as argument to the
- *    silc_pkcs_encrypt and the encrypted data is delivered to the caller
- *    in this callback.  The `encrypted' is the encrypted data.  If the
- *    `success' is FALSE the encryption operation failed.
+ *    silc_pkcs_encrypt_async and the encrypted data is delivered to the
+ *    caller in this callback.  The `encrypted' is the encrypted data.  If
+ *    the `success' is FALSE the encryption operation failed.
  *
  ***/
 typedef void (*SilcPKCSEncryptCb)(SilcBool success,
@@ -227,9 +255,9 @@ typedef void (*SilcPKCSEncryptCb)(SilcBool success,
  * DESCRIPTION
  *
  *    Decryption callback.  This callback is given as argument to the
- *    silc_pkcs_decrypt and the decrypted data is delivered to the caller
- *    in this callback.  The `decrypted' is the decrypted data.  If the
- *    `success' is FALSE the decryption operation failed.
+ *    silc_pkcs_decrypt_async and the decrypted data is delivered to the
+ *    caller in this callback.  The `decrypted' is the decrypted data.  If
+ *    the `success' is FALSE the decryption operation failed.
  *
  ***/
 typedef void (*SilcPKCSDecryptCb)(SilcBool success,
@@ -249,9 +277,9 @@ typedef void (*SilcPKCSDecryptCb)(SilcBool success,
  * DESCRIPTION
  *
  *    Signature callback.  This callback is given as argument to the
- *    silc_pkcs_sign and the digitally signed data is delivered to the caller
- *    in this callback.  The `signature' is the signature data.  If the
- *    `success' is FALSE the signature operation failed.
+ *    silc_pkcs_sign_async and the digitally signed data is delivered to
+ *    the caller in this callback.  The `signature' is the signature data.
+ *    If the `success' is FALSE the signature operation failed.
  *
  ***/
 typedef void (*SilcPKCSSignCb)(SilcBool success,
@@ -268,7 +296,7 @@ typedef void (*SilcPKCSSignCb)(SilcBool success,
  * DESCRIPTION
  *
  *    Verification callback.  This callback is given as argument to the
- *    silc_pkcs_verify and the result of the signature verification is
+ *    silc_pkcs_verify_async and the result of the signature verification is
  *    deliver to the caller in this callback.  If the `success' is FALSE
  *    the signature verification failed.
  *
@@ -378,146 +406,94 @@ SilcBool silc_pkcs_register_default(void);
  ***/
 SilcBool silc_pkcs_unregister_all(void);
 
-/****f* silccrypt/silc_pkcs_get_supported
+/****f* silccrypt/silc_pkcs_load_public_key
  *
  * SYNOPSIS
  *
- *    char *silc_pkcs_get_supported(void);
+ *    SilcBool silc_pkcs_load_public_key(const char *filename,
+ *                                       SilcPKCSType type,
+ *                                       SilcPublicKey *ret_public_key);
  *
  * DESCRIPTION
  *
- *    Returns comma separated list of supported PKCS algorithms.
+ *    Loads public key from file and allocates new public key.  Returns TRUE
+ *    if loading was successful.  If `type' is SILC_PKCS_ANY this attempts
+ *    to automatically detect the public key type.  If `type' is some other
+ *    PKCS type, the key is expected to be of that type.
  *
  ***/
-char *silc_pkcs_get_supported(void);
+SilcBool silc_pkcs_load_public_key(const char *filename,
+				   SilcPKCSType type,
+				   SilcPublicKey *ret_public_key);
 
-/****f* silccrypt/silc_pkcs_find_pkcs
+/****f* silccrypt/silc_pkcs_save_public_key
  *
  * SYNOPSIS
  *
- *    const SilcPKCSObject *silc_pkcs_get_pkcs(SilcPKCSType type);
+ *    SilcBool silc_pkcs_save_public_key(const char *filename,
+ *                                       SilcPublicKey public_key,
+ *                                       SilcPKCSFileEncoding encoding);
  *
  * DESCRIPTION
  *
- *    Finds PKCS context by the PKCS type.
+ *    Saves public key into file with specified encoding.  Returns FALSE
+ *    on error.
  *
  ***/
-const SilcPKCSObject *silc_pkcs_find_pkcs(SilcPKCSType type);
+SilcBool silc_pkcs_save_public_key(const char *filename,
+				   SilcPublicKey public_key,
+				   SilcPKCSFileEncoding encoding);
 
-/****f* silccrypt/silc_pkcs_find_algorithm
+/****f* silccrypt/silc_pkcs_load_private_key
  *
  * SYNOPSIS
  *
- *    const SilcPKCSAlgorithm *silc_pkcs_find_algorithm(const char *algorithm,
- *                                                      const char *scheme);
+ *    SilcBool silc_pkcs_load_private_key(const char *filename,
+ *                                        const unsigned char *passphrase,
+ *                                        SilcUInt32 passphrase_len,
+ *                                        SilcPKCSType type,
+ *                                        SilcPrivateKey *ret_private_key);
  *
  * DESCRIPTION
  *
- *    Finds PKCS algorithm context by the algorithm name `algorithm' and
- *    the algorithm scheme `scheme'.  The `scheme' may be NULL.  Usually
- *    this function is not needed unless you need low level access to the
- *    algorithm implementations.  Usually this is used when implementing
- *    support to new PKCS type.
+ *    Loads private key from file and allocates new private key.  Returns TRUE
+ *    if loading was successful.  The `passphrase' is used as decryption
+ *    key of the private key file, in case it is encrypted.  If `type' is
+ *    SILC_PKCS_ANY this attempts to automatically detect the private key type.
+ *    If `type' is some other PKCS type, the key is expected to be of that
+ *    type.
  *
  ***/
-const SilcPKCSAlgorithm *silc_pkcs_find_algorithm(const char *algorithm,
-						  const char *scheme);
+SilcBool silc_pkcs_load_private_key(const char *filename,
+				    const unsigned char *passphrase,
+				    SilcUInt32 passphrase_len,
+				    SilcPKCSType type,
+				    SilcPrivateKey *ret_private_key);
 
-/****f* silccrypt/silc_pkcs_get_pkcs
+/****f* silccrypt/silc_pkcs_save_private_key
  *
  * SYNOPSIS
  *
- *    const SilcPKCSObject *silc_pkcs_get_pkcs(void *key);
+ *    SilcBool silc_pkcs_save_private_key(const char *filename,
+ *                                        SilcPrivateKey private_key,
+ *                                        const unsigned char *passphrase,
+ *                                        SilcUInt32 passphrase_len,
+ *                                        SilcPKCSFileEncoding encoding,
+ *                                        SilcRng rng);
  *
  * DESCRIPTION
  *
- *    Returns the PKCS object from `key', which may be SilcPublicKey or
- *    SilcPrivateKey pointer.
+ *    Saves private key into file.  The private key is encrypted into
+ *    the file with the `passphrase' as a key, if PKCS supports encrypted
+ *    private keys.  Returns FALSE on error.
  *
  ***/
-const SilcPKCSObject *silc_pkcs_get_pkcs(void *key);
-
-/****f* silccrypt/silc_pkcs_get_algorithm
- *
- * SYNOPSIS
- *
- *    const SilcPKCSAlgorithm *silc_pkcs_get_algorithm(void *key);
- *
- * DESCRIPTION
- *
- *    Returns the PKCS algorithm object from `key', which may be SilcPublicKey
- *    or SilcPrivateKey pointer.
- *
- ***/
-const SilcPKCSAlgorithm *silc_pkcs_get_algorithm(void *key);
-
-/****f* silccrypt/silc_pkcs_get_name
- *
- * SYNOPSIS
- *
- *    const char *silc_pkcs_get_name(void *key);
- *
- * DESCRIPTION
- *
- *    Returns PKCS algorithm name from the `key', which may be SilcPublicKey
- *    or SilcPrivateKey pointer.
- *
- ***/
-const char *silc_pkcs_get_name(void *key);
-
-/****f* silccrypt/silc_pkcs_get_type
- *
- * SYNOPSIS
- *
- *    SilcPKCSType silc_pkcs_get_type(void *key);
- *
- * DESCRIPTION
- *
- *    Returns PKCS type from the `key', which may be SilcPublicKey or
- *    SilcPrivateKey pointer.
- *
- ***/
-SilcPKCSType silc_pkcs_get_type(void *key);
-
-/****f* silccrypt/silc_pkcs_public_key_get_pkcs
- *
- * SYNOPSIS
- *
- *    void *silc_pkcs_public_key_get_pkcs(SilcPKCSType type,
- *                                        SilcPublicKey public_key);
- *
- * DESCRIPTION
- *
- *    Returns the internal PKCS `type' specific public key context from the
- *    `public_key'.  The caller needs to explicitly type cast it to correct
- *    type.  Returns NULL on error.
- *
- *    For SILC_PKCS_SILC the returned context is SilcSILCPublicKey.
- *    For SILC_PKCS_SSH2 the returned context is SilcSshPublicKey.
- *
- ***/
-void *silc_pkcs_public_key_get_pkcs(SilcPKCSType type,
-				    SilcPublicKey public_key);
-
-/****f* silccrypt/silc_pkcs_private_key_get_pkcs
- *
- * SYNOPSIS
- *
- *    void *silc_pkcs_private_key_get_pkcs(SilcPKCSType type,
- *                                        SilcPublicKey public_key);
- *
- * DESCRIPTION
- *
- *    Returns the internal PKCS `type' specific private key context from the
- *    `private_key'.  The caller needs to explicitly type cast it to correct
- *    type.  Returns NULL on error.
- *
- *    For SILC_PKCS_SILC the returned context is SilcSILCPrivateKey.
- *    For SILC_PKCS_SSH2 the returned context is SilcSshPrivateKey.
- *
- ***/
-void *silc_pkcs_private_key_get_pkcs(SilcPKCSType type,
-				     SilcPrivateKey private_key);
+SilcBool silc_pkcs_save_private_key(const char *filename,
+				    SilcPrivateKey private_key,
+				    const unsigned char *passphrase,
+				    SilcUInt32 passphrase_len,
+				    SilcPKCSFileEncoding encoding,
+				    SilcRng rng);
 
 /****f* silccrypt/silc_pkcs_public_key_alloc
  *
@@ -557,7 +533,7 @@ SilcBool silc_pkcs_public_key_alloc(SilcPKCSType type,
  ***/
 void silc_pkcs_public_key_free(SilcPublicKey public_key);
 
-/****f* silccrypt/silc_pkcs_public_key_export
+/****f* silccrypt/silc_pkcs_public_key_encode
  *
  * SYNOPSIS
  *
@@ -906,94 +882,146 @@ SilcAsyncOperation silc_pkcs_verify_async(SilcPublicKey public_key,
 					  SilcPKCSVerifyCb verify_cb,
 					  void *context);
 
-/****f* silccrypt/silc_pkcs_load_public_key
+/****f* silccrypt/silc_pkcs_public_key_get_pkcs
  *
  * SYNOPSIS
  *
- *    SilcBool silc_pkcs_load_public_key(const char *filename,
- *                                       SilcPKCSType type,
- *                                       SilcPublicKey *ret_public_key);
+ *    void *silc_pkcs_public_key_get_pkcs(SilcPKCSType type,
+ *                                        SilcPublicKey public_key);
  *
  * DESCRIPTION
  *
- *    Loads public key from file and allocates new public key.  Returns TRUE
- *    if loading was successful.  If `type' is SILC_PKSC_ANY this attempts
- *    to automatically detect the public key type.  If `type' is some other
- *    PKCS type, the key is expected to be of that type.
+ *    Returns the internal PKCS `type' specific public key context from the
+ *    `public_key'.  The caller needs to explicitly type cast it to correct
+ *    type.  Returns NULL on error.
+ *
+ *    For SILC_PKCS_SILC the returned context is SilcSILCPublicKey.
+ *    For SILC_PKCS_SSH2 the returned context is SilcSshPublicKey.
  *
  ***/
-SilcBool silc_pkcs_load_public_key(const char *filename,
-				   SilcPKCSType type,
-				   SilcPublicKey *ret_public_key);
+void *silc_pkcs_public_key_get_pkcs(SilcPKCSType type,
+				    SilcPublicKey public_key);
 
-/****f* silccrypt/silc_pkcs_save_public_key
+/****f* silccrypt/silc_pkcs_private_key_get_pkcs
  *
  * SYNOPSIS
  *
- *    SilcBool silc_pkcs_save_public_key(const char *filename,
- *                                       SilcPublicKey public_key,
- *                                       SilcPKCSFileEncoding encoding);
+ *    void *silc_pkcs_private_key_get_pkcs(SilcPKCSType type,
+ *                                        SilcPublicKey public_key);
  *
  * DESCRIPTION
  *
- *    Saves public key into file with specified encoding.  Returns FALSE
- *    on error.
+ *    Returns the internal PKCS `type' specific private key context from the
+ *    `private_key'.  The caller needs to explicitly type cast it to correct
+ *    type.  Returns NULL on error.
+ *
+ *    For SILC_PKCS_SILC the returned context is SilcSILCPrivateKey.
+ *    For SILC_PKCS_SSH2 the returned context is SilcSshPrivateKey.
  *
  ***/
-SilcBool silc_pkcs_save_public_key(const char *filename,
-				   SilcPublicKey public_key,
-				   SilcPKCSFileEncoding encoding);
+void *silc_pkcs_private_key_get_pkcs(SilcPKCSType type,
+				     SilcPrivateKey private_key);
 
-/****f* silccrypt/silc_pkcs_load_private_key
+/****f* silccrypt/silc_pkcs_find_pkcs
  *
  * SYNOPSIS
  *
- *    SilcBool silc_pkcs_load_private_key(const char *filename,
- *                                        const unsigned char *passphrase,
- *                                        SilcUInt32 passphrase_len,
- *                                        SilcPKCSType type,
- *                                        SilcPrivateKey *ret_private_key);
+ *    const SilcPKCSObject *silc_pkcs_get_pkcs(SilcPKCSType type);
  *
  * DESCRIPTION
  *
- *    Loads private key from file and allocates new private key.  Returns TRUE
- *    if loading was successful.  The `passphrase' is used as decryption
- *    key of the private key file, in case it is encrypted.  If `type' is
- *    SILC_PKSC_ANY this attempts to automatically detect the private key type.
- *    If `type' is some other PKCS type, the key is expected to be of that
- *    type.
+ *    Finds PKCS context by the PKCS type.
  *
  ***/
-SilcBool silc_pkcs_load_private_key(const char *filename,
-				    const unsigned char *passphrase,
-				    SilcUInt32 passphrase_len,
-				    SilcPKCSType type,
-				    SilcPrivateKey *ret_private_key);
+const SilcPKCSObject *silc_pkcs_find_pkcs(SilcPKCSType type);
 
-/****f* silccrypt/silc_pkcs_save_private_key
+/****f* silccrypt/silc_pkcs_find_algorithm
  *
  * SYNOPSIS
  *
- *    SilcBool silc_pkcs_save_private_key(const char *filename,
- *                                        SilcPrivateKey private_key,
- *                                        const unsigned char *passphrase,
- *                                        SilcUInt32 passphrase_len,
- *                                        SilcPKCSFileEncoding encoding,
- *                                        SilcRng rng);
+ *    const SilcPKCSAlgorithm *silc_pkcs_find_algorithm(const char *algorithm,
+ *                                                      const char *scheme);
  *
  * DESCRIPTION
  *
- *    Saves private key into file.  The private key is encrypted into
- *    the file with the `passphrase' as a key, if PKCS supports encrypted
- *    private keys.  Returns FALSE on error.
+ *    Finds PKCS algorithm context by the algorithm name `algorithm' and
+ *    the algorithm scheme `scheme'.  The `scheme' may be NULL.  Usually
+ *    this function is not needed unless you need low level access to the
+ *    algorithm implementations.  Usually this is used when implementing
+ *    support to new PKCS type.
  *
  ***/
-SilcBool silc_pkcs_save_private_key(const char *filename,
-				    SilcPrivateKey private_key,
-				    const unsigned char *passphrase,
-				    SilcUInt32 passphrase_len,
-				    SilcPKCSFileEncoding encoding,
-				    SilcRng rng);
+const SilcPKCSAlgorithm *silc_pkcs_find_algorithm(const char *algorithm,
+						  const char *scheme);
+
+/****f* silccrypt/silc_pkcs_get_pkcs
+ *
+ * SYNOPSIS
+ *
+ *    const SilcPKCSObject *silc_pkcs_get_pkcs(void *key);
+ *
+ * DESCRIPTION
+ *
+ *    Returns the PKCS object from `key', which may be SilcPublicKey or
+ *    SilcPrivateKey pointer.
+ *
+ ***/
+const SilcPKCSObject *silc_pkcs_get_pkcs(void *key);
+
+/****f* silccrypt/silc_pkcs_get_algorithm
+ *
+ * SYNOPSIS
+ *
+ *    const SilcPKCSAlgorithm *silc_pkcs_get_algorithm(void *key);
+ *
+ * DESCRIPTION
+ *
+ *    Returns the PKCS algorithm object from `key', which may be SilcPublicKey
+ *    or SilcPrivateKey pointer.
+ *
+ ***/
+const SilcPKCSAlgorithm *silc_pkcs_get_algorithm(void *key);
+
+/****f* silccrypt/silc_pkcs_get_name
+ *
+ * SYNOPSIS
+ *
+ *    const char *silc_pkcs_get_name(void *key);
+ *
+ * DESCRIPTION
+ *
+ *    Returns PKCS algorithm name from the `key', which may be SilcPublicKey
+ *    or SilcPrivateKey pointer.
+ *
+ ***/
+const char *silc_pkcs_get_name(void *key);
+
+/****f* silccrypt/silc_pkcs_get_type
+ *
+ * SYNOPSIS
+ *
+ *    SilcPKCSType silc_pkcs_get_type(void *key);
+ *
+ * DESCRIPTION
+ *
+ *    Returns PKCS type from the `key', which may be SilcPublicKey or
+ *    SilcPrivateKey pointer.
+ *
+ ***/
+SilcPKCSType silc_pkcs_get_type(void *key);
+
+/****f* silccrypt/silc_pkcs_get_supported
+ *
+ * SYNOPSIS
+ *
+ *    char *silc_pkcs_get_supported(void);
+ *
+ * DESCRIPTION
+ *
+ *    Returns comma separated list of supported PKCS algorithms.
+ *
+ ***/
+char *silc_pkcs_get_supported(void);
 
 /****f* silccrypt/silc_hash_public_key
  *

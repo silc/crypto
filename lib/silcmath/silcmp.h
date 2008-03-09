@@ -17,7 +17,7 @@
 
 */
 
-/****h* silcmath/SILC MP Interface
+/****h* silcmath/MP Integer Interface
  *
  * DESCRIPTION
  *

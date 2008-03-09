@@ -1,0 +1,34 @@
+options:
+	--src ../../lib
+	--doc .
+	--html
+	--sectionnameonly
+	--syntaxcolors
+	--nopre
+	--no_subdirectories
+	--nosort
+	--index
+	--documenttitle "SILC Crypto Toolkit"
+	--multidoc
+	--one_file_per_header
+	--header_toc
+	--module_index_menu
+	--document_header header
+	--document_footer footer
+	--css crypto.css
+
+preformatted items:
+	EXAMPLE
+	SYNOPSIS
+	NAME
+
+ignore files:
+	Makefile*
+	tests
+	win32
+	symbian
+	*.h~
+	*.c
+	*.in
+	silcdh.h
+	silcdn.h

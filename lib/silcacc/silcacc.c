@@ -27,7 +27,7 @@ const SilcAcceleratorStruct *silc_default_accs[] =
 {
 #ifndef SILC_SYMBIAN
   /* Software accelerator */
-  &softacc,
+  &silc_softacc,
 #endif /* SILC_SYMBIAN */
   NULL
 };

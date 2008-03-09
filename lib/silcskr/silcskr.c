@@ -238,7 +238,7 @@ static SilcBool silc_skr_find_entry(SilcSKR skr,
 
   f.list = silc_dlist_init();
   if (!f.list) {
-    *status |= SILC_SKR_NO_MEMORY;
+    *status |= SILC_ERR_OUT_OF_MEMORY;
     return FALSE;
   }
   f.key_context = key_context;
@@ -251,7 +251,7 @@ static SilcBool silc_skr_find_entry(SilcSKR skr,
 			       silc_skr_find_foreach, &f);
 
   if (!silc_dlist_count(f.list)) {
-    *status |= SILC_SKR_NOT_FOUND;
+    *status |= SILC_ERR_NOT_FOUND;
     silc_dlist_uninit(f.list);
     return FALSE;
   }
@@ -315,7 +315,7 @@ static SilcBool silc_skr_results_and(SilcDList list, SilcResult *status,
   if (*results == NULL) {
     *results = silc_dlist_init();
     if (*results == NULL) {
-      *status |= SILC_SKR_NO_MEMORY;
+      *status |= SILC_ERR_OUT_OF_MEMORY;
       return FALSE;
     }
   }
@@ -348,7 +348,7 @@ static SilcBool silc_skr_results_and(SilcDList list, SilcResult *status,
   /* If results became empty, we did not find any key */
   if (!silc_dlist_count(*results)) {
     SILC_LOG_DEBUG(("Not all search constraints found"));
-    *status |= SILC_SKR_NOT_FOUND;
+    *status |= SILC_ERR_NOT_FOUND;
     return FALSE;
   }
 
@@ -1165,19 +1165,17 @@ SilcAsyncOperation silc_skr_find(SilcSKR skr, SilcSchedule schedule,
   while (silc_hash_table_get(&htl, &type, &ctx)) {
 
     /* SILC_SKR_FIND_USAGE is handled separately while searching the keys. */
-    if ((SilcSKRFindType)SILC_32_TO_PTR(type) == SILC_SKR_FIND_USAGE)
+    if (SILC_PTR_TO_32(type) == SILC_SKR_FIND_USAGE)
       continue;
 
 #if defined(SILC_DEBUG)
     memset(tmp, 0, sizeof(tmp));
-    silc_skr_type_string((SilcSKRFindType)SILC_32_TO_PTR(type),
-			 ctx, tmp, sizeof(tmp) - 1);
+    silc_skr_type_string(SILC_PTR_TO_32(type), ctx, tmp, sizeof(tmp) - 1);
     SILC_LOG_DEBUG(("Finding key by %s", tmp));
 #endif /* SILC_DEBUG */
 
     /* Find entries by this search constraint */
-    if (!silc_skr_find_entry(skr, &status,
-			     (SilcSKRFindType)SILC_32_TO_PTR(type),
+    if (!silc_skr_find_entry(skr, &status, SILC_PTR_TO_32(type),
 			     ctx, &list, NULL, SILC_PTR_TO_32(usage))) {
       SILC_LOG_DEBUG(("Not found"));
       if (results) {

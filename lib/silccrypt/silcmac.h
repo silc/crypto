@@ -20,13 +20,32 @@
 #ifndef SILCMAC_H
 #define SILCMAC_H
 
-/****h* silccrypt/SILC MAC Interface
+/****h* silccrypt/MAC Interface
  *
  * DESCRIPTION
  *
  * The Message Authentication Code interface for computing MAC values for
  * authentication purposes.  The MAC is usually used in combination with
  * encryption to provide authentication.
+ *
+ * EXAMPLE
+ *
+ * SilcMac hmac;
+ *
+ * // Allocate HMAC
+ * silc_mac_alloc(SILC_MAC_HMAC_SHA256, &hmac);
+ *
+ * // Set secret key to the MAC
+ * silc_mac_set_key(hmac, key, key_len);
+ *
+ * // Compute MAC
+ * unsigned char mac[SILC_MAC_MAXLEN];
+ * SilcUInt32 mac_len;
+ *
+ * silc_mac_make(hmac, data, data_len, digest, &mac_len);
+ *
+ * // Free MAC
+ * silc_mac_free(hmac);
  *
  ***/
 
@@ -84,6 +103,21 @@ typedef struct SilcMacStruct *SilcMac;
 /* HMAC with MD5 */
 #define SILC_MAC_HMAC_MD5         "hmac-md5"
 /***/
+
+/****d* silccrypt/SILC_MAC_MAXLEN
+ *
+ * NAME
+ *
+ *    #define SILC_MAC_MAXLEN 64
+ *
+ * DESCRIPTION
+ *
+ *    Maximum size of digest any algorithm supported by SILC Crypto Toolkit
+ *    would produce.  You can use this to define static digest buffers and
+ *    safely use it with any hash function.
+ *
+ ***/
+#define SILC_MAC_MAXLEN 64
 
 /* MAC implementation object */
 typedef struct {
@@ -174,6 +208,8 @@ SilcBool silc_mac_unregister_all(void);
  *    Allocates a new SilcMac object of name of `name'.  Returns FALSE if
  *    such MAC does not exist.  After the MAC is allocated a key must be
  *    set for it by calling silc_mac_set_key.
+ *
+ *    See MACs for supported MAC algorithms.
  *
  ***/
 SilcBool silc_mac_alloc(const char *name, SilcMac *new_mac);
