@@ -27,6 +27,9 @@
  * to encode and decode DER blocks as well.  These routines does not
  * allocate any memory and have been optimized for general ASN.1 usage.
  *
+ * This is a low level interface and is not usually needed or used
+ * directly.
+ *
  * References: ITU-T X.690
  * http://www.itu.int/ITU-T/studygroups/com17/languages/X690_0702.pdf
  *

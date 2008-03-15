@@ -3,7 +3,7 @@
 #
 #  Author: Pekka Riikonen <priikone@silcnet.org>
 #
-#  Copyright (C) 2000 - 2005 Pekka Riikonen
+#  Copyright (C) 2000 - 2005, 2008 Pekka Riikonen
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -25,9 +25,6 @@ include_HEADERS = \
 	silcversion.h
 #endif SILC_DIST_TOOLKIT
 
-EXTRA_DIST = \
-	silc.h \
-	silcwin32.h \
-	silcsymbian.h \
-	silcversion.h.in \
-	silcdistdefs.h
+EXTRA_DIST =		\
+	silcdistdefs.h	\
+	silccompile.h

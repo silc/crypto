@@ -62,7 +62,7 @@ SCT is free software and is licensed with GNU GPL.
 To clone SCT repository give one of the following commands:
 <pre>
  git clone git://git.silc.fi/crypto
- git clone http://git.silc.fi/crypto
+ git clone http://git.silc.fi/crypto.in
 </pre>
 </p>
 

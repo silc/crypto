@@ -136,20 +136,16 @@ case "$host_cpu" in
     SILC_CPU_FLAG(sse2, true, AC_DEFINE([SILC_CPU_SSE2], [], [SILC_CPU_SSE2]), [])
     SILC_CPU_FLAG(pni, true, AC_DEFINE([SILC_CPU_SSE3], [], [SILC_CPU_SSE3]), [])
     SILC_CPU_FLAG(ssse3, true, AC_DEFINE([SILC_CPU_SSSE3], [], [SILC_CPU_SSSE3]), [])
-    SILC_CPU_FLAG(sse4, true, AC_DEFINE([SILC_CPU_SSE4], [], [SILC_CPU_SSE4]), [])
+    SILC_CPU_FLAG(sse4a, true, AC_DEFINE([SILC_CPU_SSE4A], [], [SILC_CPU_SSE4A]), [])
+    SILC_CPU_FLAG(sse4_1, true, AC_DEFINE([SILC_CPU_SSE41], [], [SILC_CPU_SSE41]), [])
+    SILC_CPU_FLAG(sse4_2, true, AC_DEFINE([SILC_CPU_SSE42], [], [SILC_CPU_SSE42]), [])
+    SILC_CPU_FLAG(sse5, true, AC_DEFINE([SILC_CPU_SSE5], [], [SILC_CPU_SSE5]), [])
     ;;
 
   # Intel IA-64, 64-bit CPU (not x86_64 compatible)
   ia64)
     AC_DEFINE([SILC_IA64], [], [SILC_IA64])
     cpu_ia64=true
-
-    # Check for specific CPU features
-    SILC_CPU_FLAG(mmx, true, AC_DEFINE([SILC_CPU_MMX], [], [SILC_CPU_MMX]), [])
-    SILC_CPU_FLAG(sse2, true, AC_DEFINE([SILC_CPU_SSE2], [], [SILC_CPU_SSE2]), [])
-    SILC_CPU_FLAG(pni, true, AC_DEFINE([SILC_CPU_SSE3], [], [SILC_CPU_SSE3]), [])
-    SILC_CPU_FLAG(ssse3, true, AC_DEFINE([SILC_CPU_SSSE3], [], [SILC_CPU_SSSE3]), [])
-    SILC_CPU_FLAG(sse4, true, AC_DEFINE([SILC_CPU_SSE4], [], [SILC_CPU_SSE4]), [])
     ;;
 
   # AMD/Intel x86_64, 64-bit CPU
@@ -161,7 +157,10 @@ case "$host_cpu" in
     SILC_CPU_FLAG(sse2, true, AC_DEFINE([SILC_CPU_SSE2], [], [SILC_CPU_SSE2]), [])
     SILC_CPU_FLAG(pni, true, AC_DEFINE([SILC_CPU_SSE3], [], [SILC_CPU_SSE3]), [])
     SILC_CPU_FLAG(ssse3, true, AC_DEFINE([SILC_CPU_SSSE3], [], [SILC_CPU_SSSE3]), [])
-    SILC_CPU_FLAG(sse4, true, AC_DEFINE([SILC_CPU_SSE4], [], [SILC_CPU_SSE4]), [])
+    SILC_CPU_FLAG(sse4a, true, AC_DEFINE([SILC_CPU_SSE4A], [], [SILC_CPU_SSE4A]), [])
+    SILC_CPU_FLAG(sse4_1, true, AC_DEFINE([SILC_CPU_SSE41], [], [SILC_CPU_SSE41]), [])
+    SILC_CPU_FLAG(sse4_2, true, AC_DEFINE([SILC_CPU_SSE42], [], [SILC_CPU_SSE42]), [])
+    SILC_CPU_FLAG(sse5, true, AC_DEFINE([SILC_CPU_SSE5], [], [SILC_CPU_SSE5]), [])
     ;;
 
   # PowerPC, 32-bit and 64-bit CPUs
@@ -182,7 +181,10 @@ if test x$want_cpu_optimizations = xtrue; then
   # Set some compiler options based on CPU
   if test "x$CC" = "xicc"; then
     # ICC flags
-    if test x$x_have_cpu_sse4 = xtrue; then
+    if test x$x_have_cpu_sse4_1 = xtrue; then
+      SILC_ADD_CFLAGS(-axS)
+    fi
+    if test x$x_have_cpu_sse4_2 = xtrue; then
       SILC_ADD_CFLAGS(-axS)
     fi
     if test x$x_have_cpu_ssse3 = xtrue; then
@@ -203,7 +205,10 @@ if test x$want_cpu_optimizations = xtrue; then
     if test x$x_have_cpu_ssse3 = xtrue; then
       SILC_ADD_CFLAGS(-mssse3)
     fi
-    if test x$x_have_cpu_sse4 = xtrue; then
+    if test x$x_have_cpu_sse4_1 = xtrue; then
+      SILC_ADD_CFLAGS(-msse4)
+    fi
+    if test x$x_have_cpu_sse4_2 = xtrue; then
       SILC_ADD_CFLAGS(-msse4)
     fi
   fi
@@ -455,12 +460,29 @@ AM_CONDITIONAL(SILC_NO_ASM, test x$want_asm = xfalse)
 SILC_ASSEMBLER=""
 have_assembler=false
 if test x$want_asm = xtrue; then
+  ASM_FLAGS=
+  if test x$x_have_cpu_sse2 = xtrue; then
+    ASM_FLAGS="$ASM_FLAGS -D SILC_CPU_SSE2"
+  fi
+  if test x$x_have_cpu_pni = xtrue; then
+    ASM_FLAGS="$ASM_FLAGS -D SILC_CPU_SSE3"
+  fi
+  if test x$x_have_cpu_ssse3 = xtrue; then
+    ASM_FLAGS="$ASM_FLAGS -D SILC_CPU_SSSE3"
+  fi
+  if test x$x_have_cpu_sse4_1 = xtrue; then
+    ASM_FLAGS="$ASM_FLAGS -D SILC_CPU_SSE41"
+  fi
+  if test x$x_have_cpu_sse4_2 = xtrue; then
+    ASM_FLAGS="$ASM_FLAGS -D SILC_CPU_SSE42"
+  fi
+
   AC_PATH_PROG([NASM], [nasm], [no])
   if test "x$NASM" != "xno"; then
     if test x$cpu_x86_64 = xtrue; then
-      SILC_ASSEMBLER="$NASM -O2 -felf64"
+      SILC_ASSEMBLER="$NASM -O2 -felf64 $ASM_FLAGS"
     else
-      SILC_ASSEMBLER="$NASM -O2 -felf"
+      SILC_ASSEMBLER="$NASM -O2 -felf $ASM_FLAGS"
     fi
     have_assembler=true
   fi
@@ -468,9 +490,9 @@ if test x$want_asm = xtrue; then
   AC_PATH_PROG([YASM], [yasm], [no])
   if test "x$YASM" != "xno"; then
     if test x$cpu_x86_64 = xtrue; then
-      SILC_ASSEMBLER="$YASM -Xgnu -felf64"
+      SILC_ASSEMBLER="$YASM -Xgnu -felf64 $ASM_FLAGS"
     else
-      SILC_ASSEMBLER="$YASM -Xgnu -felf"
+      SILC_ASSEMBLER="$YASM -Xgnu -felf $ASM_FLAGS"
     fi
     have_assembler=true
   fi

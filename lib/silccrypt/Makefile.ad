@@ -17,6 +17,8 @@
 
 AUTOMAKE_OPTIONS = 1.0 no-dependencies foreign
 
+SUBDIRS=tests
+
 noinst_LTLIBRARIES = libsilccrypt.la
 
 if SILC_AES_ASM
@@ -67,7 +69,7 @@ include_HEADERS =		\
 	silcpkcs1.h		\
 	silcpk.h
 
-SILC_EXTRA_DIST = tests
+SILC_EXTRA_DIST =
 
 SUFFIXES = .asm
 

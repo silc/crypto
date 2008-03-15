@@ -17,12 +17,10 @@
 
 AUTOMAKE_OPTIONS = 1.0 no-dependencies foreign
 
-bin_PROGRAMS = test_silcssh
-
-test_silcssh_SOURCES = test_silcssh.c
+check_PROGRAMS = test_silcssh
 
 LIBS = $(SILC_COMMON_LIBS)
-LDADD = -L.. -L../.. -lsilc -lsilcssh
+LDADD = -L.. -L../.. -lsct
 CFLAGS = -O0
 
 include $(top_srcdir)/Makefile.defines.in

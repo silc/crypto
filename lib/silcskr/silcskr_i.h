@@ -43,6 +43,7 @@ struct SilcSKRFindStruct {
 };
 
 /* Backwards support */
+#define SilcSKRStatus SilcResult
 #define SILC_SKR_OK SILC_OK
 #define SILC_SKR_ERROR SILC_ERR
 #define SILC_SKR_ALREADY_EXIST SILC_ERR_ALREADY_EXISTS

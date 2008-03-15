@@ -18,4 +18,4 @@ sed -e "s/SILC_VERSION/$dist_version/" -e "s/SILC_RELEASE/$release/" \
 cd doc
 make toolkit-ref-html
 cd ..
-cp ChangeLog doc/runtime/ChangeLog
+cp ChangeLog doc/crypto/ChangeLog

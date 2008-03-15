@@ -513,6 +513,7 @@ void silc_mac_final(SilcMac mac, unsigned char *return_hash,
 #define silc_hmac_set_key silc_mac_set_key
 #define silc_hmac_get_key silc_mac_get_key
 #define silc_hmac_make silc_mac_make
+#define silc_hmac_init silc_mac_init
 #define silc_hmac_init_with_key silc_mac_init_with_key
 #define silc_hmac_update silc_mac_update
 #define silc_hmac_final silc_mac_final

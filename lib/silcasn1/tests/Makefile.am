@@ -17,9 +17,7 @@
 
 AUTOMAKE_OPTIONS = 1.0 no-dependencies foreign
 
-bin_PROGRAMS = test_silcasn1
-
-test_silcasn1_SOURCES = test_silcasn1.c
+check_PROGRAMS = test_silcasn1
 
 LIBS = $(SILC_COMMON_LIBS)
 LDADD = -L.. -L../.. -lsilc -lsilcasn1

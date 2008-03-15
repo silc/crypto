@@ -25,7 +25,7 @@ SUBDIRS = 		\
 	doc
 
 EXTRA_DIST = 		\
-	silcdefs.h.in	\
+	cryptodefs.h.in	\
 	sct.spec	\
 	symbian		\
 	CHANGES CREDITS

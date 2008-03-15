@@ -17,11 +17,9 @@
 
 AUTOMAKE_OPTIONS = 1.0 no-dependencies foreign
 
-bin_PROGRAMS = test_silcskr
-
-test_silcskr_SOURCES = test_silcskr.c
+check_PROGRAMS = test_silcskr
 
 LIBS = $(SILC_COMMON_LIBS)
-LDADD = -L.. -L../.. -lsilc -lsilcskr
+LDADD = -L.. -L../.. -lsct
 
 include $(top_srcdir)/Makefile.defines.in

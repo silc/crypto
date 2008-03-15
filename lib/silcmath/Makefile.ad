@@ -17,6 +17,8 @@
 
 AUTOMAKE_OPTIONS = 1.0 no-dependencies foreign
 
+SUBDIRS=tests
+
 noinst_LTLIBRARIES = libsilcmath.la
 
 if SILC_MP_SILCMATH

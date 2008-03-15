@@ -27,6 +27,8 @@
  * such as digital signatures and their verification, and encryption and
  * decryption.
  *
+ * This is a low level interface that usually is not needed or used directly.
+ *
  ***/
 
 #ifndef SILCPKCS1_H

@@ -30,7 +30,8 @@ include README.MACOSX
 include README.SYMBIAN
 
 # Noprocess to optimize packaging and avoid re-licensing of certain files
-noprocess COPYING GPL BSD
+#noprocess COPYING GPL BSD
+noprocess COPYING
 noprocess apps/
 noprocess win32/
 noprocess symbian/

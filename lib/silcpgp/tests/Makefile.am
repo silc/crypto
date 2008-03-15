@@ -17,9 +17,7 @@
 
 AUTOMAKE_OPTIONS = 1.0 no-dependencies foreign
 
-bin_PROGRAMS = 	test_silcpgp
-
-test_silcpgp_SOURCES = test_silcpgp.c
+check_PROGRAMS = 	test_silcpgp
 
 LIBS = $(SILC_COMMON_LIBS)
 LDADD = -L.. -L../.. -lsct
