@@ -293,7 +293,7 @@ SilcBool silc_mp_pow_ui(SilcMPInt *dst, SilcMPInt *mp1, SilcUInt32 exp)
 }
 
 SilcBool silc_mp_pow_mod(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *exp,
-		     SilcMPInt *mod)
+			 SilcMPInt *mod)
 {
   int ret;
   if ((ret = tfm_fp_exptmod(mp1, exp, mod, dst))) {

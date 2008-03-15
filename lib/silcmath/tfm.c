@@ -2156,7 +2156,7 @@ int tfm_fp_mul_2(tfm_fp_int * a, tfm_fp_int * b)
 {
   int     x, oldused;
 
-  if (b->alloc < a->used + 1)
+  if (b->alloc <= a->used + 1)
     if (tfm_fp_grow(b, a->used + 1))
       return TFM_FP_MEM;
 
@@ -2191,7 +2191,7 @@ int tfm_fp_mul_2(tfm_fp_int * a, tfm_fp_int * b)
     }
 
     /* new leading digit? */
-    if (r != 0 && b->used != (b->alloc-1)) {
+    if (r != 0) {
       /* add a MSB which is always 1 at this point */
       *tmpb = 1;
       ++(b->used);
@@ -5672,7 +5672,7 @@ int tfm_fp_mul_d(tfm_fp_int *a, tfm_fp_digit b, tfm_fp_int *c)
    tfm_fp_word  w;
    int      x, oldused;
 
-   if (c->alloc < a->used + 1)
+   if (c->alloc <= a->used + 1)
      if (tfm_fp_grow(c, a->used + 1))
        return TFM_FP_MEM;
 
@@ -5685,7 +5685,7 @@ int tfm_fp_mul_d(tfm_fp_int *a, tfm_fp_digit b, tfm_fp_int *c)
        c->dp[x]  = (tfm_fp_digit)w;
        w         = w >> DIGIT_BIT;
    }
-   if (w != 0 && (a->used != a->alloc)) {
+   if (w != 0) {
       c->dp[c->used++] = w;
       ++x;
    }
