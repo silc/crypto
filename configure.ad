@@ -80,6 +80,59 @@ fi
 
 
 ##
+##  Required dependencies
+##
+
+LIBSUBDIR=lib
+LDFLAGS="-L\$(silc_top_srcdir)/lib $LDFLAGS"
+
+SILC_LIB_INCLUDES="$SILC_LIB_INCLUDES -I$SILC_TOP_SRCDIR/lib/silccrypt"
+SILC_LIB_INCLUDES="$SILC_LIB_INCLUDES -I$SILC_TOP_SRCDIR/lib/silcasn1"
+SILC_LIB_INCLUDES="$SILC_LIB_INCLUDES -I$SILC_TOP_SRCDIR/lib/silcacc"
+SILC_LIB_INCLUDES="$SILC_LIB_INCLUDES -I$SILC_TOP_SRCDIR/lib/silcskr"
+SILC_LIB_INCLUDES="$SILC_LIB_INCLUDES -I$SILC_TOP_SRCDIR/lib/silcmath"
+#ifdef SILC_DIST_SSH
+SILC_LIB_INCLUDES="$SILC_LIB_INCLUDES -I$SILC_TOP_SRCDIR/lib/silcssh"
+#endif SILC_DIST_SSH
+#ifdef SILC_DIST_PGP
+SILC_LIB_INCLUDES="$SILC_LIB_INCLUDES -I$SILC_TOP_SRCDIR/lib/silcpgp"
+#endif SILC_DIST_PGP
+#ifdef SILC_DIST_PKIX
+SILC_LIB_INCLUDES="$SILC_LIB_INCLUDES -I$SILC_TOP_SRCDIR/lib/silcpkix"
+#endif SILC_DIST_PKIX
+
+# SILC Runtime Toolkit checking
+AC_ARG_WITH(srt-includes,
+  [  --with-srt-includes=DIR  SILC Runtime Toolkit includes [search in DIR]],
+  [ac_srt_includes="$withval"], [ac_srt_includes="no"])
+AC_ARG_WITH(srt-libs,
+  [  --with-srt-libs=DIR      SILC Runtime Toolkit libraries [search in DIR]],
+  [ac_srt_libs="$withval"], [ac_srt_libs="no"])
+
+if test -n "$with_srt_includes" || test -n "$with_srt_libs"; then
+  # Manually provided libs
+  if test "$ac_srt_includes" != "no"; then
+    SILC_LIB_INCLUDES="-I$ac_srt_includes"
+  fi
+  if test "$ac_srt_libs" != "no"; then
+    LDFLAGS="-L$ac_srt_libs $LDFLAGS"
+  fi
+
+  # Check libs to link against
+  f=`$EGREP __SILC_HAVE_PTHREAD $ac_srt_includes/silc.h`
+  if test -n "$f"; then
+    LIBS="$LIBS -lpthread"
+    has_threads=true
+  fi
+else
+  # pkg-config check
+  PKG_CHECK_MODULES(SRT, [srt >= 1.2])
+  LIBS="$SRT_LIBS $LIBS"
+  CFLAGS="$CFLAGS $SRT_CFLAGS"
+fi
+
+
+##
 ## Detect CPU
 ##
 
@@ -502,54 +555,6 @@ AC_SUBST(SILC_ASSEMBLER)
 ##
 ##  With/without checkings
 ##
-
-LIBSUBDIR=lib
-LDFLAGS="-L\$(silc_top_srcdir)/lib $LDFLAGS"
-
-SILC_LIB_INCLUDES="$SILC_LIB_INCLUDES -I$SILC_TOP_SRCDIR/lib/silccrypt"
-SILC_LIB_INCLUDES="$SILC_LIB_INCLUDES -I$SILC_TOP_SRCDIR/lib/silcasn1"
-SILC_LIB_INCLUDES="$SILC_LIB_INCLUDES -I$SILC_TOP_SRCDIR/lib/silcacc"
-SILC_LIB_INCLUDES="$SILC_LIB_INCLUDES -I$SILC_TOP_SRCDIR/lib/silcskr"
-SILC_LIB_INCLUDES="$SILC_LIB_INCLUDES -I$SILC_TOP_SRCDIR/lib/silcmath"
-#ifdef SILC_DIST_SSH
-SILC_LIB_INCLUDES="$SILC_LIB_INCLUDES -I$SILC_TOP_SRCDIR/lib/silcssh"
-#endif SILC_DIST_SSH
-#ifdef SILC_DIST_PGP
-SILC_LIB_INCLUDES="$SILC_LIB_INCLUDES -I$SILC_TOP_SRCDIR/lib/silcpgp"
-#endif SILC_DIST_PGP
-#ifdef SILC_DIST_PKIX
-SILC_LIB_INCLUDES="$SILC_LIB_INCLUDES -I$SILC_TOP_SRCDIR/lib/silcpkix"
-#endif SILC_DIST_PKIX
-
-# SILC Runtime Toolkit checking
-AC_ARG_WITH(srt-includes,
-  [  --with-srt-includes=DIR  SILC Runtime Toolkit includes [search in DIR]],
-  [ac_srt_includes="$withval"], [ac_srt_includes="no"])
-AC_ARG_WITH(srt-libs,
-  [  --with-srt-libs=DIR      SILC Runtime Toolkit libraries [search in DIR]],
-  [ac_srt_libs="$withval"], [ac_srt_libs="no"])
-
-if test -n "$with_srt_includes" || test -n "$with_srt_libs"; then
-  # Manually provided libs
-  if test "$ac_srt_includes" != "no"; then
-    SILC_LIB_INCLUDES="-I$ac_srt_includes"
-  fi
-  if test "$ac_srt_libs" != "no"; then
-    LDFLAGS="-L$ac_srt_libs $LDFLAGS"
-  fi
-
-  # Check libs to link against
-  f=`$EGREP __SILC_HAVE_PTHREAD $ac_srt_includes/silc.h`
-  if test -n "$f"; then
-    LIBS="$LIBS -lpthread"
-    has_threads=true
-  fi
-else
-  # pkg-config check
-  PKG_CHECK_MODULES(SRT, [srt >= 1.2])
-  LIBS="$SRT_LIBS $LIBS"
-  CFLAGS="$CFLAGS $SRT_CFLAGS"
-fi
 
 # MP library checking. First check whether user wants to use GMP and use
 # it if found. If not or not defined then compile the default library in the
