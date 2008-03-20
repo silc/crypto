@@ -107,7 +107,7 @@ SilcBool silc_pkcs1_decode(SilcPkcs1BlockType bt,
 			   SilcUInt32 dest_data_size,
 			   SilcUInt32 *dest_len)
 {
-  int i = 0;
+  SilcUInt32 i = 0;
 
   SILC_LOG_DEBUG(("PKCS#1 decoding, bt %d", bt));
 
@@ -140,12 +140,20 @@ SilcBool silc_pkcs1_decode(SilcPkcs1BlockType bt,
   }
 
   /* Sanity checks */
+  if (i >= data_len) {
+    SILC_LOG_DEBUG(("Malformed block, too short message"));
+    return FALSE;
+  }
+  if (i < SILC_PKCS1_MIN_PADDING) {
+    SILC_LOG_DEBUG(("Malformed block, too short padding"));
+    return FALSE;
+  }
   if (data[i++] != 0x00) {
     SILC_LOG_DEBUG(("Malformed block"));
     return FALSE;
   }
-  if (i - 1 < SILC_PKCS1_MIN_PADDING) {
-    SILC_LOG_DEBUG(("Malformed block"));
+  if (i >= data_len) {
+    SILC_LOG_DEBUG(("Malformed block, too short message"));
     return FALSE;
   }
   if (dest_data_size < data_len - i) {
