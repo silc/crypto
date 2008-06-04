@@ -713,4 +713,60 @@ SilcBool silc_mp_or(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2);
  ***/
 SilcBool silc_mp_xor(SilcMPInt *dst, SilcMPInt *mp1, SilcMPInt *mp2);
 
+/* Utility functions */
+
+/****f* silcmath/silc_mp_format
+ *
+ * SYNOPSIS
+ *
+ *    int silc_mp_format(SilcStack stack, SilcBuffer buffer,
+ *                       void *value, void *context)
+ *
+ * DESCRIPTION
+ *
+ *    MP integer encoding function to be used with silc_buffer_format and
+ *    SILC_STR_FUNC formatter.  The encoded data is of following format:
+ *
+ *      SILC_STR_UINT32, integer_len,
+ *      SILC_STR_DATA    integer_data
+ *
+ * EXAMPLE
+ *
+ *    silc_buffer_format(buf,
+ *                       SILC_STR_FUNC(silc_mp_format, mpint, NULL),
+ *                       SILC_STR_END);
+ *
+ ***/
+int silc_mp_format(SilcStack stack, SilcBuffer buffer,
+		   void *value, void *context);
+
+/****f* silcmath/silc_mp_unformat
+ *
+ * SYNOPSIS
+ *
+ *    int silc_mp_unformat(SilcStack stack, SilcBuffer buffer,
+ *                         void **value, void *context)
+ *
+ * DESCRIPTION
+ *
+ *    MP integer decoding function to be used with silc_buffer_unformat and
+ *    SILC_STR_FUNC unformatter.  This function expects that the length of
+ *    the integer is encoded as 32-bit integer and precedes the integer
+ *    data.
+ *
+ * EXAMPLE
+ *
+ *    SilcMPint mp_ptr;
+ *
+ *    silc_mp_init(&mpint);
+ *    mp_ptr = &mpint;
+ *
+ *    silc_buffer_unformat(buf,
+ *                         SILC_STR_FUNC(silc_mp_unformat, &mp_ptr, NULL),
+ *                         SILC_STR_END);
+ *
+ ***/
+int silc_mp_unformat(SilcStack stack, SilcBuffer buffer,
+		     void **value, void *context);
+
 #endif

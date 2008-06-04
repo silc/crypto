@@ -77,3 +77,49 @@ void silc_mp_bin2mp(unsigned char *data, SilcUInt32 len, SilcMPInt *ret)
     silc_mp_add_ui(ret, ret, data[i]);
   }
 }
+
+/* MP integer encoding with silc_buffer_format. */
+
+int silc_mp_format(SilcStack stack, SilcBuffer buffer,
+		   void *value, void *context)
+{
+  SilcMPInt *mp = value;
+  unsigned char *m;
+  SilcUInt32 m_len;
+  int ret;
+
+  /* Encode */
+  m = silc_mp_mp2bin(mp, 0, &m_len);
+  if (!m)
+    return -1;
+
+  ret = silc_buffer_sformat(stack, buffer,
+			    SILC_STR_UINT32(m_len),
+			    SILC_STR_DATA(m, m_len),
+			    SILC_STR_END);
+
+  silc_free(m);
+
+  return ret;
+}
+
+/* MP integer decoding with silc_buffer_unformat. */
+
+int silc_mp_unformat(SilcStack stack, SilcBuffer buffer,
+		     void **value, void *context)
+{
+  SilcMPInt *mp = *value;
+  unsigned char *m;
+  SilcUInt32 m_len;
+  int ret;
+
+  ret = silc_buffer_sunformat(stack, buffer,
+			      SILC_STR_UI32_NSTRING(&m, &m_len),
+			      SILC_STR_END);
+  if (ret < 0)
+    return ret;
+
+  silc_mp_bin2mp(m, m_len, mp);
+
+  return ret;
+}
