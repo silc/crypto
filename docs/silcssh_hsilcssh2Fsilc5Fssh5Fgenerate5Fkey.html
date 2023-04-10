@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>silcssh.h</title>
+<!-- Source: ./../../lib/silcssh/silcssh.h -->
+<!-- Generated with ROBODoc Version 4.99.36 (Feb  3 2008) -->
+</head>
+<body>
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+<a class="menuitem" href="silcssh_hsilcssh2FSSH20Interface.html">SSH Interface</a>
+<a class="menuitem" href="./silcssh_hsilcssh2FSilcSshKeyType.html#">SilcSshKeyType</a>
+<a class="menuitem" href="./silcssh_hsilcssh2FSilcSshPublicKey.html#">SilcSshPublicKey</a>
+<a class="menuitem" href="./silcssh_hsilcssh2FSilcSshPrivateKey.html#">SilcSshPrivateKey</a>
+<a class="menuitem" href="#">silc_ssh_generate_key</a>
+<a class="menuitem" href="./silcssh_hsilcssh2Fsilc5Fssh5Fpublic5Fkey5Fdecode.html#">silc_ssh_public_key_decode</a>
+<a class="menuitem" href="./silcssh_hsilcssh2Fsilc5Fssh5Fpublic5Fkey5Fencode.html#">silc_ssh_public_key_encode</a>
+<a class="menuitem" href="./silcssh_hsilcssh2Fsilc5Fssh5Fpublic5Fkey5Ffree.html#">silc_ssh_public_key_free</a>
+<a class="menuitem" href="./silcssh_hsilcssh2Fsilc5Fssh5Fpublic5Fkey5Fget5Ffield.html#">silc_ssh_public_key_get_field</a>
+<a class="menuitem" href="./silcssh_hsilcssh2Fsilc5Fssh5Fpublic5Fkey5Fadd5Ffield.html#">silc_ssh_public_key_add_field</a>
+<a class="menuitem" href="./silcssh_hsilcssh2Fsilc5Fssh5Fpublic5Fkey5Fset5Ftype.html#">silc_ssh_public_key_set_type</a>
+</div> <!-- navigation -->
+<div id="content">
+<a name="silcssh2fsilc5fssh5fgenerate5fkey">
+</a><a name="robo323"></a><h2>silc_ssh_generate_key</h2>
+
+<p class="item_name">SYNOPSIS</p>
+<pre>    SilcBool <strong>silc_ssh_generate_key</strong>(const char *algorithm,
+                                   int bits_len, <a href="./silcrng_hsilccrypt2FSilcRng.html#robo287">SilcRng</a> rng,
+                                   const char *subject,
+                                   <a href="./silcpkcs_hsilccrypt2FSilcPublicKey.html#robo259">SilcPublicKey</a> *ret_public_key,
+                                   <a href="./silcpkcs_hsilccrypt2FSilcPrivateKey.html#robo258">SilcPrivateKey</a> *ret_private_key);
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>    Generates new SSH2 key pair.  The `algorithm' is either rsa or dsa.
+    The `bits_len' specify the key length in bits.  The `subject' is
+    usually the email address of the user creating the key or some other
+    similar subject name.  Returns FALSE on error.
+</p>
+<p class="item_name">EXAMPLE</p>
+<pre>    <strong>silc_ssh_generate_key</strong>("dsa", 1024, rng, "foo@example.com",
+                          &amp;pubkey, &amp;privkey);
+</pre>
+
+</div> <!-- content -->
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+</body>
+</html>

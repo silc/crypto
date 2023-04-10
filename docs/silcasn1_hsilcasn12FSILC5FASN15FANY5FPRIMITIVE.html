@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>silcasn1.h</title>
+<!-- Source: ./../../lib/silcasn1/silcasn1.h -->
+<!-- Generated with ROBODoc Version 4.99.36 (Feb  3 2008) -->
+</head>
+<body>
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+<a class="menuitem" href="silcasn1_hsilcasn12FASN2E120Interface.html">ASN.1 Interface</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSilcAsn1.html#">SilcAsn1</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSilcAsn1Struct.html#">SilcAsn1Struct</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSilcAsn1Options.html#">SilcAsn1Options</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSilcAsn1Tag.html#">SilcAsn1Tag</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12Fsilc5Fasn15Falloc.html#">silc_asn1_alloc</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12Fsilc5Fasn15Ffree.html#">silc_asn1_free</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12Fsilc5Fasn15Finit.html#">silc_asn1_init</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12Fsilc5Fasn15Funinit.html#">silc_asn1_uninit</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12Fsilc5Fasn15Fencode.html#">silc_asn1_encode</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12Fsilc5Fasn15Fdecode.html#">silc_asn1_decode</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FOPTS.html#">SILC_ASN1_OPTS</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FANY.html#">SILC_ASN1_ANY</a>
+<a class="menuitem" href="#">SILC_ASN1_ANY_PRIMITIVE</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FSEQUENCE.html#">SILC_ASN1_SEQUENCE</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FSET.html#">SILC_ASN1_SET</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FSEQUENCE5FOF.html#">SILC_ASN1_SEQUENCE_OF</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FSET5FOF.html#">SILC_ASN1_SET_OF</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FCHOICE.html#">SILC_ASN1_CHOICE</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FBOOLEAN.html#">SILC_ASN1_BOOLEAN</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FINT.html#">SILC_ASN1_INT</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FSHORT5FINT.html#">SILC_ASN1_SHORT_INT</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FENUM.html#">SILC_ASN1_ENUM</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FBIT5FSTRING.html#">SILC_ASN1_BIT_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FNULL.html#">SILC_ASN1_NULL</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FOID.html#">SILC_ASN1_OID</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FOCTET5FSTRING.html#">SILC_ASN1_OCTET_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FUTF85FSTRING.html#">SILC_ASN1_UTF8_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FNUMERIC5FSTRING.html#">SILC_ASN1_NUMERIC_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FPRINTABLE5FSTRING.html#">SILC_ASN1_PRINTABLE_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FTELETEX5FSTRING.html#">SILC_ASN1_TELETEX_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FIA55FSTRING.html#">SILC_ASN1_IA5_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FVISIBLE5FSTRING.html#">SILC_ASN1_VISIBLE_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FUNIVERSAL5FSTRING.html#">SILC_ASN1_UNIVERSAL_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FBMP5FSTRING.html#">SILC_ASN1_BMP_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FUNRESTRICTED5FSTRING.html#">SILC_ASN1_UNRESTRICTED_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FGENERAL5FSTRING.html#">SILC_ASN1_GENERAL_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FUTC5FTIME.html#">SILC_ASN1_UTC_TIME</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FGEN5FTIME.html#">SILC_ASN1_GEN_TIME</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FEND.html#">SILC_ASN1_END</a>
+</div> <!-- navigation -->
+<div id="content">
+<a name="silcasn12fSILC5fASN15fANY5fPRIMITIVE">
+</a><a name="robo41"></a><h2>SILC_ASN1_ANY_PRIMITIVE</h2>
+
+<p class="item_name">SYNOPSIS</p>
+<pre>    Encoding:
+    <strong>SILC_ASN1_ANY_PRIMITIVE</strong>(tag, buffer)
+    SILC_ASN1_ANY_PRIMITIVE_T(opts, tag, buffer)
+
+    Decoding:
+    <strong>SILC_ASN1_ANY_PRIMITIVE</strong>(tag, &amp;buffer)
+    SILC_ASN1_ANY_PRIMITIVE_T(opts, tag, buffer)
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>    Special macro used to encode pre-encoded primitive data blob.  The data
+    can be any primitive type that is already encoded in correct format.
+    The caller is responsible of making sure the data is formatted
+    correctly.  When decoding this returns the raw data blob and the caller
+    must know of what type and format it is.  The buffer type is SilcBuffer.
+</p>
+
+<p>    This macro can be used in cases when the data to be encoded is already
+    in encoded format, and it only needs to be added to ASN.1 tree.  The
+    <a href="./silcasn1_hsilcasn12FSILC5FASN15FANY.html#robo42">SILC_ASN1_ANY</a> cannot be used with primitives when tagging implicitly,
+    in these cases this macro can be used.
+</p>
+
+<p>    The `opts' is <a href="./silcasn1_hsilcasn12FSilcAsn1Options.html#robo51">SilcAsn1Options</a>.  The `tag' is a tag number.
+</p>
+<p class="item_name">EXAMPLE</p>
+<pre>    // Get MP integer in encoded format
+    mpbuf = mp_get_octet_string(mp);
+
+    // Encode the MP integer data to the tree
+    <a href="./silcasn1_hsilcasn12Fsilc5Fasn15Fencode.html#robo45">silc_asn1_encode</a>(asn1, tree,
+                     <strong>SILC_ASN1_ANY_PRIMITIVE</strong>(SILC_ASN1_TAG_INTEGER, mpbuf),
+                     <a href="./silcasn1_hsilcasn12FSILC5FASN15FEND.html#robo15">SILC_ASN1_END</a>);
+
+    // Decode the MP integer data from the tree
+    <a href="./silcasn1_hsilcasn12Fsilc5Fasn15Fdecode.html#robo44">silc_asn1_decode</a>(asn1, tree,
+                     <strong>SILC_ASN1_ANY_PRIMITIVE</strong>(SILC_ASN1_TAG_INTEGER, &amp;buffer),
+                     <a href="./silcasn1_hsilcasn12FSILC5FASN15FEND.html#robo15">SILC_ASN1_END</a>);
+</pre>
+
+</div> <!-- content -->
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>silcpk.h</title>
+<!-- Source: ./../../lib/silccrypt/silcpk.h -->
+<!-- Generated with ROBODoc Version 4.99.36 (Feb  3 2008) -->
+</head>
+<body>
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+<a class="menuitem" href="silcpk_hsilccrypt2FSILC20Interface.html">SILC Interface</a>
+<a class="menuitem" href="./silcpk_hsilccrypt2FSilcPublicKeyIdentifier.html#">SilcPublicKeyIdentifier</a>
+<a class="menuitem" href="./silcpk_hsilccrypt2FSilcSILCPublicKey.html#">SilcSILCPublicKey</a>
+<a class="menuitem" href="./silcpk_hsilccrypt2FSilcSILCPrivateKey.html#">SilcSILCPrivateKey</a>
+<a class="menuitem" href="#">silc_pkcs_silc_generate_key</a>
+<a class="menuitem" href="./silcpk_hsilccrypt2Fsilc5Fpkcs5Fsilc5Fencode5Fidentifier.html#">silc_pkcs_silc_encode_identifier</a>
+<a class="menuitem" href="./silcpk_hsilccrypt2Fsilc5Fpkcs5Fsilc5Fdecode5Fidentifier.html#">silc_pkcs_silc_decode_identifier</a>
+<a class="menuitem" href="./silcpk_hsilccrypt2Fsilc5Fpkcs5Fsilc5Fpublic5Fkey5Fversion.html#">silc_pkcs_silc_public_key_version</a>
+</div> <!-- navigation -->
+<div id="content">
+<a name="silccrypt2fsilc5fpkcs5fsilc5fgenerate5fkey">
+</a><a name="robo210"></a><h2>silc_pkcs_silc_generate_key</h2>
+
+<p class="item_name">SYNOPSIS</p>
+<pre>    SilcBool <strong>silc_pkcs_silc_generate_key</strong>(const char *algorithm,
+                                         SilcUInt32 bits_key_len,
+                                         const char *identifier,
+                                         <a href="./silcrng_hsilccrypt2FSilcRng.html#robo287">SilcRng</a> rng,
+                                         <a href="./silcpkcs_hsilccrypt2FSilcPublicKey.html#robo259">SilcPublicKey</a> *ret_public_key,
+                                         <a href="./silcpkcs_hsilccrypt2FSilcPrivateKey.html#robo258">SilcPrivateKey</a> *ret_private_key)
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>    Generate a new SILC key pair of the algorithm type `algorithm' with
+    the key length in bits of `bits_key_len'.  Returns FALSE if key
+    generation failed.
+</p>
+<p class="item_name">EXAMPLE</p>
+<pre>    // Generate RSA key pair with 2048 bit key length
+    <strong>silc_pkcs_silc_generate_key</strong>("rsa", 2048, ident_string, rng,
+                                &amp;public_key, &amp;private_key);
+</pre>
+
+</div> <!-- content -->
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+</body>
+</html>

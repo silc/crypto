@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>silchash.h</title>
+<!-- Source: ./../../lib/silccrypt/silchash.h -->
+<!-- Generated with ROBODoc Version 4.99.36 (Feb  3 2008) -->
+</head>
+<body>
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+<a class="menuitem" href="silchash_hsilccrypt2FHash20Function20Interface.html">Hash Function Interface</a>
+<a class="menuitem" href="./silchash_hsilccrypt2FSilcHash.html#">SilcHash</a>
+<a class="menuitem" href="./silchash_hsilccrypt2FHashes.html#">Hashes</a>
+<a class="menuitem" href="./silchash_hsilccrypt2FHash2DOIDs.html#">Hash-OIDs</a>
+<a class="menuitem" href="./silchash_hsilccrypt2FSILC5FHASH5FMAXLEN.html#">SILC_HASH_MAXLEN</a>
+<a class="menuitem" href="./silchash_hsilccrypt2Fsilc5Fhash5Fregister.html#">silc_hash_register</a>
+<a class="menuitem" href="#">silc_hash_unregister</a>
+<a class="menuitem" href="./silchash_hsilccrypt2Fsilc5Fhash5Fregister5Fdefault.html#">silc_hash_register_default</a>
+<a class="menuitem" href="./silchash_hsilccrypt2Fsilc5Fhash5Funregister5Fall.html#">silc_hash_unregister_all</a>
+<a class="menuitem" href="./silchash_hsilccrypt2Fsilc5Fhash5Falloc.html#">silc_hash_alloc</a>
+<a class="menuitem" href="./silchash_hsilccrypt2Fsilc5Fhash5Falloc5Fby5Foid.html#">silc_hash_alloc_by_oid</a>
+<a class="menuitem" href="./silchash_hsilccrypt2Fsilc5Fhash5Ffree.html#">silc_hash_free</a>
+<a class="menuitem" href="./silchash_hsilccrypt2Fsilc5Fhash5Fis5Fsupported.html#">silc_hash_is_supported</a>
+<a class="menuitem" href="./silchash_hsilccrypt2Fsilc5Fhash5Fget5Fsupported.html#">silc_hash_get_supported</a>
+<a class="menuitem" href="./silchash_hsilccrypt2Fsilc5Fhash5Flen.html#">silc_hash_len</a>
+<a class="menuitem" href="./silchash_hsilccrypt2Fsilc5Fhash5Fblock5Flen.html#">silc_hash_block_len</a>
+<a class="menuitem" href="./silchash_hsilccrypt2Fsilc5Fhash5Fget5Fname.html#">silc_hash_get_name</a>
+<a class="menuitem" href="./silchash_hsilccrypt2Fsilc5Fhash5Fget5Foid.html#">silc_hash_get_oid</a>
+<a class="menuitem" href="./silchash_hsilccrypt2Fsilc5Fhash5Fmake.html#">silc_hash_make</a>
+<a class="menuitem" href="./silchash_hsilccrypt2Fsilc5Fhash5Finit.html#">silc_hash_init</a>
+<a class="menuitem" href="./silchash_hsilccrypt2Fsilc5Fhash5Fupdate.html#">silc_hash_update</a>
+<a class="menuitem" href="./silchash_hsilccrypt2Fsilc5Fhash5Ffinal.html#">silc_hash_final</a>
+<a class="menuitem" href="./silchash_hsilccrypt2Fsilc5Fhash5Ftransform.html#">silc_hash_transform</a>
+<a class="menuitem" href="./silchash_hsilccrypt2Fsilc5Fhash5Ffingerprint.html#">silc_hash_fingerprint</a>
+<a class="menuitem" href="./silchash_hsilccrypt2Fsilc5Fhash5Fbabbleprint.html#">silc_hash_babbleprint</a>
+</div> <!-- navigation -->
+<div id="content">
+<a name="silccrypt2fsilc5fhash5funregister">
+</a><a name="robo108"></a><h2>silc_hash_unregister</h2>
+
+<p class="item_name">SYNOPSIS</p>
+<pre>    SilcBool <strong>silc_hash_unregister</strong>(SilcHashObject *hash);
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>    Unregister a hash function from SILC by the SilcHashObject `hash'.
+    This should be called for all hash functions registered with
+    <a href="./silchash_hsilccrypt2Fsilc5Fhash5Fregister.html#robo109">silc_hash_register</a>.  Returns FALSE on error.
+</p>
+
+</div> <!-- content -->
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+</body>
+</html>

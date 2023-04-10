@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>silcpkcs.h</title>
+<!-- Source: ./../../lib/silccrypt/silcpkcs.h -->
+<!-- Generated with ROBODoc Version 4.99.36 (Feb  3 2008) -->
+</head>
+<body>
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+<a class="menuitem" href="silcpkcs_hsilccrypt2FPKCS20Interface.html">PKCS Interface</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2FSilcPKCSType.html#">SilcPKCSType</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2FPKCS2DAlgorithms.html#">PKCS-Algorithms</a>
+<a class="menuitem" href="#">PKCS-Schemes</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2FSilcPublicKey.html#">SilcPublicKey</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2FSilcPrivateKey.html#">SilcPrivateKey</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2FSilcPKCSFileEncoding.html#">SilcPKCSFileEncoding</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2FSilcPKCSEncryptCb.html#">SilcPKCSEncryptCb</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2FSilcPKCSDecryptCb.html#">SilcPKCSDecryptCb</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2FSilcPKCSSignCb.html#">SilcPKCSSignCb</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2FSilcPKCSVerifyCb.html#">SilcPKCSVerifyCb</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fregister.html#">silc_pkcs_register</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Funregister.html#">silc_pkcs_unregister</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Falgorithm5Fregister.html#">silc_pkcs_algorithm_register</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Falgorithm5Funregister.html#">silc_pkcs_algorithm_unregister</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fregister5Fdefault.html#">silc_pkcs_register_default</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Funregister5Fall.html#">silc_pkcs_unregister_all</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fload5Fpublic5Fkey.html#">silc_pkcs_load_public_key</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fsave5Fpublic5Fkey.html#">silc_pkcs_save_public_key</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fload5Fprivate5Fkey.html#">silc_pkcs_load_private_key</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fsave5Fprivate5Fkey.html#">silc_pkcs_save_private_key</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fpublic5Fkey5Falloc.html#">silc_pkcs_public_key_alloc</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fpublic5Fkey5Ffree.html#">silc_pkcs_public_key_free</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fpublic5Fkey5Fencode.html#">silc_pkcs_public_key_encode</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fpublic5Fkey5Fget5Flen.html#">silc_pkcs_public_key_get_len</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fpublic5Fkey5Fcompare.html#">silc_pkcs_public_key_compare</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fpublic5Fkey5Fcopy.html#">silc_pkcs_public_key_copy</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fprivate5Fkey5Falloc.html#">silc_pkcs_private_key_alloc</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fprivate5Fkey5Fget5Flen.html#">silc_pkcs_private_key_get_len</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fprivate5Fkey5Ffree.html#">silc_pkcs_private_key_free</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fencrypt.html#">silc_pkcs_encrypt</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fencrypt5Fasync.html#">silc_pkcs_encrypt_async</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fdecrypt.html#">silc_pkcs_decrypt</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fdecrypt5Fasync.html#">silc_pkcs_decrypt_async</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fsign.html#">silc_pkcs_sign</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fsign5Fasync.html#">silc_pkcs_sign_async</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fverify.html#">silc_pkcs_verify</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fverify5Fasync.html#">silc_pkcs_verify_async</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fpublic5Fkey5Fget5Fpkcs.html#">silc_pkcs_public_key_get_pkcs</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fprivate5Fkey5Fget5Fpkcs.html#">silc_pkcs_private_key_get_pkcs</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Ffind5Fpkcs.html#">silc_pkcs_find_pkcs</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Ffind5Falgorithm.html#">silc_pkcs_find_algorithm</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fget5Fpkcs.html#">silc_pkcs_get_pkcs</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fget5Falgorithm.html#">silc_pkcs_get_algorithm</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fget5Fname.html#">silc_pkcs_get_name</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fget5Ftype.html#">silc_pkcs_get_type</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fget5Fsupported.html#">silc_pkcs_get_supported</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fhash5Fpublic5Fkey.html#">silc_hash_public_key</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fhash5Fpublic5Fkey5Fcompare.html#">silc_hash_public_key_compare</a>
+</div> <!-- navigation -->
+<div id="content">
+<a name="silccrypt2fPKCS2dSchemes">
+</a><a name="robo260"></a><h2>PKCS-Schemes</h2>
+
+<p class="item_name">NAME</p>
+<pre>    PKCS Algorithm Schemes
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>    Supported PKCS algorithm scheme names.  Different algorithms can be
+    implemented in different ways to conform differnet standards and
+    protocols.  The scheme defines these ways.  The scheme is given as
+    argument to <a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Ffind5Falgorithm.html#robo222">silc_pkcs_find_algorithm</a>.
+</p>
+<p class="item_name">SOURCE</p>
+<pre class="source"><span class="comment">/* PKCS #1 version 2.x.  This performs RSASSA-PKCS-v1_5 and RSAES-PKCS-v1_5
+   with hash OID in the signature data (signature with appendix).  This can
+   be used with SILC_PKCS_ALG_RSA.  Default hash function used with
+   signatures is SHA-1. */</span>
+<span class="sign">#</span>define SILC_PKCS_SCHEME_PKCS1          <span class="quote">"pkcs1"</span>
+
+<span class="comment">/* PKCS #1 version 2.x.  Same as SILC_PKCS_SCHEME_PKCS1 but the hash OID
+   is not present in the signature data.  This can be used with
+   SILC_PKCS_ALG_RSA.  Default hash function used with signatures is SHA-1. */</span>
+<span class="sign">#</span>define SILC_PKCS_SCHEME_PKCS1_NO_OID   <span class="quote">"pkcs1-no-oid"</span>
+
+<span class="comment">/* The Digital Signature Standard, FIPS 186-3.  The latest DSS standard
+   version.  The key parameters and hash function used are derived
+   automatically by the key length and the signature length is variable.
+   This can be used with SILC_PKCS_ALG_DSA. */</span>
+<span class="sign">#</span>define SILC_PKCS_SCHEME_DSS            <span class="quote">"dss"</span>
+
+<span class="comment">/* The Digital Signature Standard, FIPS 186-2.  Same as the
+   SILC_PKCS_SCHEME_DSS but the signature length is always 160 bits and
+   hash function used is SHA-1.  This is the most widely used DSS version
+   (&lt;= year 2008).  This can be used with SILC_PKCS_ALG_DSA.  This is
+   compatible with SILC_PKCS_ALG_DSS when verifying signatures, but cannot
+   necessarily create compatible signature. */</span>
+<span class="sign">#</span>define SILC_PKCS_SCHEME_DSS_FIPS186_2  <span class="quote">"dss-fips186-2"</span>
+
+<span class="sign">#</span>ifdef SILC_DIST_SSH
+<span class="comment">/* The SSH2 protocol scheme.  This can be used with SILC_PKCS_ALG_RSA and
+   SILC_PKCS_ALG_DSA.  When used the algorithms behave as defined in the
+   SSH2 protocol. */</span>
+<span class="sign">#</span>define SILC_PKCS_SCHEME_SSH            <span class="quote">"ssh"</span>
+<span class="sign">#</span>endif <span class="comment">/* SILC_DIST_SSH */</span>
+
+<span class="sign">#</span>ifdef SILC_DIST_PGP
+<span class="comment">/* The OpenPGP protocol scheme.  This can be used with SILC_PKCS_ALG_RSA and
+   SILC_PKCS_ALG_DSA.  When used the algorithms behave as defined in the
+   OpenPGP protocol. */</span>
+<span class="sign">#</span>define SILC_PKCS_SCHEME_OPENPGP        <span class="quote">"openpgp"</span>
+<span class="sign">#</span>endif <span class="comment">/* SILC_DIST_PGP */</span>
+</pre>
+
+</div> <!-- content -->
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+</body>
+</html>

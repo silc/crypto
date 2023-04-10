@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>silcber.h</title>
+<!-- Source: ./../../lib/silcasn1/silcber.h -->
+<!-- Generated with ROBODoc Version 4.99.36 (Feb  3 2008) -->
+</head>
+<body>
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+<a class="menuitem" href="silcber_hsilcasn12FBER20Interface.html">BER Interface</a>
+<a class="menuitem" href="./silcber_hsilcasn12FSilcBerClass.html#">SilcBerClass</a>
+<a class="menuitem" href="./silcber_hsilcasn12FSilcBerEncoding.html#">SilcBerEncoding</a>
+<a class="menuitem" href="./silcber_hsilcasn12Fsilc5Fber5Fencode.html#">silc_ber_encode</a>
+<a class="menuitem" href="#">silc_ber_decode</a>
+<a class="menuitem" href="./silcber_hsilcasn12Fsilc5Fber5Fencoded5Flen.html#">silc_ber_encoded_len</a>
+</div> <!-- navigation -->
+<div id="content">
+<a name="silcasn12fsilc5fber5fdecode">
+</a><a name="robo56"></a><h2>silc_ber_decode</h2>
+
+<p class="item_name">SYNOPSIS</p>
+<pre>    SilcBool
+    <strong>silc_ber_decode</strong>(SilcBuffer ber, <a href="./silcber_hsilcasn12FSilcBerClass.html#robo59">SilcBerClass</a> *ber_class,
+                    <a href="./silcber_hsilcasn12FSilcBerEncoding.html#robo58">SilcBerEncoding</a> *encoding, SilcUInt32 *tag,
+                    const unsigned char **data, SilcUInt32 *data_len,
+                    SilcBool *indefinite, SilcUInt32 *identifier_len);
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>    Decodesa a BER data from the buffer `ber'.  Returns the class,
+    encoding and the tag number for the BER data into `ber_class',
+    `encoding' and `tag'.  A pointer to the start of the data area is
+    returned into `data'.  If the length of the data is available from
+    the BER data the length is returned into `data_len'.  If the
+    `indefinite' is TRUE then the length found in `data_len' was found
+    by finding end-of-contents octets from the BER data.  The
+    `identifier_len' is the length of the BER header, and the length
+    of the entire BER object is `identifier_len' + `data_len'.
+</p>
+
+</div> <!-- content -->
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+</body>
+</html>

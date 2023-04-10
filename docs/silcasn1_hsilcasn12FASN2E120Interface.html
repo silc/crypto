@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>silcasn1.h</title>
+<!-- Source: ./../../lib/silcasn1/silcasn1.h -->
+<!-- Generated with ROBODoc Version 4.99.36 (Feb  3 2008) -->
+</head>
+<body>
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+<a class="menuitem" href="silcacc_hsilcacc2FCrypto20Accelerator20Interface.html">Crypto Accelerator Interface</a>
+<a class="menuitem" href="silcasn1_hsilcasn12FASN2E120Interface.html">ASN.1 Interface</a>
+<a class="menuitem" href="silcber_hsilcasn12FBER20Interface.html">BER Interface</a>
+<a class="menuitem" href="silccipher_hsilccrypt2FCipher20Interface.html">Cipher Interface</a>
+<a class="menuitem" href="silccrypto_hsilccrypt2FCrypto20Toolkit20Interface.html">Crypto Toolkit Interface</a>
+<a class="menuitem" href="silchash_hsilccrypt2FHash20Function20Interface.html">Hash Function Interface</a>
+<a class="menuitem" href="silcmac_hsilccrypt2FMAC20Interface.html">MAC Interface</a>
+<a class="menuitem" href="silcmath_hsilcmath2FMath20Interface.html">Math Interface</a>
+<a class="menuitem" href="silcmp_hsilcmath2FMP20Integer20Interface.html">MP Integer Interface</a>
+<a class="menuitem" href="silcpgp_hsilcpgp2FOpenPGP20Interface.html">OpenPGP Interface</a>
+<a class="menuitem" href="silcpk_hsilccrypt2FSILC20Interface.html">SILC Interface</a>
+<a class="menuitem" href="silcpkcs_hsilccrypt2FPKCS20Interface.html">PKCS Interface</a>
+<a class="menuitem" href="silcpkcs1_hsilccrypt2FPKCS23120Interface.html">PKCS#1 Interface</a>
+<a class="menuitem" href="silcrng_hsilccrypt2FRNG20Interface.html">RNG Interface</a>
+<a class="menuitem" href="silcskr_hsilcskr2FKey20Manager20and20Repository.html">Key Manager and Repository</a>
+<a class="menuitem" href="silcssh_hsilcssh2FSSH20Interface.html">SSH Interface</a>
+<a class="menuitem" href="softacc_hsilcacc2FSoftware20Accelerator.html">Software Accelerator</a>
+</div> <!-- navigation -->
+<div id="content">
+<a name="silcasn12fASN2e120Interface">
+</a><a name="robo54"></a><h2>ASN.1 Interface</h2>
+
+<p class="item_name">DESCRIPTION</p>
+<p> Efficient Abstract Syntax Notation One (ASN.1) implementation.  This
+ interface provides simple and efficient ASN.1 encoder and decoder.
+</p>
+
+<p> The encoder directly encodes BER encoded data blocks from variable
+ argument list of ASN.1 types.  Multiple trees can be encoded at once
+ and multiple nodes can be encoded into the tree at once.  By default
+ encoder does not allocate any memory during encoding but a pre-allocated
+ SilcStack is used as memory.
+</p>
+
+<p> The decoder directly decodes BER encoded data blocks into the correct
+ types dictated by the variable argument list of ASN.1 types.  By
+ default decoder does not allocate any memory during decoding but a
+ pre-allocated SilcStack is used as memory.
+</p>
+
+<p> The encoding and decoding interface is simple.  <a href="./silcasn1_hsilcasn12Fsilc5Fasn15Fencode.html#robo45">silc_asn1_encode</a> is used
+ to encode and <a href="./silcasn1_hsilcasn12Fsilc5Fasn15Fdecode.html#robo44">silc_asn1_decode</a> to decode.  The actual ASN.1 is defined
+ as variable argument list to the function.  Various macros can be used
+ to encode and decode different ASN.1 types.  All types may also be used
+ to encode and decode with various options (such as implicit and explicit
+ tagging and defining specific class option).
+</p>
+
+<p> The implementation supports all the common ASN.1 types.
+</p>
+
+<p> References: ITU-T X.680 - X.693
+ <a href="http://www.itu.int/ITU-T/studygroups/com17/languages/">http://www.itu.int/ITU-T/studygroups/com17/languages/</a>
+</p>
+<p class="item_name">EXAMPLE</p>
+<pre> <a href="./silcasn1_hsilcasn12Fsilc5Fasn15Fencode.html#robo45">silc_asn1_encode</a>(asn1, buf,
+                  <a href="./silcasn1_hsilcasn12FSILC5FASN15FSEQUENCE.html#robo40">SILC_ASN1_SEQUENCE</a>,
+                    <a href="./silcasn1_hsilcasn12FSILC5FASN15FBOOLEAN.html#robo35">SILC_ASN1_BOOLEAN</a>(bool_val),
+                    <a href="./silcasn1_hsilcasn12FSILC5FASN15FOCTET5FSTRING.html#robo28">SILC_ASN1_OCTET_STRING</a>(string, string_len),
+                    SILC_ASN1_SEQUENCE_T(0, 2),
+                      SILC_ASN1_BOOLEAN_T(SILC_ASN1_EXPLICIT, 100, foo),
+                     <a href="./silcasn1_hsilcasn12FSILC5FASN15FEND.html#robo15">SILC_ASN1_END</a>,
+                     SILC_ASN1_OCTET_STRING_T(0, 1, string2, string2_len),
+                   <a href="./silcasn1_hsilcasn12FSILC5FASN15FEND.html#robo15">SILC_ASN1_END</a>, <a href="./silcasn1_hsilcasn12FSILC5FASN15FEND.html#robo15">SILC_ASN1_END</a>);
+
+ Creates ASN.1 tree that looks something like:
+
+ buf ::= SEQUENCE {
+   bool_val      BOOLEAN,
+   string        OCTET-STRING,
+            [2]  SEQUENCE {
+                   foo   [100] EXPLICIT BOOLEAN }
+   string2  [1]  OCTET-STRING }
+</pre>
+
+<p class="item_name">TABLE OF CONTENTS</p>
+<ul class="toc_entries">
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSilcAsn1.html#">SilcAsn1</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSilcAsn1Struct.html#">SilcAsn1Struct</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSilcAsn1Options.html#">SilcAsn1Options</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSilcAsn1Tag.html#">SilcAsn1Tag</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12Fsilc5Fasn15Falloc.html#">silc_asn1_alloc</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12Fsilc5Fasn15Ffree.html#">silc_asn1_free</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12Fsilc5Fasn15Finit.html#">silc_asn1_init</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12Fsilc5Fasn15Funinit.html#">silc_asn1_uninit</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12Fsilc5Fasn15Fencode.html#">silc_asn1_encode</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12Fsilc5Fasn15Fdecode.html#">silc_asn1_decode</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSILC5FASN15FOPTS.html#">SILC_ASN1_OPTS</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSILC5FASN15FANY.html#">SILC_ASN1_ANY</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSILC5FASN15FANY5FPRIMITIVE.html#">SILC_ASN1_ANY_PRIMITIVE</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSILC5FASN15FSEQUENCE.html#">SILC_ASN1_SEQUENCE</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSILC5FASN15FSET.html#">SILC_ASN1_SET</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSILC5FASN15FSEQUENCE5FOF.html#">SILC_ASN1_SEQUENCE_OF</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSILC5FASN15FSET5FOF.html#">SILC_ASN1_SET_OF</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSILC5FASN15FCHOICE.html#">SILC_ASN1_CHOICE</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSILC5FASN15FBOOLEAN.html#">SILC_ASN1_BOOLEAN</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSILC5FASN15FINT.html#">SILC_ASN1_INT</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSILC5FASN15FSHORT5FINT.html#">SILC_ASN1_SHORT_INT</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSILC5FASN15FENUM.html#">SILC_ASN1_ENUM</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSILC5FASN15FBIT5FSTRING.html#">SILC_ASN1_BIT_STRING</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSILC5FASN15FNULL.html#">SILC_ASN1_NULL</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSILC5FASN15FOID.html#">SILC_ASN1_OID</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSILC5FASN15FOCTET5FSTRING.html#">SILC_ASN1_OCTET_STRING</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSILC5FASN15FUTF85FSTRING.html#">SILC_ASN1_UTF8_STRING</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSILC5FASN15FNUMERIC5FSTRING.html#">SILC_ASN1_NUMERIC_STRING</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSILC5FASN15FPRINTABLE5FSTRING.html#">SILC_ASN1_PRINTABLE_STRING</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSILC5FASN15FTELETEX5FSTRING.html#">SILC_ASN1_TELETEX_STRING</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSILC5FASN15FIA55FSTRING.html#">SILC_ASN1_IA5_STRING</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSILC5FASN15FVISIBLE5FSTRING.html#">SILC_ASN1_VISIBLE_STRING</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSILC5FASN15FUNIVERSAL5FSTRING.html#">SILC_ASN1_UNIVERSAL_STRING</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSILC5FASN15FBMP5FSTRING.html#">SILC_ASN1_BMP_STRING</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSILC5FASN15FUNRESTRICTED5FSTRING.html#">SILC_ASN1_UNRESTRICTED_STRING</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSILC5FASN15FGENERAL5FSTRING.html#">SILC_ASN1_GENERAL_STRING</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSILC5FASN15FUTC5FTIME.html#">SILC_ASN1_UTC_TIME</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSILC5FASN15FGEN5FTIME.html#">SILC_ASN1_GEN_TIME</a></li>
+<li class="toc_entries"><a href="./silcasn1_hsilcasn12FSILC5FASN15FEND.html#">SILC_ASN1_END</a></li>
+</ul>
+</div> <!-- content -->
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+</body>
+</html>

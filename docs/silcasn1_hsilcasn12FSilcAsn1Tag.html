@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>silcasn1.h</title>
+<!-- Source: ./../../lib/silcasn1/silcasn1.h -->
+<!-- Generated with ROBODoc Version 4.99.36 (Feb  3 2008) -->
+</head>
+<body>
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+<a class="menuitem" href="silcasn1_hsilcasn12FASN2E120Interface.html">ASN.1 Interface</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSilcAsn1.html#">SilcAsn1</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSilcAsn1Struct.html#">SilcAsn1Struct</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSilcAsn1Options.html#">SilcAsn1Options</a>
+<a class="menuitem" href="#">SilcAsn1Tag</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12Fsilc5Fasn15Falloc.html#">silc_asn1_alloc</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12Fsilc5Fasn15Ffree.html#">silc_asn1_free</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12Fsilc5Fasn15Finit.html#">silc_asn1_init</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12Fsilc5Fasn15Funinit.html#">silc_asn1_uninit</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12Fsilc5Fasn15Fencode.html#">silc_asn1_encode</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12Fsilc5Fasn15Fdecode.html#">silc_asn1_decode</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FOPTS.html#">SILC_ASN1_OPTS</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FANY.html#">SILC_ASN1_ANY</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FANY5FPRIMITIVE.html#">SILC_ASN1_ANY_PRIMITIVE</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FSEQUENCE.html#">SILC_ASN1_SEQUENCE</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FSET.html#">SILC_ASN1_SET</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FSEQUENCE5FOF.html#">SILC_ASN1_SEQUENCE_OF</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FSET5FOF.html#">SILC_ASN1_SET_OF</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FCHOICE.html#">SILC_ASN1_CHOICE</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FBOOLEAN.html#">SILC_ASN1_BOOLEAN</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FINT.html#">SILC_ASN1_INT</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FSHORT5FINT.html#">SILC_ASN1_SHORT_INT</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FENUM.html#">SILC_ASN1_ENUM</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FBIT5FSTRING.html#">SILC_ASN1_BIT_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FNULL.html#">SILC_ASN1_NULL</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FOID.html#">SILC_ASN1_OID</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FOCTET5FSTRING.html#">SILC_ASN1_OCTET_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FUTF85FSTRING.html#">SILC_ASN1_UTF8_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FNUMERIC5FSTRING.html#">SILC_ASN1_NUMERIC_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FPRINTABLE5FSTRING.html#">SILC_ASN1_PRINTABLE_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FTELETEX5FSTRING.html#">SILC_ASN1_TELETEX_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FIA55FSTRING.html#">SILC_ASN1_IA5_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FVISIBLE5FSTRING.html#">SILC_ASN1_VISIBLE_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FUNIVERSAL5FSTRING.html#">SILC_ASN1_UNIVERSAL_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FBMP5FSTRING.html#">SILC_ASN1_BMP_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FUNRESTRICTED5FSTRING.html#">SILC_ASN1_UNRESTRICTED_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FGENERAL5FSTRING.html#">SILC_ASN1_GENERAL_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FUTC5FTIME.html#">SILC_ASN1_UTC_TIME</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FGEN5FTIME.html#">SILC_ASN1_GEN_TIME</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FEND.html#">SILC_ASN1_END</a>
+</div> <!-- navigation -->
+<div id="content">
+<a name="silcasn12fSilcAsn1Tag">
+</a><a name="robo50"></a><h2>SilcAsn1Tag</h2>
+
+<p class="item_name">NAME</p>
+<pre>    typedef enum { ... } <strong>SilcAsn1Tag</strong>;
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>    Universal ASN.1 tags.  Usually these tags are given automatically
+    to the <a href="./silcasn1_hsilcasn12Fsilc5Fasn15Fencode.html#robo45">silc_asn1_encode</a> and <a href="./silcasn1_hsilcasn12Fsilc5Fasn15Fdecode.html#robo44">silc_asn1_decode</a> by using the various
+    macros (such as <a href="./silcasn1_hsilcasn12FSILC5FASN15FBOOLEAN.html#robo35">SILC_ASN1_BOOLEAN</a>).  Some macros may take the tag
+    as additional argument.
+</p>
+<p class="item_name">SOURCE</p>
+<pre class="source">typedef enum <span class="sign">{</span>
+  SILC_ASN1_TAG_BOOLEAN               <span class="sign">=</span> 1<span class="sign">,</span>  <span class="comment">/* <a href="./silcasn1_hsilcasn12FSILC5FASN15FBOOLEAN.html#robo35">SILC_ASN1_BOOLEAN</a> */</span>
+  SILC_ASN1_TAG_INTEGER               <span class="sign">=</span> 2<span class="sign">,</span>  <span class="comment">/* <a href="./silcasn1_hsilcasn12FSILC5FASN15FINT.html#robo34">SILC_ASN1_INT</a> */</span>
+  SILC_ASN1_TAG_BIT_STRING            <span class="sign">=</span> 3<span class="sign">,</span>  <span class="comment">/* <a href="./silcasn1_hsilcasn12FSILC5FASN15FBIT5FSTRING.html#robo31">SILC_ASN1_BIT_STRING</a> */</span>
+  SILC_ASN1_TAG_OCTET_STRING          <span class="sign">=</span> 4<span class="sign">,</span>  <span class="comment">/* <a href="./silcasn1_hsilcasn12FSILC5FASN15FOCTET5FSTRING.html#robo28">SILC_ASN1_OCTET_STRING</a> */</span>
+  SILC_ASN1_TAG_NULL                  <span class="sign">=</span> 5<span class="sign">,</span>  <span class="comment">/* <a href="./silcasn1_hsilcasn12FSILC5FASN15FNULL.html#robo30">SILC_ASN1_NULL</a> */</span>
+  SILC_ASN1_TAG_OID                   <span class="sign">=</span> 6<span class="sign">,</span>  <span class="comment">/* <a href="./silcasn1_hsilcasn12FSILC5FASN15FOID.html#robo29">SILC_ASN1_OID</a> */</span>
+  SILC_ASN1_TAG_ODE                   <span class="sign">=</span> 7<span class="sign">,</span>  <span class="comment">/* not supported */</span>
+  SILC_ASN1_TAG_ETI                   <span class="sign">=</span> 8<span class="sign">,</span>  <span class="comment">/* not supported */</span>
+  SILC_ASN1_TAG_REAL                  <span class="sign">=</span> 9<span class="sign">,</span>  <span class="comment">/* not supported */</span>
+  SILC_ASN1_TAG_ENUM                  <span class="sign">=</span> 10<span class="sign">,</span> <span class="comment">/* <a href="./silcasn1_hsilcasn12FSILC5FASN15FENUM.html#robo32">SILC_ASN1_ENUM</a> */</span>
+  SILC_ASN1_TAG_EMBEDDED              <span class="sign">=</span> 11<span class="sign">,</span> <span class="comment">/* not supported */</span>
+  SILC_ASN1_TAG_UTF8_STRING           <span class="sign">=</span> 12<span class="sign">,</span> <span class="comment">/* <a href="./silcasn1_hsilcasn12FSILC5FASN15FUTF85FSTRING.html#robo27">SILC_ASN1_UTF8_STRING</a> */</span>
+  SILC_ASN1_TAG_ROI                   <span class="sign">=</span> 13<span class="sign">,</span> <span class="comment">/* not supported */</span>
+  SILC_ASN1_TAG_SEQUENCE              <span class="sign">=</span> 16<span class="sign">,</span> <span class="comment">/* <a href="./silcasn1_hsilcasn12FSILC5FASN15FSEQUENCE.html#robo40">SILC_ASN1_SEQUENCE</a> */</span>
+  SILC_ASN1_TAG_SET                   <span class="sign">=</span> 17<span class="sign">,</span> <span class="comment">/* <a href="./silcasn1_hsilcasn12FSILC5FASN15FSET.html#robo39">SILC_ASN1_SET</a> */</span>
+  SILC_ASN1_TAG_NUMERIC_STRING        <span class="sign">=</span> 18<span class="sign">,</span> <span class="comment">/* <a href="./silcasn1_hsilcasn12FSILC5FASN15FNUMERIC5FSTRING.html#robo26">SILC_ASN1_NUMERIC_STRING</a> */</span>
+  SILC_ASN1_TAG_PRINTABLE_STRING      <span class="sign">=</span> 19<span class="sign">,</span> <span class="comment">/* <a href="./silcasn1_hsilcasn12FSILC5FASN15FPRINTABLE5FSTRING.html#robo25">SILC_ASN1_PRINTABLE_STRING</a> */</span>
+  SILC_ASN1_TAG_TELETEX_STRING        <span class="sign">=</span> 20<span class="sign">,</span> <span class="comment">/* <a href="./silcasn1_hsilcasn12FSILC5FASN15FTELETEX5FSTRING.html#robo24">SILC_ASN1_TELETEX_STRING</a> */</span>
+  SILC_ASN1_TAG_VIDEOTEX_STRING       <span class="sign">=</span> 21<span class="sign">,</span> <span class="comment">/* not supported */</span>
+  SILC_ASN1_TAG_IA5_STRING            <span class="sign">=</span> 22<span class="sign">,</span> <span class="comment">/* <a href="./silcasn1_hsilcasn12FSILC5FASN15FIA55FSTRING.html#robo23">SILC_ASN1_IA5_STRING</a> */</span>
+  SILC_ASN1_TAG_UTC_TIME              <span class="sign">=</span> 23<span class="sign">,</span> <span class="comment">/* <a href="./silcasn1_hsilcasn12FSILC5FASN15FUTC5FTIME.html#robo17">SILC_ASN1_UTC_TIME</a> */</span>
+  SILC_ASN1_TAG_GENERALIZED_TIME      <span class="sign">=</span> 24<span class="sign">,</span> <span class="comment">/* <a href="./silcasn1_hsilcasn12FSILC5FASN15FGENERAL5FSTRING.html#robo18">SILC_ASN1_GENERAL_STRING</a> */</span>
+  SILC_ASN1_TAG_GRAPHIC_STRING        <span class="sign">=</span> 25<span class="sign">,</span> <span class="comment">/* not supported */</span>
+  SILC_ASN1_TAG_VISIBLE_STRING        <span class="sign">=</span> 26<span class="sign">,</span> <span class="comment">/* <a href="./silcasn1_hsilcasn12FSILC5FASN15FVISIBLE5FSTRING.html#robo22">SILC_ASN1_VISIBLE_STRING</a> */</span>
+  SILC_ASN1_TAG_GENERAL_STRING        <span class="sign">=</span> 27<span class="sign">,</span> <span class="comment">/* <a href="./silcasn1_hsilcasn12FSILC5FASN15FGENERAL5FSTRING.html#robo18">SILC_ASN1_GENERAL_STRING</a> */</span>
+  SILC_ASN1_TAG_UNIVERSAL_STRING      <span class="sign">=</span> 28<span class="sign">,</span> <span class="comment">/* <a href="./silcasn1_hsilcasn12FSILC5FASN15FUNIVERSAL5FSTRING.html#robo21">SILC_ASN1_UNIVERSAL_STRING</a> */</span>
+  SILC_ASN1_TAG_UNRESTRICTED_STRING   <span class="sign">=</span> 29<span class="sign">,</span> <span class="comment">/* <a href="./silcasn1_hsilcasn12FSILC5FASN15FUNRESTRICTED5FSTRING.html#robo19">SILC_ASN1_UNRESTRICTED_STRING</a> */</span>
+  SILC_ASN1_TAG_BMP_STRING            <span class="sign">=</span> 30<span class="sign">,</span> <span class="comment">/* <a href="./silcasn1_hsilcasn12FSILC5FASN15FBMP5FSTRING.html#robo20">SILC_ASN1_BMP_STRING</a> */</span>
+<span class="sign">}</span> <strong>SilcAsn1Tag</strong><span class="sign">;</span>
+</pre>
+
+</div> <!-- content -->
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+</body>
+</html>

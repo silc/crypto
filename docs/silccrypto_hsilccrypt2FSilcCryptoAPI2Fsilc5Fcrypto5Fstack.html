@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>silccrypto.h</title>
+<!-- Source: ./../../lib/silccrypt/silccrypto.h -->
+<!-- Generated with ROBODoc Version 4.99.36 (Feb  3 2008) -->
+</head>
+<body>
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+<a class="menuitem" href="silccrypto_hsilccrypt2FCrypto20Toolkit20Interface.html">Crypto Toolkit Interface</a>
+<a class="menuitem" href="./silccrypto_hsilccrypt2FSilcCryptoAPI2Fsilc5Fcrypto5Finit.html#">SilcCryptoAPI/silc_crypto_init</a>
+<a class="menuitem" href="./silccrypto_hsilccrypt2FSilcCryptoAPI2Fsilc5Fcrypto5Funinit.html#">SilcCryptoAPI/silc_crypto_uninit</a>
+<a class="menuitem" href="#">SilcCryptoAPI/silc_crypto_stack</a>
+</div> <!-- navigation -->
+<div id="content">
+<a name="silccrypt2fSilcCryptoAPI2fsilc5fcrypto5fstack">
+</a><a name="robo86"></a><h2>SilcCryptoAPI/silc_crypto_stack</h2>
+
+<p class="item_name">SYNOPSIS</p>
+<pre>    SilcStack silc_crypto_stack(void);
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>    Returns the SILC Crypto Toolkit's global stack, the memory pool.
+    Returns NULL if the stack does not exist.
+</p>
+
+<p>    A common way to use this is to allocate a child stack from the
+    returned stack.  That operation is thread-safe, usually does not
+    allocate any memory and is very fast.  Another way to use the stack
+    is to push it when memory is needed and then pop it when it is not
+    needed anymore.  Note however, that is not thread-safe if the stack
+    is used in multi-threaded environment.
+</p>
+<p class="item_name">EXAMPLE</p>
+<pre>    SilcStack stack;
+
+    // Get child stack from global crypto stack
+    stack = silc_stack_alloc(0, silc_crypto_stack());
+    ...
+
+    // Return memory back to the global crypto stack
+    silc_stack_free(stack);
+</pre>
+
+</div> <!-- content -->
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>silcasn1.h</title>
+<!-- Source: ./../../lib/silcasn1/silcasn1.h -->
+<!-- Generated with ROBODoc Version 4.99.36 (Feb  3 2008) -->
+</head>
+<body>
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+<a class="menuitem" href="silcasn1_hsilcasn12FASN2E120Interface.html">ASN.1 Interface</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSilcAsn1.html#">SilcAsn1</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSilcAsn1Struct.html#">SilcAsn1Struct</a>
+<a class="menuitem" href="#">SilcAsn1Options</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSilcAsn1Tag.html#">SilcAsn1Tag</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12Fsilc5Fasn15Falloc.html#">silc_asn1_alloc</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12Fsilc5Fasn15Ffree.html#">silc_asn1_free</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12Fsilc5Fasn15Finit.html#">silc_asn1_init</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12Fsilc5Fasn15Funinit.html#">silc_asn1_uninit</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12Fsilc5Fasn15Fencode.html#">silc_asn1_encode</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12Fsilc5Fasn15Fdecode.html#">silc_asn1_decode</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FOPTS.html#">SILC_ASN1_OPTS</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FANY.html#">SILC_ASN1_ANY</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FANY5FPRIMITIVE.html#">SILC_ASN1_ANY_PRIMITIVE</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FSEQUENCE.html#">SILC_ASN1_SEQUENCE</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FSET.html#">SILC_ASN1_SET</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FSEQUENCE5FOF.html#">SILC_ASN1_SEQUENCE_OF</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FSET5FOF.html#">SILC_ASN1_SET_OF</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FCHOICE.html#">SILC_ASN1_CHOICE</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FBOOLEAN.html#">SILC_ASN1_BOOLEAN</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FINT.html#">SILC_ASN1_INT</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FSHORT5FINT.html#">SILC_ASN1_SHORT_INT</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FENUM.html#">SILC_ASN1_ENUM</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FBIT5FSTRING.html#">SILC_ASN1_BIT_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FNULL.html#">SILC_ASN1_NULL</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FOID.html#">SILC_ASN1_OID</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FOCTET5FSTRING.html#">SILC_ASN1_OCTET_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FUTF85FSTRING.html#">SILC_ASN1_UTF8_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FNUMERIC5FSTRING.html#">SILC_ASN1_NUMERIC_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FPRINTABLE5FSTRING.html#">SILC_ASN1_PRINTABLE_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FTELETEX5FSTRING.html#">SILC_ASN1_TELETEX_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FIA55FSTRING.html#">SILC_ASN1_IA5_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FVISIBLE5FSTRING.html#">SILC_ASN1_VISIBLE_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FUNIVERSAL5FSTRING.html#">SILC_ASN1_UNIVERSAL_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FBMP5FSTRING.html#">SILC_ASN1_BMP_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FUNRESTRICTED5FSTRING.html#">SILC_ASN1_UNRESTRICTED_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FGENERAL5FSTRING.html#">SILC_ASN1_GENERAL_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FUTC5FTIME.html#">SILC_ASN1_UTC_TIME</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FGEN5FTIME.html#">SILC_ASN1_GEN_TIME</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FEND.html#">SILC_ASN1_END</a>
+</div> <!-- navigation -->
+<div id="content">
+<a name="silcasn12fSilcAsn1Options">
+</a><a name="robo51"></a><h2>SilcAsn1Options</h2>
+
+<p class="item_name">NAME</p>
+<pre>    typedef enum { ... } <strong>SilcAsn1Options</strong>;
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>    Options for ASN.1 encoder and decoder.  The ASN.1 options can be
+    given to the SILC_ASN1_*_T macros and/or <a href="./silcasn1_hsilcasn12FSILC5FASN15FOPTS.html#robo43">SILC_ASN1_OPTS</a> macro.
+</p>
+<p class="item_name">NOTES</p>
+<p>    The SILC_ASN1_ALLOC and SILC_ASN1_ACCUMUL flags can be given only
+    with <a href="./silcasn1_hsilcasn12FSILC5FASN15FOPTS.html#robo43">SILC_ASN1_OPTS</a> macro.  Other options can be given with various
+    SILC_ASN1_*_T macros.
+</p>
+<p class="item_name">EXAMPLE</p>
+<pre>    // Encodes boolean value with explicit tag and private class, and
+    // the result is allocated into `dest'.
+    <a href="./silcasn1_hsilcasn12Fsilc5Fasn15Fencode.html#robo45">silc_asn1_encode</a>(asn1, &amp;dest,
+                     <a href="./silcasn1_hsilcasn12FSILC5FASN15FOPTS.html#robo43">SILC_ASN1_OPTS</a>(SILC_ASN1_ALLOC),
+                     SILC_ASN1_BOOLEAN_T(SILC_ASN1_PRIVATE |
+                                         SILC_ASN1_EXPLICIT, 100, boolval),
+                     <a href="./silcasn1_hsilcasn12FSILC5FASN15FEND.html#robo15">SILC_ASN1_END</a>);
+
+    // Decode optional value, with SILC_ASN1_OPTIONAL the type must be
+    // a pointer so that NULL can be returned if the type is not present.
+    SilcBool *val;
+
+    <a href="./silcasn1_hsilcasn12Fsilc5Fasn15Fdecode.html#robo44">silc_asn1_decode</a>(asn1, src,
+                     <a href="./silcasn1_hsilcasn12FSILC5FASN15FOPTS.html#robo43">SILC_ASN1_OPTS</a>(SILC_ASN1_OPTIONAL),
+                     <a href="./silcasn1_hsilcasn12FSILC5FASN15FBOOLEAN.html#robo35">SILC_ASN1_BOOLEAN</a>(&amp;val),
+                     <a href="./silcasn1_hsilcasn12FSILC5FASN15FEND.html#robo15">SILC_ASN1_END</a>);
+
+    // If val == NULL, the optional value was not present
+    if (val == NULL)
+      error;
+</pre>
+<p class="item_name">SOURCE</p>
+<pre class="source">typedef enum <span class="sign">{</span>
+  <span class="comment">/* Default. If only this is set then defaults are implied. */</span>
+  SILC_ASN1_DEFAULT      <span class="sign">=</span> 0x0000<span class="sign">,</span>
+
+  <span class="comment">/* Class options.  User does not need to set these unless specifically
+     wanted to do so.  If SILC_ASN1_DEFAULT is set the SILC_ASN1_CONTEXT is
+     implied if any of the tag options are set.  Otherwise SILC_ASN1_UNIVERSAL
+     is implied. Only one of these can bet set at once. */</span>
+  SILC_ASN1_UNIVERSAL    <span class="sign">=</span> 0x0001<span class="sign">,</span>       <span class="comment">/* Universal class (default) */</span>
+  SILC_ASN1_APP          <span class="sign">=</span> 0x0002<span class="sign">,</span>       <span class="comment">/* Application specific class */</span>
+  SILC_ASN1_CONTEXT      <span class="sign">=</span> 0x0003<span class="sign">,</span>       <span class="comment">/* Context specific class */</span>
+  SILC_ASN1_PRIVATE      <span class="sign">=</span> 0x0004<span class="sign">,</span>       <span class="comment">/* Private class */</span>
+
+  <span class="comment">/* Tag options (bitmask) */</span>
+  SILC_ASN1_IMPLICIT     <span class="sign">=</span> 0x0010<span class="sign">,</span>       <span class="comment">/* Tag is implicit (default) */</span>
+  SILC_ASN1_EXPLICIT     <span class="sign">=</span> 0x0020<span class="sign">,</span>       <span class="comment">/* Tag is explicit */</span>
+  SILC_ASN1_DEFINITE     <span class="sign">=</span> 0x0040<span class="sign">,</span>       <span class="comment">/* Length is definite (default) */</span>
+  SILC_ASN1_INDEFINITE   <span class="sign">=</span> 0x0080<span class="sign">,</span>       <span class="comment">/* Length is indefinite */</span>
+
+  <span class="comment">/* Decoding options (bitmask) */</span>
+  SILC_ASN1_OPTIONAL     <span class="sign">=</span> 0x0100<span class="sign">,</span>       <span class="comment">/* Zero or more may be found.  The
+                                            argument must be pointer to the
+                                            type pointer so that NULL can be
+                                            returned if type is not found. */</span>
+
+  <span class="comment">/* ASN.1 encoder/decoder options (bitmask).  These can be given
+     only with <a href="./silcasn1_hsilcasn12FSILC5FASN15FOPTS.html#robo43">SILC_ASN1_OPTS</a> macro at the start of encoding/decoding. */</span>
+  SILC_ASN1_ALLOC        <span class="sign">=</span> 0x0400<span class="sign">,</span>       <span class="comment">/* Dynamically allocate results,
+                                            or if stack was given to
+                                            <a href="./silcasn1_hsilcasn12Fsilc5Fasn15Falloc.html#robo49">silc_asn1_alloc</a>, they are allocated
+                                            and consumed from the stack. */</span>
+  SILC_ASN1_ACCUMUL      <span class="sign">=</span> 0x0800<span class="sign">,</span>       <span class="comment">/* Accumulate memory for results,
+                                            next call to <a href="./silcasn1_hsilcasn12Fsilc5Fasn15Fdecode.html#robo44">silc_asn1_decode</a>
+                                            will not cancel old results. */</span>
+<span class="sign">}</span> <strong>SilcAsn1Options</strong><span class="sign">;</span>
+</pre>
+
+</div> <!-- content -->
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+</body>
+</html>

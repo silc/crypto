@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>silcasn1.h</title>
+<!-- Source: ./../../lib/silcasn1/silcasn1.h -->
+<!-- Generated with ROBODoc Version 4.99.36 (Feb  3 2008) -->
+</head>
+<body>
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+<a class="menuitem" href="silcasn1_hsilcasn12FASN2E120Interface.html">ASN.1 Interface</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSilcAsn1.html#">SilcAsn1</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSilcAsn1Struct.html#">SilcAsn1Struct</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSilcAsn1Options.html#">SilcAsn1Options</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSilcAsn1Tag.html#">SilcAsn1Tag</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12Fsilc5Fasn15Falloc.html#">silc_asn1_alloc</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12Fsilc5Fasn15Ffree.html#">silc_asn1_free</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12Fsilc5Fasn15Finit.html#">silc_asn1_init</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12Fsilc5Fasn15Funinit.html#">silc_asn1_uninit</a>
+<a class="menuitem" href="#">silc_asn1_encode</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12Fsilc5Fasn15Fdecode.html#">silc_asn1_decode</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FOPTS.html#">SILC_ASN1_OPTS</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FANY.html#">SILC_ASN1_ANY</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FANY5FPRIMITIVE.html#">SILC_ASN1_ANY_PRIMITIVE</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FSEQUENCE.html#">SILC_ASN1_SEQUENCE</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FSET.html#">SILC_ASN1_SET</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FSEQUENCE5FOF.html#">SILC_ASN1_SEQUENCE_OF</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FSET5FOF.html#">SILC_ASN1_SET_OF</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FCHOICE.html#">SILC_ASN1_CHOICE</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FBOOLEAN.html#">SILC_ASN1_BOOLEAN</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FINT.html#">SILC_ASN1_INT</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FSHORT5FINT.html#">SILC_ASN1_SHORT_INT</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FENUM.html#">SILC_ASN1_ENUM</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FBIT5FSTRING.html#">SILC_ASN1_BIT_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FNULL.html#">SILC_ASN1_NULL</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FOID.html#">SILC_ASN1_OID</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FOCTET5FSTRING.html#">SILC_ASN1_OCTET_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FUTF85FSTRING.html#">SILC_ASN1_UTF8_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FNUMERIC5FSTRING.html#">SILC_ASN1_NUMERIC_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FPRINTABLE5FSTRING.html#">SILC_ASN1_PRINTABLE_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FTELETEX5FSTRING.html#">SILC_ASN1_TELETEX_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FIA55FSTRING.html#">SILC_ASN1_IA5_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FVISIBLE5FSTRING.html#">SILC_ASN1_VISIBLE_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FUNIVERSAL5FSTRING.html#">SILC_ASN1_UNIVERSAL_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FBMP5FSTRING.html#">SILC_ASN1_BMP_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FUNRESTRICTED5FSTRING.html#">SILC_ASN1_UNRESTRICTED_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FGENERAL5FSTRING.html#">SILC_ASN1_GENERAL_STRING</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FUTC5FTIME.html#">SILC_ASN1_UTC_TIME</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FGEN5FTIME.html#">SILC_ASN1_GEN_TIME</a>
+<a class="menuitem" href="./silcasn1_hsilcasn12FSILC5FASN15FEND.html#">SILC_ASN1_END</a>
+</div> <!-- navigation -->
+<div id="content">
+<a name="silcasn12fsilc5fasn15fencode">
+</a><a name="robo45"></a><h2>silc_asn1_encode</h2>
+
+<p class="item_name">SYNOPSIS</p>
+<pre>    SilcBool <strong>silc_asn1_encode</strong>(<a href="./silcasn1_hsilcasn12FSilcAsn1.html#robo53">SilcAsn1</a> asn1, SilcBuffer dest, ...);
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>    Encodes ASN.1 encoded buffer into `dest', from variable argument
+    list of ASN.1 types.  The variable argument list forms the ASN.1
+    trees and nodes that are encoded into the `dest'.  By default, the
+    memory for `dest' is allocated from the `asn1', and the buffer becomes
+    invalid either by calling <a href="./silcasn1_hsilcasn12Fsilc5Fasn15Ffree.html#robo48">silc_asn1_free</a>, <a href="./silcasn1_hsilcasn12Fsilc5Fasn15Funinit.html#robo46">silc_asn1_uninit</a>, or when
+    <strong>silc_asn1_encode</strong> is called for the next time with `asn1' context.
+</p>
+
+<p>    If the <a href="./silcasn1_hsilcasn12FSILC5FASN15FOPTS.html#robo43">SILC_ASN1_OPTS</a> macro with SILC_ASN1_ALLOC option is given then
+    the `dest' is dynamically allocated and caller must free it by itself.
+    If the `stack' was given to <a href="./silcasn1_hsilcasn12Fsilc5Fasn15Falloc.html#robo49">silc_asn1_alloc</a>, the SILC_ASN1_ALLOC will
+    allocate from that stack and consume the stack.  Alternatively if
+    SILC_ASN1_ACCUMUL is given then memory is accumulated from `asn1' for
+    `dest' and it is freed only when <a href="./silcasn1_hsilcasn12Fsilc5Fasn15Ffree.html#robo48">silc_asn1_free</a> or <a href="./silcasn1_hsilcasn12Fsilc5Fasn15Funinit.html#robo46">silc_asn1_uninit</a>
+    is called.  Next call to <strong>silc_asn1_encode</strong> will not cancel the previous
+    result, but will accumulate more memory for new result.
+</p>
+
+<p>    The variable argument list is constructed by using various
+    macros, for example <a href="./silcasn1_hsilcasn12FSILC5FASN15FSEQUENCE.html#robo40">SILC_ASN1_SEQUENCE</a>, etc.  The variable argument
+    list must always be ended with <a href="./silcasn1_hsilcasn12FSILC5FASN15FEND.html#robo15">SILC_ASN1_END</a> type.
+</p>
+
+<p>    If encoding is successful this returns TRUE, FALSE on error.
+</p>
+<p class="item_name">EXAMPLE</p>
+<pre>    <strong>silc_asn1_encode</strong>(asn1, buf,
+                     <a href="./silcasn1_hsilcasn12FSILC5FASN15FSEQUENCE.html#robo40">SILC_ASN1_SEQUENCE</a>,
+                       <a href="./silcasn1_hsilcasn12FSILC5FASN15FBOOLEAN.html#robo35">SILC_ASN1_BOOLEAN</a>(bool_val),
+                       <a href="./silcasn1_hsilcasn12FSILC5FASN15FOCTET5FSTRING.html#robo28">SILC_ASN1_OCTET_STRING</a>(string, string_len),
+                       SILC_ASN1_SEQUENCE_T(0, 2),
+                         SILC_ASN1_BOOLEAN_T(SILC_ASN1_EXPLICIT, 100, foo),
+                       <a href="./silcasn1_hsilcasn12FSILC5FASN15FEND.html#robo15">SILC_ASN1_END</a>,
+                       SILC_ASN1_OCTET_STRING_T(0, 1, string2, string2_len),
+                     <a href="./silcasn1_hsilcasn12FSILC5FASN15FEND.html#robo15">SILC_ASN1_END</a>, <a href="./silcasn1_hsilcasn12FSILC5FASN15FEND.html#robo15">SILC_ASN1_END</a>);
+
+    Creates ASN.1 tree that looks something like:
+
+    buf ::= SEQUENCE {
+      bool_val      BOOLEAN,
+      string        OCTET-STRING,
+               [2]  SEQUENCE {
+                      foo   [100] EXPLICIT BOOLEAN }
+      string2  [1]  OCTET-STRING }
+</pre>
+
+</div> <!-- content -->
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>silccipher.h</title>
+<!-- Source: ./../../lib/silccrypt/silccipher.h -->
+<!-- Generated with ROBODoc Version 4.99.36 (Feb  3 2008) -->
+</head>
+<body>
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+<a class="menuitem" href="silcacc_hsilcacc2FCrypto20Accelerator20Interface.html">Crypto Accelerator Interface</a>
+<a class="menuitem" href="silcasn1_hsilcasn12FASN2E120Interface.html">ASN.1 Interface</a>
+<a class="menuitem" href="silcber_hsilcasn12FBER20Interface.html">BER Interface</a>
+<a class="menuitem" href="silccipher_hsilccrypt2FCipher20Interface.html">Cipher Interface</a>
+<a class="menuitem" href="silccrypto_hsilccrypt2FCrypto20Toolkit20Interface.html">Crypto Toolkit Interface</a>
+<a class="menuitem" href="silchash_hsilccrypt2FHash20Function20Interface.html">Hash Function Interface</a>
+<a class="menuitem" href="silcmac_hsilccrypt2FMAC20Interface.html">MAC Interface</a>
+<a class="menuitem" href="silcmath_hsilcmath2FMath20Interface.html">Math Interface</a>
+<a class="menuitem" href="silcmp_hsilcmath2FMP20Integer20Interface.html">MP Integer Interface</a>
+<a class="menuitem" href="silcpgp_hsilcpgp2FOpenPGP20Interface.html">OpenPGP Interface</a>
+<a class="menuitem" href="silcpk_hsilccrypt2FSILC20Interface.html">SILC Interface</a>
+<a class="menuitem" href="silcpkcs_hsilccrypt2FPKCS20Interface.html">PKCS Interface</a>
+<a class="menuitem" href="silcpkcs1_hsilccrypt2FPKCS23120Interface.html">PKCS#1 Interface</a>
+<a class="menuitem" href="silcrng_hsilccrypt2FRNG20Interface.html">RNG Interface</a>
+<a class="menuitem" href="silcskr_hsilcskr2FKey20Manager20and20Repository.html">Key Manager and Repository</a>
+<a class="menuitem" href="silcssh_hsilcssh2FSSH20Interface.html">SSH Interface</a>
+<a class="menuitem" href="softacc_hsilcacc2FSoftware20Accelerator.html">Software Accelerator</a>
+</div> <!-- navigation -->
+<div id="content">
+<a name="silccrypt2fCipher20Interface">
+</a><a name="robo85"></a><h2>Cipher Interface</h2>
+
+<p class="item_name">DESCRIPTION</p>
+<p> This is the interface for cipher functions.  It provides cipher
+ registering and unregistering routines, encryption and decryption
+ routines.
+</p>
+<p class="item_name">EXAMPLE</p>
+<pre> // Allocate AES-128 cipher in CBC mode
+ <a href="./silccipher_hsilccrypt2FSilcCipher.html#robo84">SilcCipher</a> aes;
+
+ <a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Falloc.html#robo76">silc_cipher_alloc</a>(SILC_CIPHER_AES_128_CBC, &amp;aes);
+
+ // Set key for encryption, key length must in bits
+ <a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fset5Fkey.html#robo69">silc_cipher_set_key</a>(aes, key, key_len * 8, TRUE);
+
+ // Set IV
+ <a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fset5Fiv.html#robo68">silc_cipher_set_iv</a>(aes, iv);
+
+ // Encrypt data
+ <a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fencrypt.html#robo71">silc_cipher_encrypt</a>(aes, src, dst, len, NULL);
+</pre>
+
+<p class="item_name">TABLE OF CONTENTS</p>
+<ul class="toc_entries">
+<li class="toc_entries"><a href="./silccipher_hsilccrypt2FSilcCipher.html#">SilcCipher</a></li>
+<li class="toc_entries"><a href="./silccipher_hsilccrypt2FCiphers.html#">Ciphers</a></li>
+<li class="toc_entries"><a href="./silccipher_hsilccrypt2FCipher2DAlgorithms.html#">Cipher-Algorithms</a></li>
+<li class="toc_entries"><a href="./silccipher_hsilccrypt2FSilcCipherMode.html#">SilcCipherMode</a></li>
+<li class="toc_entries"><a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fregister.html#">silc_cipher_register</a></li>
+<li class="toc_entries"><a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Funregister.html#">silc_cipher_unregister</a></li>
+<li class="toc_entries"><a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fregister5Fdefault.html#">silc_cipher_register_default</a></li>
+<li class="toc_entries"><a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Funregister5Fall.html#">silc_cipher_unregister_all</a></li>
+<li class="toc_entries"><a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Falloc.html#">silc_cipher_alloc</a></li>
+<li class="toc_entries"><a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Falloc5Ffull.html#">silc_cipher_alloc_full</a></li>
+<li class="toc_entries"><a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Ffree.html#">silc_cipher_free</a></li>
+<li class="toc_entries"><a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fis5Fsupported.html#">silc_cipher_is_supported</a></li>
+<li class="toc_entries"><a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fget5Fsupported.html#">silc_cipher_get_supported</a></li>
+<li class="toc_entries"><a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fencrypt.html#">silc_cipher_encrypt</a></li>
+<li class="toc_entries"><a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fdecrypt.html#">silc_cipher_decrypt</a></li>
+<li class="toc_entries"><a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fset5Fkey.html#">silc_cipher_set_key</a></li>
+<li class="toc_entries"><a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fset5Fiv.html#">silc_cipher_set_iv</a></li>
+<li class="toc_entries"><a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fget5Fiv.html#">silc_cipher_get_iv</a></li>
+<li class="toc_entries"><a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fget5Fkey5Flen.html#">silc_cipher_get_key_len</a></li>
+<li class="toc_entries"><a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fget5Fblock5Flen.html#">silc_cipher_get_block_len</a></li>
+<li class="toc_entries"><a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fget5Fiv5Flen.html#">silc_cipher_get_iv_len</a></li>
+<li class="toc_entries"><a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fget5Fname.html#">silc_cipher_get_name</a></li>
+<li class="toc_entries"><a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fget5Falg5Fname.html#">silc_cipher_get_alg_name</a></li>
+<li class="toc_entries"><a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fget5Fmode.html#">silc_cipher_get_mode</a></li>
+</ul>
+</div> <!-- content -->
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+</body>
+</html>

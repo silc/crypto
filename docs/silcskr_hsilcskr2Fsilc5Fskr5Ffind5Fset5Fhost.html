@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>silcskr.h</title>
+<!-- Source: ./../../lib/silcskr/silcskr.h -->
+<!-- Generated with ROBODoc Version 4.99.36 (Feb  3 2008) -->
+</head>
+<body>
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+<a class="menuitem" href="silcskr_hsilcskr2FKey20Manager20and20Repository.html">Key Manager and Repository</a>
+<a class="menuitem" href="./silcskr_hsilcskr2FSilcSKR.html#">SilcSKR</a>
+<a class="menuitem" href="./silcskr_hsilcskr2FSilcSKRFind.html#">SilcSKRFind</a>
+<a class="menuitem" href="./silcskr_hsilcskr2FSilcSKRKeyUsage.html#">SilcSKRKeyUsage</a>
+<a class="menuitem" href="./silcskr_hsilcskr2FSilcSKRKey.html#">SilcSKRKey</a>
+<a class="menuitem" href="./silcskr_hsilcskr2FSilcSKRFindCallback.html#">SilcSKRFindCallback</a>
+<a class="menuitem" href="./silcskr_hsilcskr2Fsilc5Fskr5Falloc.html#">silc_skr_alloc</a>
+<a class="menuitem" href="./silcskr_hsilcskr2Fsilc5Fskr5Ffree.html#">silc_skr_free</a>
+<a class="menuitem" href="./silcskr_hsilcskr2Fsilc5Fskr5Finit.html#">silc_skr_init</a>
+<a class="menuitem" href="./silcskr_hsilcskr2Fsilc5Fskr5Funinit.html#">silc_skr_uninit</a>
+<a class="menuitem" href="./silcskr_hsilcskr2Fsilc5Fskr5Fadd5Fpublic5Fkey.html#">silc_skr_add_public_key</a>
+<a class="menuitem" href="./silcskr_hsilcskr2Fsilc5Fskr5Fadd5Fpublic5Fkey5Fsimple.html#">silc_skr_add_public_key_simple</a>
+<a class="menuitem" href="./silcskr_hsilcskr2Fsilc5Fskr5Fdel5Fpublic5Fkey.html#">silc_skr_del_public_key</a>
+<a class="menuitem" href="./silcskr_hsilcskr2Fsilc5Fskr5Fref5Fpublic5Fkey.html#">silc_skr_ref_public_key</a>
+<a class="menuitem" href="./silcskr_hsilcskr2Fsilc5Fskr5Funref5Fpublic5Fkey.html#">silc_skr_unref_public_key</a>
+<a class="menuitem" href="./silcskr_hsilcskr2Fsilc5Fskr5Ffind5Falloc.html#">silc_skr_find_alloc</a>
+<a class="menuitem" href="./silcskr_hsilcskr2Fsilc5Fskr5Ffind5Ffree.html#">silc_skr_find_free</a>
+<a class="menuitem" href="./silcskr_hsilcskr2Fsilc5Fskr5Ffind5Fadd5Fpkcs5Ftype.html#">silc_skr_find_add_pkcs_type</a>
+<a class="menuitem" href="./silcskr_hsilcskr2Fsilc5Fskr5Ffind5Fset5Fusername.html#">silc_skr_find_set_username</a>
+<a class="menuitem" href="#">silc_skr_find_set_host</a>
+<a class="menuitem" href="./silcskr_hsilcskr2Fsilc5Fskr5Ffind5Fset5Frealname.html#">silc_skr_find_set_realname</a>
+<a class="menuitem" href="./silcskr_hsilcskr2Fsilc5Fskr5Ffind5Fset5Femail.html#">silc_skr_find_set_email</a>
+<a class="menuitem" href="./silcskr_hsilcskr2Fsilc5Fskr5Ffind5Fset5Forg.html#">silc_skr_find_set_org</a>
+<a class="menuitem" href="./silcskr_hsilcskr2Fsilc5Fskr5Ffind5Fset5Fcountry.html#">silc_skr_find_set_country</a>
+<a class="menuitem" href="./silcskr_hsilcskr2Fsilc5Fskr5Ffind5Fset5Fpublic5Fkey.html#">silc_skr_find_set_public_key</a>
+<a class="menuitem" href="./silcskr_hsilcskr2Fsilc5Fskr5Ffind5Fset5Fcontext.html#">silc_skr_find_set_context</a>
+<a class="menuitem" href="./silcskr_hsilcskr2Fsilc5Fskr5Ffind5Fset5Fusage.html#">silc_skr_find_set_usage</a>
+<a class="menuitem" href="./silcskr_hsilcskr2Fsilc5Fskr5Ffind.html#">silc_skr_find</a>
+</div> <!-- navigation -->
+<div id="content">
+<a name="silcskr2fsilc5fskr5ffind5fset5fhost">
+</a><a name="robo297"></a><h2>silc_skr_find_set_host</h2>
+
+<p class="item_name">SYNOPSIS</p>
+<pre>    SilcBool <strong>silc_skr_find_set_host</strong>(<a href="./silcskr_hsilcskr2FSilcSKRFind.html#robo314">SilcSKRFind</a> find,
+                                    const char *host);
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>    Sets host as search constraint.  This specific host must be
+    present in the key.  The `host' may be a hostname or IP address.
+</p>
+
+<p>    This may be used with SILC_PKCS_SILC PKCS type only.
+</p>
+
+</div> <!-- content -->
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+</body>
+</html>

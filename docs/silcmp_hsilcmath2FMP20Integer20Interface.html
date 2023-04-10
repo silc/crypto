@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>silcmp.h</title>
+<!-- Source: ./../../lib/silcmath/silcmp.h -->
+<!-- Generated with ROBODoc Version 4.99.36 (Feb  3 2008) -->
+</head>
+<body>
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+<a class="menuitem" href="silcacc_hsilcacc2FCrypto20Accelerator20Interface.html">Crypto Accelerator Interface</a>
+<a class="menuitem" href="silcasn1_hsilcasn12FASN2E120Interface.html">ASN.1 Interface</a>
+<a class="menuitem" href="silcber_hsilcasn12FBER20Interface.html">BER Interface</a>
+<a class="menuitem" href="silccipher_hsilccrypt2FCipher20Interface.html">Cipher Interface</a>
+<a class="menuitem" href="silccrypto_hsilccrypt2FCrypto20Toolkit20Interface.html">Crypto Toolkit Interface</a>
+<a class="menuitem" href="silchash_hsilccrypt2FHash20Function20Interface.html">Hash Function Interface</a>
+<a class="menuitem" href="silcmac_hsilccrypt2FMAC20Interface.html">MAC Interface</a>
+<a class="menuitem" href="silcmath_hsilcmath2FMath20Interface.html">Math Interface</a>
+<a class="menuitem" href="silcmp_hsilcmath2FMP20Integer20Interface.html">MP Integer Interface</a>
+<a class="menuitem" href="silcpgp_hsilcpgp2FOpenPGP20Interface.html">OpenPGP Interface</a>
+<a class="menuitem" href="silcpk_hsilccrypt2FSILC20Interface.html">SILC Interface</a>
+<a class="menuitem" href="silcpkcs_hsilccrypt2FPKCS20Interface.html">PKCS Interface</a>
+<a class="menuitem" href="silcpkcs1_hsilccrypt2FPKCS23120Interface.html">PKCS#1 Interface</a>
+<a class="menuitem" href="silcrng_hsilccrypt2FRNG20Interface.html">RNG Interface</a>
+<a class="menuitem" href="silcskr_hsilcskr2FKey20Manager20and20Repository.html">Key Manager and Repository</a>
+<a class="menuitem" href="silcssh_hsilcssh2FSSH20Interface.html">SSH Interface</a>
+<a class="menuitem" href="softacc_hsilcacc2FSoftware20Accelerator.html">Software Accelerator</a>
+</div> <!-- navigation -->
+<div id="content">
+<a name="silcmath2fMP20Integer20Interface">
+</a><a name="robo186"></a><h2>MP Integer Interface</h2>
+
+<p class="item_name">DESCRIPTION</p>
+<p> SILC MP Library Interface. This interface defines the arbitrary
+ precision arithmetic routines for SILC. The interface is generic but
+ is mainly intended for crypto usage. This interface is used by SILC
+ routines that needs big numbers, such as RSA implementation,
+ Diffie-Hellman implementation etc.
+</p>
+
+<p class="item_name">TABLE OF CONTENTS</p>
+<ul class="toc_entries">
+<li class="toc_entries"><a href="./silcmp_hsilcmath2FSilcMPInt.html#">SilcMPInt</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Finit.html#">silc_mp_init</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fsinit.html#">silc_mp_sinit</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Funinit.html#">silc_mp_uninit</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fsize.html#">silc_mp_size</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fsizeinbase.html#">silc_mp_sizeinbase</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fset.html#">silc_mp_set</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fset5Fui.html#">silc_mp_set_ui</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fset5Fsi.html#">silc_mp_set_si</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fset5Fstr.html#">silc_mp_set_str</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fget5Fui.html#">silc_mp_get_ui</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fget5Fstr.html#">silc_mp_get_str</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fadd.html#">silc_mp_add</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fadd5Fui.html#">silc_mp_add_ui</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fsub.html#">silc_mp_sub</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fsub5Fui.html#">silc_mp_sub_ui</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fmul.html#">silc_mp_mul</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fmul5Fui.html#">silc_mp_mul_ui</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fmul5F2exp.html#">silc_mp_mul_2exp</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fsqrt.html#">silc_mp_sqrt</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fdiv.html#">silc_mp_div</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fdiv5Fui.html#">silc_mp_div_ui</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fdiv5Fqr.html#">silc_mp_div_qr</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fdiv5F2exp.html#">silc_mp_div_2exp</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fdiv5F2exp5Fqr.html#">silc_mp_div_2exp_qr</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fmod.html#">silc_mp_mod</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fmod5Fui.html#">silc_mp_mod_ui</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fmod5F2exp.html#">silc_mp_mod_2exp</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fpow5Fui.html#">silc_mp_pow_ui</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fpow5Fmod.html#">silc_mp_pow_mod</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fpow5Fmod5Fui.html#">silc_mp_pow_mod_ui</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fmodinv.html#">silc_mp_modinv</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fgcd.html#">silc_mp_gcd</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fcmp.html#">silc_mp_cmp</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fcmp5Fsi.html#">silc_mp_cmp_si</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fcmp5Fui.html#">silc_mp_cmp_ui</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fmp2bin.html#">silc_mp_mp2bin</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fmp2bin5Fnoalloc.html#">silc_mp_mp2bin_noalloc</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fbin2mp.html#">silc_mp_bin2mp</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fabs.html#">silc_mp_abs</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fneg.html#">silc_mp_neg</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fand.html#">silc_mp_and</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5For.html#">silc_mp_or</a></li>
+<li class="toc_entries"><a href="./silcmp_hsilcmath2Fsilc5Fmp5Fxor.html#">silc_mp_xor</a></li>
+</ul>
+</div> <!-- content -->
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+</body>
+</html>

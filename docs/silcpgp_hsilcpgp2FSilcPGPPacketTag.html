@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>silcpgp.h</title>
+<!-- Source: ./../../lib/silcpgp/silcpgp.h -->
+<!-- Generated with ROBODoc Version 4.99.36 (Feb  3 2008) -->
+</head>
+<body>
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+<a class="menuitem" href="silcpgp_hsilcpgp2FOpenPGP20Interface.html">OpenPGP Interface</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2FSilcPGPPublicKey.html#">SilcPGPPublicKey</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2FSilcPGPPrivateKey.html#">SilcPGPPrivateKey</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2FSilcPGPPacket.html#">SilcPGPPacket</a>
+<a class="menuitem" href="#">SilcPGPPacketTag</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2FSilcPGPPKCSAlgorithm.html#">SilcPGPPKCSAlgorithm</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2FSilcPGPCipher.html#">SilcPGPCipher</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2FSilcPGPHash.html#">SilcPGPHash</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2FSilcPGPS2KType.html#">SilcPGPS2KType</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2FSilcPGPKeyType.html#">SilcPGPKeyType</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2Fsilc5Fpgp5Fpacket5Fdecode.html#">silc_pgp_packet_decode</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2Fsilc5Fpgp5Fpacket5Fget5Ftag.html#">silc_pgp_packet_get_tag</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2Fsilc5Fpgp5Fpacket5Fget5Fdata.html#">silc_pgp_packet_get_data</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2Fsilc5Fpgp5Fpacket5Ffree.html#">silc_pgp_packet_free</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2Fsilc5Fpgp5Fpacket5Ffree5Flist.html#">silc_pgp_packet_free_list</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2Fsilc5Fpgp5Fpublic5Fkey5Fdecode.html#">silc_pgp_public_key_decode</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2Fsilc5Fpgp5Fpublic5Fkey5Ffree.html#">silc_pgp_public_key_free</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2Fsilc5Fpgp5Fprivate5Fkey5Fdecode.html#">silc_pgp_private_key_decode</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2Fsilc5Fpgp5Fprivate5Fkey5Ffree.html#">silc_pgp_private_key_free</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2Fsilc5Fpgp5Fs2k.html#">silc_pgp_s2k</a>
+</div> <!-- navigation -->
+<div id="content">
+<a name="silcpgp2fSilcPGPPacketTag">
+</a><a name="robo202"></a><h2>SilcPGPPacketTag</h2>
+
+<p class="item_name">NAME</p>
+<pre>    typedef enum { ... } <strong>SilcPGPPacketTag</strong>;
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>    OpenPGP packet types.
+</p>
+<p class="item_name">SOURCE</p>
+<pre class="source">typedef enum <span class="sign">{</span>
+  SILC_PGP_PACKET_PKENC_SK        <span class="sign">=</span> 1<span class="sign">,</span>   <span class="comment">/* Public key enc session key */</span>
+  SILC_PGP_PACKET_SIGNATURE       <span class="sign">=</span> 2<span class="sign">,</span>   <span class="comment">/* Signature packet */</span>
+  SILC_PGP_PACKET_SENC_SK         <span class="sign">=</span> 3<span class="sign">,</span>   <span class="comment">/* Symmetric-key enc session key */</span>
+  SILC_PGP_PACKET_OP_SIGNATURE    <span class="sign">=</span> 4<span class="sign">,</span>   <span class="comment">/* One pass signature packet */</span>
+  SILC_PGP_PACKET_SECKEY          <span class="sign">=</span> 5<span class="sign">,</span>   <span class="comment">/* Secret key packet */</span>
+  SILC_PGP_PACKET_PUBKEY          <span class="sign">=</span> 6<span class="sign">,</span>   <span class="comment">/* Public key packet */</span>
+  SILC_PGP_PACKET_SECKEY_SUB      <span class="sign">=</span> 7<span class="sign">,</span>   <span class="comment">/* Secret subkey packet */</span>
+  SILC_PGP_PACKET_COMP_DATA       <span class="sign">=</span> 8<span class="sign">,</span>   <span class="comment">/* Compressed data packet */</span>
+  SILC_PGP_PACKET_SENC_DATA       <span class="sign">=</span> 9<span class="sign">,</span>   <span class="comment">/* Symmetrically enc data packet */</span>
+  SILC_PGP_PACKET_MARKER          <span class="sign">=</span> 10<span class="sign">,</span>  <span class="comment">/* Marker packet */</span>
+  SILC_PGP_PACKET_LITERAL_DATA    <span class="sign">=</span> 11<span class="sign">,</span>  <span class="comment">/* Literal data packet */</span>
+  SILC_PGP_PACKET_TRUST           <span class="sign">=</span> 12<span class="sign">,</span>  <span class="comment">/* Trust packet */</span>
+  SILC_PGP_PACKET_USER_ID         <span class="sign">=</span> 13<span class="sign">,</span>  <span class="comment">/* User ID packet */</span>
+  SILC_PGP_PACKET_PUBKEY_SUB      <span class="sign">=</span> 14<span class="sign">,</span>  <span class="comment">/* Public subkey packet */</span>
+  SILC_PGP_PACKET_USER_ATTR       <span class="sign">=</span> 17<span class="sign">,</span>  <span class="comment">/* User attribute packet */</span>
+  SILC_PGP_PACKET_SENC_I_DATA     <span class="sign">=</span> 18<span class="sign">,</span>  <span class="comment">/* Symmetric key enc/integ data */</span>
+  SILC_PGP_PACKET_MDC             <span class="sign">=</span> 19<span class="sign">,</span>  <span class="comment">/* Modification detection code */</span>
+<span class="sign">}</span> <strong>SilcPGPPacketTag</strong><span class="sign">;</span>
+</pre>
+
+</div> <!-- content -->
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+</body>
+</html>

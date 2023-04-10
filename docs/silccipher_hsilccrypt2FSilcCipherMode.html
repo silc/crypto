@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>silccipher.h</title>
+<!-- Source: ./../../lib/silccrypt/silccipher.h -->
+<!-- Generated with ROBODoc Version 4.99.36 (Feb  3 2008) -->
+</head>
+<body>
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+<a class="menuitem" href="silccipher_hsilccrypt2FCipher20Interface.html">Cipher Interface</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2FSilcCipher.html#">SilcCipher</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2FCiphers.html#">Ciphers</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2FCipher2DAlgorithms.html#">Cipher-Algorithms</a>
+<a class="menuitem" href="#">SilcCipherMode</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fregister.html#">silc_cipher_register</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Funregister.html#">silc_cipher_unregister</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fregister5Fdefault.html#">silc_cipher_register_default</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Funregister5Fall.html#">silc_cipher_unregister_all</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Falloc.html#">silc_cipher_alloc</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Falloc5Ffull.html#">silc_cipher_alloc_full</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Ffree.html#">silc_cipher_free</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fis5Fsupported.html#">silc_cipher_is_supported</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fget5Fsupported.html#">silc_cipher_get_supported</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fencrypt.html#">silc_cipher_encrypt</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fdecrypt.html#">silc_cipher_decrypt</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fset5Fkey.html#">silc_cipher_set_key</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fset5Fiv.html#">silc_cipher_set_iv</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fget5Fiv.html#">silc_cipher_get_iv</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fget5Fkey5Flen.html#">silc_cipher_get_key_len</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fget5Fblock5Flen.html#">silc_cipher_get_block_len</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fget5Fiv5Flen.html#">silc_cipher_get_iv_len</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fget5Fname.html#">silc_cipher_get_name</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fget5Falg5Fname.html#">silc_cipher_get_alg_name</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fget5Fmode.html#">silc_cipher_get_mode</a>
+</div> <!-- navigation -->
+<div id="content">
+<a name="silccrypt2fSilcCipherMode">
+</a><a name="robo81"></a><h2>SilcCipherMode</h2>
+
+<p class="item_name">NAME</p>
+<pre>    typedef enum { ... } <strong>SilcCipherMode</strong>;
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>    Cipher modes.  Notes about cipher modes and implementation:
+</p>
+
+<p>    SILC_CIPHER_MODE_CBC
+</p>
+
+<pre>      The Cipher-block Chaining mode.  The plaintext length must be
+      multiple by the cipher block size.  If it isn't the plaintext must
+      be padded.
+</pre>
+<p>
+    SILC_CIPHER_MODE_CTR
+</p>
+
+<pre>      The Counter mode.  The CTR mode does not require the plaintext length
+      to be multiple by the cipher block size.  If the last plaintext block
+      is shorter the remaining bits of the key stream are used next time
+      <a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fencrypt.html#robo71">silc_cipher_encrypt</a> is called.  If <a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fset5Fiv.html#robo68">silc_cipher_set_iv</a> is called it
+      will reset the counter for a new block (discarding any remaining
+      bits from previous key stream).  The CTR mode expects MSB first
+      ordered counter.  Note also, the counter is incremented when
+      <a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fencrypt.html#robo71">silc_cipher_encrypt</a> is called for the first time, before encrypting.
+</pre>
+<p>
+    SILC_CIPHER_MODE_CFB
+</p>
+
+<pre>      The Cipher Feedback mode.  The CFB mode does not require the plaintext
+      length to be multiple by the cipher block size.  If the last plaintext
+      block is shorter the remaining bits of the stream are used next time
+      <a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fencrypt.html#robo71">silc_cipher_encrypt</a> is called.  If <a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fset5Fiv.html#robo68">silc_cipher_set_iv</a> is called it
+      will reset the feedback for a new block (discarding any remaining
+      bits from previous stream).
+</pre>
+<p>
+    SILC_CIPHER_MODE_OFB
+</p>
+
+<pre>      The Output Feedback mode.
+</pre>
+<p>
+    SILC_CIPHER_MODE_ECB
+</p>
+
+<pre>      The Electronic Codebook mode.  This mode does not provide sufficient
+      security and should not be used alone.
+</pre>
+<p>
+    Each mode using and IV (initialization vector) modifies the IV of the
+    cipher when <a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fencrypt.html#robo71">silc_cipher_encrypt</a> or <a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fdecrypt.html#robo70">silc_cipher_decrypt</a> is called.  The
+    IV may be set/reset by calling <a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fset5Fiv.html#robo68">silc_cipher_set_iv</a> and the current IV
+    can be retrieved by calling <a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fget5Fiv.html#robo67">silc_cipher_get_iv</a>.
+</p>
+<p class="item_name">SOURCE</p>
+<pre class="source">typedef enum <span class="sign">{</span>
+  SILC_CIPHER_MODE_ECB <span class="sign">=</span> 1<span class="sign">,</span>     <span class="comment">/* ECB mode */</span>
+  SILC_CIPHER_MODE_CBC <span class="sign">=</span> 2<span class="sign">,</span>     <span class="comment">/* CBC mode */</span>
+  SILC_CIPHER_MODE_CTR <span class="sign">=</span> 3<span class="sign">,</span>     <span class="comment">/* CTR mode */</span>
+  SILC_CIPHER_MODE_CFB <span class="sign">=</span> 4<span class="sign">,</span>     <span class="comment">/* CFB mode */</span>
+  SILC_CIPHER_MODE_OFB <span class="sign">=</span> 5<span class="sign">,</span>     <span class="comment">/* OFB mode */</span>
+<span class="sign">}</span> <strong>SilcCipherMode</strong><span class="sign">;</span>
+</pre>
+
+</div> <!-- content -->
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>silccrypto.h</title>
+<!-- Source: ./../../lib/silccrypt/silccrypto.h -->
+<!-- Generated with ROBODoc Version 4.99.36 (Feb  3 2008) -->
+</head>
+<body>
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+<a class="menuitem" href="silcacc_hsilcacc2FCrypto20Accelerator20Interface.html">Crypto Accelerator Interface</a>
+<a class="menuitem" href="silcasn1_hsilcasn12FASN2E120Interface.html">ASN.1 Interface</a>
+<a class="menuitem" href="silcber_hsilcasn12FBER20Interface.html">BER Interface</a>
+<a class="menuitem" href="silccipher_hsilccrypt2FCipher20Interface.html">Cipher Interface</a>
+<a class="menuitem" href="silccrypto_hsilccrypt2FCrypto20Toolkit20Interface.html">Crypto Toolkit Interface</a>
+<a class="menuitem" href="silchash_hsilccrypt2FHash20Function20Interface.html">Hash Function Interface</a>
+<a class="menuitem" href="silcmac_hsilccrypt2FMAC20Interface.html">MAC Interface</a>
+<a class="menuitem" href="silcmath_hsilcmath2FMath20Interface.html">Math Interface</a>
+<a class="menuitem" href="silcmp_hsilcmath2FMP20Integer20Interface.html">MP Integer Interface</a>
+<a class="menuitem" href="silcpgp_hsilcpgp2FOpenPGP20Interface.html">OpenPGP Interface</a>
+<a class="menuitem" href="silcpk_hsilccrypt2FSILC20Interface.html">SILC Interface</a>
+<a class="menuitem" href="silcpkcs_hsilccrypt2FPKCS20Interface.html">PKCS Interface</a>
+<a class="menuitem" href="silcpkcs1_hsilccrypt2FPKCS23120Interface.html">PKCS#1 Interface</a>
+<a class="menuitem" href="silcrng_hsilccrypt2FRNG20Interface.html">RNG Interface</a>
+<a class="menuitem" href="silcskr_hsilcskr2FKey20Manager20and20Repository.html">Key Manager and Repository</a>
+<a class="menuitem" href="silcssh_hsilcssh2FSSH20Interface.html">SSH Interface</a>
+<a class="menuitem" href="softacc_hsilcacc2FSoftware20Accelerator.html">Software Accelerator</a>
+</div> <!-- navigation -->
+<div id="content">
+<a name="silccrypt2fCrypto20Toolkit20Interface">
+</a><a name="robo89"></a><h2>Crypto Toolkit Interface</h2>
+
+<p class="item_name">DESCRIPTION</p>
+<p> This interface is used to initialize and uninitialize the SILC Crypto
+ Toolkit.  SILC Crypto Toolkit is initialized by calling the
+ silc_crypto_init function.  It needs to be called only once per-process
+ but must be called before any crypto functions are used.
+</p>
+
+<p> In initialization all builtin ciphers, hash functions, <a href="./silcmac_hsilccrypt2FMACs.html#robo136">MACs</a>, PKCSs
+ and other algorithms will be registered to the crypto library.  If user
+ wants to register new algorithms or change the order of the automatically
+ registered algorithms, user can do this by re-registering the algorithms
+ in desired order.
+</p>
+
+<p> A global SilcStack, a memory pool, can be associated with the Crypto
+ Toolkit.  If it is set in initialization, all routines in the Crypto
+ Toolkit will use that stack as its memory source.  Some interfaces and
+ libraries in the SILC Crypto Toolkit support also providing the SilcStack
+ as an additional argument, in which case a different stack from the global
+ one can be used.
+</p>
+
+<p class="item_name">TABLE OF CONTENTS</p>
+<ul class="toc_entries">
+<li class="toc_entries"><a href="./silccrypto_hsilccrypt2FSilcCryptoAPI2Fsilc5Fcrypto5Finit.html#">SilcCryptoAPI/silc_crypto_init</a></li>
+<li class="toc_entries"><a href="./silccrypto_hsilccrypt2FSilcCryptoAPI2Fsilc5Fcrypto5Funinit.html#">SilcCryptoAPI/silc_crypto_uninit</a></li>
+<li class="toc_entries"><a href="./silccrypto_hsilccrypt2FSilcCryptoAPI2Fsilc5Fcrypto5Fstack.html#">SilcCryptoAPI/silc_crypto_stack</a></li>
+</ul>
+</div> <!-- content -->
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+</body>
+</html>

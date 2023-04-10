@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>silcssh.h</title>
+<!-- Source: ./../../lib/silcssh/silcssh.h -->
+<!-- Generated with ROBODoc Version 4.99.36 (Feb  3 2008) -->
+</head>
+<body>
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+<a class="menuitem" href="silcssh_hsilcssh2FSSH20Interface.html">SSH Interface</a>
+<a class="menuitem" href="./silcssh_hsilcssh2FSilcSshKeyType.html#">SilcSshKeyType</a>
+<a class="menuitem" href="./silcssh_hsilcssh2FSilcSshPublicKey.html#">SilcSshPublicKey</a>
+<a class="menuitem" href="./silcssh_hsilcssh2FSilcSshPrivateKey.html#">SilcSshPrivateKey</a>
+<a class="menuitem" href="./silcssh_hsilcssh2Fsilc5Fssh5Fgenerate5Fkey.html#">silc_ssh_generate_key</a>
+<a class="menuitem" href="#">silc_ssh_public_key_decode</a>
+<a class="menuitem" href="./silcssh_hsilcssh2Fsilc5Fssh5Fpublic5Fkey5Fencode.html#">silc_ssh_public_key_encode</a>
+<a class="menuitem" href="./silcssh_hsilcssh2Fsilc5Fssh5Fpublic5Fkey5Ffree.html#">silc_ssh_public_key_free</a>
+<a class="menuitem" href="./silcssh_hsilcssh2Fsilc5Fssh5Fpublic5Fkey5Fget5Ffield.html#">silc_ssh_public_key_get_field</a>
+<a class="menuitem" href="./silcssh_hsilcssh2Fsilc5Fssh5Fpublic5Fkey5Fadd5Ffield.html#">silc_ssh_public_key_add_field</a>
+<a class="menuitem" href="./silcssh_hsilcssh2Fsilc5Fssh5Fpublic5Fkey5Fset5Ftype.html#">silc_ssh_public_key_set_type</a>
+</div> <!-- navigation -->
+<div id="content">
+<a name="silcssh2fsilc5fssh5fpublic5fkey5fdecode">
+</a><a name="robo322"></a><h2>silc_ssh_public_key_decode</h2>
+
+<p class="item_name">SYNOPSIS</p>
+<pre>    int <strong>silc_ssh_public_key_decode</strong>(unsigned char *key, SilcUInt32 key_len,
+                                   <a href="./silcssh_hsilcssh2FSilcSshPublicKey.html#robo325">SilcSshPublicKey</a> *ret_public_key);
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>    Decodes SSH Public Key indicated by `key' of length of `key_len'
+    bytes.  The decoded public key is returned into the `ret_public_key'
+    which the caller must free by calling the <a href="./silcssh_hsilcssh2Fsilc5Fssh5Fpublic5Fkey5Ffree.html#robo320">silc_ssh_public_key_free</a>
+    function.  This function expects the public key to be in raw binary
+    format, without any public key file markers or headers.
+</p>
+
+<p>    This decodes SSH2 protocol compliant raw public key.
+</p>
+
+<p>    This function returns the number of bytes decoded from the public
+    key buffer or 0 on error.
+</p>
+
+</div> <!-- content -->
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./runtime.css" type="text/css" />
+<title>SILC Runtime Toolkit</title>
+</head>
+<body>
+
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silcnet.org">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Runtime Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+</div> <!-- navigation -->
+<div id="content">
+
+<big><b>Building the Toolkit</b></big>
+
+<br />&nbsp;<br />
+SILC Runtime Toolkit works on various platforms, such as on several Unix
+systems and on Windows.  Building of the Toolkit on some platform may
+differ from the other.  This document describes how to build the Toolkit
+from the sources, to create linkable libraries and binaries, on all
+platforms the Toolkit support.
+
+<br />&nbsp;<br />
+The building instructions for all platforms are also included in the Toolkit
+package.  Please refer to the INSTALL file for general building instructions
+for Unix systems, README.WIN32 for building on Windows systems,
+README.MACOSX for building on Mac OS X, and README_SYMBIAN for building on
+Symbian OS.
+<br />
+
+<ul class="toc_entries">
+<li><a href="#unix">Building on Unix & Linux</a><br />
+<li><a href="#windows">Building on Windows</a><br />
+<li><a href="#macosx">Building on Mac OS X</a>
+<li><a href="#symbian">Building on Symbian OS</a>
+</ul>
+
+<b><a name="unix"></a>Building on Unix & Linux</b>
+
+<br />&nbsp;<br />
+On Unix systems both statically and dynamically linkable libraries are
+built by default.
+
+<br />&nbsp;<br />
+To build Toolkit on Unix systems, give commands:
+
+<br />&nbsp;<br />
+<tt>
+./configure<br />
+make
+</tt>
+
+<br />&nbsp;<br />
+On some systems you may need to give "gmake" command instead of "make".  The
+./configure can take several options as arguments.  To see them all give
+command:
+
+<br />&nbsp;<br />
+<tt>./configure --help</tt>
+
+<br />&nbsp;<br />
+The most important configuration options you may consider to use are:
+
+<br />&nbsp;<br />
+<tt>--enable-debug</tt>
+
+<br />&nbsp;<br />
+If you would like to enable the debugging for the compiled binaries
+you can give this option to the `configure'.  It is recommended to use
+this option when you are doing development with Toolkit.  It is helpful
+to enable run-time debugging.
+
+<br />&nbsp;<br />
+<tt>--with-iconv[=DIR]</tt>
+
+<br />&nbsp;<br />
+If your system doesn't provide iconv() function in its native libraries
+(usually libc) or if this function is broken (e.g. older Solaris systems),
+you may want to use libiconv instead.  The DIR is the upper path in your
+system which contains lib/ and include/ for libiconv (e.g. /usr/local).
+
+<br />&nbsp;<br />
+<tt>--without-pthreads</tt>
+
+<br />&nbsp;<br />
+If you do not want to compile the programs with POSIX multi-threads support
+you can give --without-pthreads option.  This will disable the SILC Thread
+API and SILC Mutex API.  Furthermore if SILC Thread API is used when this
+option is used, the routines work, but do not work in threads (are run
+in the calling process and can block the process).
+
+<br />&nbsp;<br />
+<tt>--disable-asm</tt>
+
+<br />&nbsp;<br />
+If you have trouble compiling the assembler optimized code in the
+package or does not want to use them, you can give the --disable-asm
+option to the `configure' script.  This will assure that assembler
+optimized code is not compiled in.
+
+<br />&nbsp;<br />
+<tt>--enable-ipv6</tt>
+
+<br />&nbsp;<br />
+The `configure' will attempt to check for IPv6 support in your system.
+However, if it fails, but you still want to compile in the IPv6 support
+you can give --enable-ipv6 option to force the IPv6 support.
+
+<br />&nbsp;<br />
+<tt>--disable-cpu-optimizations</tt>
+
+<br />&nbsp;<br />
+By default the configure script will attempt to detect the type of your
+CPU and enable any features specific to your CPU that could optimize the
+performance of the Toolkit.  If you are creating binary package that
+should work on any CPU (and not only your CPU) you should diable these
+optimizations.  If you compile it for yourself only, keeping the
+optimizations enabled is recommended.
+
+<br />&nbsp;<br />
+After compilation you can install the Toolkit into your system by giving
+the command:
+
+<br />&nbsp;<br />
+<tt>make install</tt>
+
+
+<br />&nbsp;<br />&nbsp;<br />
+<b><a name="windows"></a>Building on Windows</b>
+
+<br />&nbsp;<br />
+The Toolkit can be compiled several different ways on Windows.  However,
+this document describes the method to build the Toolkit to produce native
+Win32 binaries.  The Toolkit package can also be compiled on Cygwin and
+MinGW.  For these systems please refer to the README.WIN32 file in the
+Toolkit package.
+
+<br />&nbsp;<br />
+The Toolkit package includes ready MSVC++ Workspace files, that will
+automatically compile the Toolkit.  The MSVC++ workspace and project files
+resides in the win32/ subdirectory of the Toolkit package.  The `srt.dsw'
+file is the workspace file that automatically supports compiling the Toolkit
+and to generate the SILC Runtime DLL (libsrt.dll).  You may also compile
+debug version by selecteing the Debug compilation method.
+
+<br />&nbsp;<br />&nbsp;<br />
+<b><a name="macosx"></a>Building on Mac OS X</b>
+
+<br />&nbsp;<br />
+Building the Toolkit on Mac OS X is almost identical on compiling on Unix
+system.  The reason for this is that the Mac OS X is Unix based operating
+system.  To build the Toolkit on Mac OS X, give the following commands:
+
+<br />&nbsp;<br />
+<tt>
+setenv CFLAGS -no-cpp-precomp<br />
+./configure powerpc<br />
+make
+</tt>
+
+<br />&nbsp;<br />
+The ./configure can take several options as arguments.  To see them all give
+command:
+
+<br />&nbsp;<br />
+<tt>./configure --help</tt>
+
+<br />&nbsp;<br />
+To compile, give:
+
+<br />&nbsp;<br />
+<tt>
+make
+</tt>
+
+<br />&nbsp;<br />
+After compilation you can install the Toolkit into your system by giving
+the command:
+
+<br />&nbsp;<br />
+<tt>make install</tt>
+
+<br />&nbsp;<br />&nbsp;<br />
+<b><a name="symbian"></a>Building on Symbian OS</b>
+
+<br />&nbsp;<br />
+The build environment for Symbian OS requires Carbide.c++ and MS Windows.
+
+<br />&nbsp;<br />
+Download the freely available Carbide.c++ from Nokia at
+<a href="http://forum.nokia.com">http://forum.nokia.com</a>.  The exact
+hyperlink location changes often, so it is not referenced here.  It is
+usually under "Tools and SDKs" link.
+
+<br />&nbsp;<br />
+After installation a web browser is opened automatically by the
+Carbide.c++ installer.  Follow its instructions by installing the Perl,
+CTags and the SDK.  Perl and the SDK are required, but CTags is
+optional and if necessary can be omitted.
+
+<br />&nbsp;<br />
+The Toolkit is generic C and C++ code and should work with any
+SDK.  If you don't have SDK already installed, install the latest
+version you can find.  The links to SDKs are found in the Carbide.c++
+instructions after installation.  If you already have SDK in your
+system, you should use that.
+
+<br />&nbsp;<br />
+After installation import the Toolkit project to Carbide.c++ from the
+symbian/ subdirectory in the Toolkit package.
+
+<br />&nbsp;<br />
+Please read the README.SYMBIAN from the SILC Runtime Toolkit package for
+complete building instructions.
+
+<br />&nbsp;<br />
+</div> <!-- content -->
+
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silcnet.org">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Runtime Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+ </tr>
+</table>
+</div>
+
+</body>
+</html>

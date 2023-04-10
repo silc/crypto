@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>silcssh.h</title>
+<!-- Source: ./../../lib/silcssh/silcssh.h -->
+<!-- Generated with ROBODoc Version 4.99.36 (Feb  3 2008) -->
+</head>
+<body>
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+<a class="menuitem" href="silcssh_hsilcssh2FSSH20Interface.html">SSH Interface</a>
+<a class="menuitem" href="./silcssh_hsilcssh2FSilcSshKeyType.html#">SilcSshKeyType</a>
+<a class="menuitem" href="#">SilcSshPublicKey</a>
+<a class="menuitem" href="./silcssh_hsilcssh2FSilcSshPrivateKey.html#">SilcSshPrivateKey</a>
+<a class="menuitem" href="./silcssh_hsilcssh2Fsilc5Fssh5Fgenerate5Fkey.html#">silc_ssh_generate_key</a>
+<a class="menuitem" href="./silcssh_hsilcssh2Fsilc5Fssh5Fpublic5Fkey5Fdecode.html#">silc_ssh_public_key_decode</a>
+<a class="menuitem" href="./silcssh_hsilcssh2Fsilc5Fssh5Fpublic5Fkey5Fencode.html#">silc_ssh_public_key_encode</a>
+<a class="menuitem" href="./silcssh_hsilcssh2Fsilc5Fssh5Fpublic5Fkey5Ffree.html#">silc_ssh_public_key_free</a>
+<a class="menuitem" href="./silcssh_hsilcssh2Fsilc5Fssh5Fpublic5Fkey5Fget5Ffield.html#">silc_ssh_public_key_get_field</a>
+<a class="menuitem" href="./silcssh_hsilcssh2Fsilc5Fssh5Fpublic5Fkey5Fadd5Ffield.html#">silc_ssh_public_key_add_field</a>
+<a class="menuitem" href="./silcssh_hsilcssh2Fsilc5Fssh5Fpublic5Fkey5Fset5Ftype.html#">silc_ssh_public_key_set_type</a>
+</div> <!-- navigation -->
+<div id="content">
+<a name="silcssh2fSilcSshPublicKey">
+</a><a name="robo325"></a><h2>SilcSshPublicKey</h2>
+
+<p class="item_name">NAME</p>
+<pre>    typedef struct { ... } *<strong>SilcSshPublicKey</strong>;
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>    This structure defines the SSH2 public key.  This context can be
+    retrieved from <a href="./silcpkcs_hsilccrypt2FSilcPublicKey.html#robo259">SilcPublicKey</a> by calling <a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fpublic5Fkey5Fget5Fpkcs.html#robo225">silc_pkcs_public_key_get_pkcs</a>
+    for the PKCS type SILC_PKCS_SSH2.
+</p>
+<p class="item_name">SOURCE</p>
+<pre class="source">typedef struct SilcSshPublicKeyStruct  <span class="sign">{</span>
+  SilcHashTable fields<span class="sign">;</span>            <span class="comment">/* Public key headers */</span>
+  const SilcPKCSAlgorithm <span class="sign">*</span>pkcs<span class="sign">;</span>   <span class="comment">/* PKCS Algorithm */</span>
+  void <span class="sign">*</span>public_key<span class="sign">;</span>                <span class="comment">/* PKCS Algorithm specific public key */</span>
+  <a href="./silcssh_hsilcssh2FSilcSshKeyType.html#robo326">SilcSshKeyType</a> type<span class="sign">;</span>             <span class="comment">/* Public key type */</span>
+<span class="sign">}</span> <span class="sign">*</span><strong>SilcSshPublicKey</strong><span class="sign">;</span>
+</pre>
+
+</div> <!-- content -->
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+</body>
+</html>

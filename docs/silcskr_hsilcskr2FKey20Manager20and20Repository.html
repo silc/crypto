@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>silcskr.h</title>
+<!-- Source: ./../../lib/silcskr/silcskr.h -->
+<!-- Generated with ROBODoc Version 4.99.36 (Feb  3 2008) -->
+</head>
+<body>
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+<a class="menuitem" href="silcacc_hsilcacc2FCrypto20Accelerator20Interface.html">Crypto Accelerator Interface</a>
+<a class="menuitem" href="silcasn1_hsilcasn12FASN2E120Interface.html">ASN.1 Interface</a>
+<a class="menuitem" href="silcber_hsilcasn12FBER20Interface.html">BER Interface</a>
+<a class="menuitem" href="silccipher_hsilccrypt2FCipher20Interface.html">Cipher Interface</a>
+<a class="menuitem" href="silccrypto_hsilccrypt2FCrypto20Toolkit20Interface.html">Crypto Toolkit Interface</a>
+<a class="menuitem" href="silchash_hsilccrypt2FHash20Function20Interface.html">Hash Function Interface</a>
+<a class="menuitem" href="silcmac_hsilccrypt2FMAC20Interface.html">MAC Interface</a>
+<a class="menuitem" href="silcmath_hsilcmath2FMath20Interface.html">Math Interface</a>
+<a class="menuitem" href="silcmp_hsilcmath2FMP20Integer20Interface.html">MP Integer Interface</a>
+<a class="menuitem" href="silcpgp_hsilcpgp2FOpenPGP20Interface.html">OpenPGP Interface</a>
+<a class="menuitem" href="silcpk_hsilccrypt2FSILC20Interface.html">SILC Interface</a>
+<a class="menuitem" href="silcpkcs_hsilccrypt2FPKCS20Interface.html">PKCS Interface</a>
+<a class="menuitem" href="silcpkcs1_hsilccrypt2FPKCS23120Interface.html">PKCS#1 Interface</a>
+<a class="menuitem" href="silcrng_hsilccrypt2FRNG20Interface.html">RNG Interface</a>
+<a class="menuitem" href="silcskr_hsilcskr2FKey20Manager20and20Repository.html">Key Manager and Repository</a>
+<a class="menuitem" href="silcssh_hsilcssh2FSSH20Interface.html">SSH Interface</a>
+<a class="menuitem" href="softacc_hsilcacc2FSoftware20Accelerator.html">Software Accelerator</a>
+</div> <!-- navigation -->
+<div id="content">
+<a name="silcskr2fKey20Manager20and20Repository">
+</a><a name="robo316"></a><h2>Key Manager and Repository</h2>
+
+<p class="item_name">DESCRIPTION</p>
+<p> SILC Key manager and repository is a generic public key and certificate
+ manager which allows fast and versatile ways to store, retrieve and
+ validate public keys and certificates.
+</p>
+
+<p> SILC Key Repository is thread safe.  Same key repository context can be
+ safely used in multi threaded environment.
+</p>
+
+<p class="item_name">TABLE OF CONTENTS</p>
+<ul class="toc_entries">
+<li class="toc_entries"><a href="./silcskr_hsilcskr2FSilcSKR.html#">SilcSKR</a></li>
+<li class="toc_entries"><a href="./silcskr_hsilcskr2FSilcSKRFind.html#">SilcSKRFind</a></li>
+<li class="toc_entries"><a href="./silcskr_hsilcskr2FSilcSKRKeyUsage.html#">SilcSKRKeyUsage</a></li>
+<li class="toc_entries"><a href="./silcskr_hsilcskr2FSilcSKRKey.html#">SilcSKRKey</a></li>
+<li class="toc_entries"><a href="./silcskr_hsilcskr2FSilcSKRFindCallback.html#">SilcSKRFindCallback</a></li>
+<li class="toc_entries"><a href="./silcskr_hsilcskr2Fsilc5Fskr5Falloc.html#">silc_skr_alloc</a></li>
+<li class="toc_entries"><a href="./silcskr_hsilcskr2Fsilc5Fskr5Ffree.html#">silc_skr_free</a></li>
+<li class="toc_entries"><a href="./silcskr_hsilcskr2Fsilc5Fskr5Finit.html#">silc_skr_init</a></li>
+<li class="toc_entries"><a href="./silcskr_hsilcskr2Fsilc5Fskr5Funinit.html#">silc_skr_uninit</a></li>
+<li class="toc_entries"><a href="./silcskr_hsilcskr2Fsilc5Fskr5Fadd5Fpublic5Fkey.html#">silc_skr_add_public_key</a></li>
+<li class="toc_entries"><a href="./silcskr_hsilcskr2Fsilc5Fskr5Fadd5Fpublic5Fkey5Fsimple.html#">silc_skr_add_public_key_simple</a></li>
+<li class="toc_entries"><a href="./silcskr_hsilcskr2Fsilc5Fskr5Fdel5Fpublic5Fkey.html#">silc_skr_del_public_key</a></li>
+<li class="toc_entries"><a href="./silcskr_hsilcskr2Fsilc5Fskr5Fref5Fpublic5Fkey.html#">silc_skr_ref_public_key</a></li>
+<li class="toc_entries"><a href="./silcskr_hsilcskr2Fsilc5Fskr5Funref5Fpublic5Fkey.html#">silc_skr_unref_public_key</a></li>
+<li class="toc_entries"><a href="./silcskr_hsilcskr2Fsilc5Fskr5Ffind5Falloc.html#">silc_skr_find_alloc</a></li>
+<li class="toc_entries"><a href="./silcskr_hsilcskr2Fsilc5Fskr5Ffind5Ffree.html#">silc_skr_find_free</a></li>
+<li class="toc_entries"><a href="./silcskr_hsilcskr2Fsilc5Fskr5Ffind5Fadd5Fpkcs5Ftype.html#">silc_skr_find_add_pkcs_type</a></li>
+<li class="toc_entries"><a href="./silcskr_hsilcskr2Fsilc5Fskr5Ffind5Fset5Fusername.html#">silc_skr_find_set_username</a></li>
+<li class="toc_entries"><a href="./silcskr_hsilcskr2Fsilc5Fskr5Ffind5Fset5Fhost.html#">silc_skr_find_set_host</a></li>
+<li class="toc_entries"><a href="./silcskr_hsilcskr2Fsilc5Fskr5Ffind5Fset5Frealname.html#">silc_skr_find_set_realname</a></li>
+<li class="toc_entries"><a href="./silcskr_hsilcskr2Fsilc5Fskr5Ffind5Fset5Femail.html#">silc_skr_find_set_email</a></li>
+<li class="toc_entries"><a href="./silcskr_hsilcskr2Fsilc5Fskr5Ffind5Fset5Forg.html#">silc_skr_find_set_org</a></li>
+<li class="toc_entries"><a href="./silcskr_hsilcskr2Fsilc5Fskr5Ffind5Fset5Fcountry.html#">silc_skr_find_set_country</a></li>
+<li class="toc_entries"><a href="./silcskr_hsilcskr2Fsilc5Fskr5Ffind5Fset5Fpublic5Fkey.html#">silc_skr_find_set_public_key</a></li>
+<li class="toc_entries"><a href="./silcskr_hsilcskr2Fsilc5Fskr5Ffind5Fset5Fcontext.html#">silc_skr_find_set_context</a></li>
+<li class="toc_entries"><a href="./silcskr_hsilcskr2Fsilc5Fskr5Ffind5Fset5Fusage.html#">silc_skr_find_set_usage</a></li>
+<li class="toc_entries"><a href="./silcskr_hsilcskr2Fsilc5Fskr5Ffind.html#">silc_skr_find</a></li>
+</ul>
+</div> <!-- content -->
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+</body>
+</html>

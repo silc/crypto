@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>silcacc.h</title>
+<!-- Source: ./../../lib/silcacc/silcacc.h -->
+<!-- Generated with ROBODoc Version 4.99.36 (Feb  3 2008) -->
+</head>
+<body>
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+<a class="menuitem" href="silcacc_hsilcacc2FCrypto20Accelerator20Interface.html">Crypto Accelerator Interface</a>
+<a class="menuitem" href="./silcacc_hsilcacc2FSilcAccelerator.html#">SilcAccelerator</a>
+<a class="menuitem" href="./silcacc_hsilcacc2Fsilc5Facc5Fregister.html#">silc_acc_register</a>
+<a class="menuitem" href="./silcacc_hsilcacc2Fsilc5Facc5Funregister.html#">silc_acc_unregister</a>
+<a class="menuitem" href="./silcacc_hsilcacc2Fsilc5Facc5Ffind.html#">silc_acc_find</a>
+<a class="menuitem" href="./silcacc_hsilcacc2Fsilc5Facc5Finit.html#">silc_acc_init</a>
+<a class="menuitem" href="./silcacc_hsilcacc2Fsilc5Facc5Funinit.html#">silc_acc_uninit</a>
+<a class="menuitem" href="./silcacc_hsilcacc2Fsilc5Facc5Fget5Fsupported.html#">silc_acc_get_supported</a>
+<a class="menuitem" href="./silcacc_hsilcacc2Fsilc5Facc5Fget5Fname.html#">silc_acc_get_name</a>
+<a class="menuitem" href="#">silc_acc_public_key</a>
+<a class="menuitem" href="./silcacc_hsilcacc2Fsilc5Facc5Fprivate5Fkey.html#">silc_acc_private_key</a>
+<a class="menuitem" href="./silcacc_hsilcacc2Fsilc5Facc5Fget5Fpublic5Fkey.html#">silc_acc_get_public_key</a>
+<a class="menuitem" href="./silcacc_hsilcacc2Fsilc5Facc5Fget5Fprivate5Fkey.html#">silc_acc_get_private_key</a>
+<a class="menuitem" href="./silcacc_hsilcacc2Fsilc5Facc5Fcipher.html#">silc_acc_cipher</a>
+<a class="menuitem" href="./silcacc_hsilcacc2Fsilc5Facc5Fget5Fcipher.html#">silc_acc_get_cipher</a>
+</div> <!-- navigation -->
+<div id="content">
+<a name="silcacc2fsilc5facc5fpublic5fkey">
+</a><a name="robo5"></a><h2>silc_acc_public_key</h2>
+
+<p class="item_name">SYNOPSIS</p>
+<pre>    <a href="./silcpkcs_hsilccrypt2FSilcPublicKey.html#robo259">SilcPublicKey</a> <strong>silc_acc_public_key</strong>(<a href="./silcacc_hsilcacc2FSilcAccelerator.html#robo13">SilcAccelerator</a> acc,
+                                      <a href="./silcpkcs_hsilccrypt2FSilcPublicKey.html#robo259">SilcPublicKey</a> public_key);
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>    Accelerate the public key indicated by `public_key'.  Returns new
+    accelerated <a href="./silcpkcs_hsilccrypt2FSilcPublicKey.html#robo259">SilcPublicKey</a> context.  It can be used just as normal
+    public key and must be freed by calling <a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fpublic5Fkey5Ffree.html#robo241">silc_pkcs_public_key_free</a>.
+    The associated `public_key' is not freed when the accelerated public
+    key is freed.  The `public_key' must not be freed as long as it is
+    accelerated.
+</p>
+
+<p>    The associated `public_key' can be retrieved from the returned
+    public key by calling <a href="./silcacc_hsilcacc2Fsilc5Facc5Fget5Fpublic5Fkey.html#robo3">silc_acc_get_public_key</a>.
+</p>
+
+<p>    If this returns NULL the public key could not be accelerated.  This
+    usually should not be considered serious error.  Instead, the public
+    key should be used without acceleration.
+</p>
+
+</div> <!-- content -->
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+</body>
+</html>

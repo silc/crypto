@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>silcpkcs.h</title>
+<!-- Source: ./../../lib/silccrypt/silcpkcs.h -->
+<!-- Generated with ROBODoc Version 4.99.36 (Feb  3 2008) -->
+</head>
+<body>
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+<a class="menuitem" href="silcpkcs_hsilccrypt2FPKCS20Interface.html">PKCS Interface</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2FSilcPKCSType.html#">SilcPKCSType</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2FPKCS2DAlgorithms.html#">PKCS-Algorithms</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2FPKCS2DSchemes.html#">PKCS-Schemes</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2FSilcPublicKey.html#">SilcPublicKey</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2FSilcPrivateKey.html#">SilcPrivateKey</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2FSilcPKCSFileEncoding.html#">SilcPKCSFileEncoding</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2FSilcPKCSEncryptCb.html#">SilcPKCSEncryptCb</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2FSilcPKCSDecryptCb.html#">SilcPKCSDecryptCb</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2FSilcPKCSSignCb.html#">SilcPKCSSignCb</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2FSilcPKCSVerifyCb.html#">SilcPKCSVerifyCb</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fregister.html#">silc_pkcs_register</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Funregister.html#">silc_pkcs_unregister</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Falgorithm5Fregister.html#">silc_pkcs_algorithm_register</a>
+<a class="menuitem" href="#">silc_pkcs_algorithm_unregister</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fregister5Fdefault.html#">silc_pkcs_register_default</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Funregister5Fall.html#">silc_pkcs_unregister_all</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fload5Fpublic5Fkey.html#">silc_pkcs_load_public_key</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fsave5Fpublic5Fkey.html#">silc_pkcs_save_public_key</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fload5Fprivate5Fkey.html#">silc_pkcs_load_private_key</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fsave5Fprivate5Fkey.html#">silc_pkcs_save_private_key</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fpublic5Fkey5Falloc.html#">silc_pkcs_public_key_alloc</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fpublic5Fkey5Ffree.html#">silc_pkcs_public_key_free</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fpublic5Fkey5Fencode.html#">silc_pkcs_public_key_encode</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fpublic5Fkey5Fget5Flen.html#">silc_pkcs_public_key_get_len</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fpublic5Fkey5Fcompare.html#">silc_pkcs_public_key_compare</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fpublic5Fkey5Fcopy.html#">silc_pkcs_public_key_copy</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fprivate5Fkey5Falloc.html#">silc_pkcs_private_key_alloc</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fprivate5Fkey5Fget5Flen.html#">silc_pkcs_private_key_get_len</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fprivate5Fkey5Ffree.html#">silc_pkcs_private_key_free</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fencrypt.html#">silc_pkcs_encrypt</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fencrypt5Fasync.html#">silc_pkcs_encrypt_async</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fdecrypt.html#">silc_pkcs_decrypt</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fdecrypt5Fasync.html#">silc_pkcs_decrypt_async</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fsign.html#">silc_pkcs_sign</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fsign5Fasync.html#">silc_pkcs_sign_async</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fverify.html#">silc_pkcs_verify</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fverify5Fasync.html#">silc_pkcs_verify_async</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fpublic5Fkey5Fget5Fpkcs.html#">silc_pkcs_public_key_get_pkcs</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fprivate5Fkey5Fget5Fpkcs.html#">silc_pkcs_private_key_get_pkcs</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Ffind5Fpkcs.html#">silc_pkcs_find_pkcs</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Ffind5Falgorithm.html#">silc_pkcs_find_algorithm</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fget5Fpkcs.html#">silc_pkcs_get_pkcs</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fget5Falgorithm.html#">silc_pkcs_get_algorithm</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fget5Fname.html#">silc_pkcs_get_name</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fget5Ftype.html#">silc_pkcs_get_type</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fget5Fsupported.html#">silc_pkcs_get_supported</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fhash5Fpublic5Fkey.html#">silc_hash_public_key</a>
+<a class="menuitem" href="./silcpkcs_hsilccrypt2Fsilc5Fhash5Fpublic5Fkey5Fcompare.html#">silc_hash_public_key_compare</a>
+</div> <!-- navigation -->
+<div id="content">
+<a name="silccrypt2fsilc5fpkcs5falgorithm5funregister">
+</a><a name="robo249"></a><h2>silc_pkcs_algorithm_unregister</h2>
+
+<p class="item_name">SYNOPSIS</p>
+<pre>    SilcBool <strong>silc_pkcs_algorithm_unregister</strong>(SilcPKCSAlgorithm *pkcs);
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>    Unregister a PKCS from the crypto library. Returns FALSE on error.
+</p>
+
+</div> <!-- content -->
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+</body>
+</html>

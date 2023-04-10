@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>silcpk.h</title>
+<!-- Source: ./../../lib/silccrypt/silcpk.h -->
+<!-- Generated with ROBODoc Version 4.99.36 (Feb  3 2008) -->
+</head>
+<body>
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+<a class="menuitem" href="silcpk_hsilccrypt2FSILC20Interface.html">SILC Interface</a>
+<a class="menuitem" href="#">SilcPublicKeyIdentifier</a>
+<a class="menuitem" href="./silcpk_hsilccrypt2FSilcSILCPublicKey.html#">SilcSILCPublicKey</a>
+<a class="menuitem" href="./silcpk_hsilccrypt2FSilcSILCPrivateKey.html#">SilcSILCPrivateKey</a>
+<a class="menuitem" href="./silcpk_hsilccrypt2Fsilc5Fpkcs5Fsilc5Fgenerate5Fkey.html#">silc_pkcs_silc_generate_key</a>
+<a class="menuitem" href="./silcpk_hsilccrypt2Fsilc5Fpkcs5Fsilc5Fencode5Fidentifier.html#">silc_pkcs_silc_encode_identifier</a>
+<a class="menuitem" href="./silcpk_hsilccrypt2Fsilc5Fpkcs5Fsilc5Fdecode5Fidentifier.html#">silc_pkcs_silc_decode_identifier</a>
+<a class="menuitem" href="./silcpk_hsilccrypt2Fsilc5Fpkcs5Fsilc5Fpublic5Fkey5Fversion.html#">silc_pkcs_silc_public_key_version</a>
+</div> <!-- navigation -->
+<div id="content">
+<a name="silccrypt2fSilcPublicKeyIdentifier">
+</a><a name="robo213"></a><h2>SilcPublicKeyIdentifier</h2>
+
+<p class="item_name">NAME</p>
+<pre>    typedef struct { ... } *<strong>SilcPublicKeyIdentifier</strong>,
+                            SilcPublicKeyIdentifierStruct;
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>    This structure contains the SILC Public Key identifier.  Note that
+    some of the fields may be NULL.
+</p>
+<p class="item_name">SOURCE</p>
+<pre class="source">typedef struct SilcPublicKeyIdentifierObject <span class="sign">{</span>
+  char <span class="sign">*</span>username<span class="sign">;</span>
+  char <span class="sign">*</span>host<span class="sign">;</span>
+  char <span class="sign">*</span>realname<span class="sign">;</span>
+  char <span class="sign">*</span>email<span class="sign">;</span>
+  char <span class="sign">*</span>org<span class="sign">;</span>
+  char <span class="sign">*</span>country<span class="sign">;</span>
+  char <span class="sign">*</span>version<span class="sign">;</span>
+<span class="sign">}</span> <span class="sign">*</span><strong>SilcPublicKeyIdentifier</strong><span class="sign">,</span> SilcPublicKeyIdentifierStruct<span class="sign">;</span>
+</pre>
+
+</div> <!-- content -->
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+</body>
+</html>

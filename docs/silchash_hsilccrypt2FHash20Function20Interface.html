@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>silchash.h</title>
+<!-- Source: ./../../lib/silccrypt/silchash.h -->
+<!-- Generated with ROBODoc Version 4.99.36 (Feb  3 2008) -->
+</head>
+<body>
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+<a class="menuitem" href="silcacc_hsilcacc2FCrypto20Accelerator20Interface.html">Crypto Accelerator Interface</a>
+<a class="menuitem" href="silcasn1_hsilcasn12FASN2E120Interface.html">ASN.1 Interface</a>
+<a class="menuitem" href="silcber_hsilcasn12FBER20Interface.html">BER Interface</a>
+<a class="menuitem" href="silccipher_hsilccrypt2FCipher20Interface.html">Cipher Interface</a>
+<a class="menuitem" href="silccrypto_hsilccrypt2FCrypto20Toolkit20Interface.html">Crypto Toolkit Interface</a>
+<a class="menuitem" href="silchash_hsilccrypt2FHash20Function20Interface.html">Hash Function Interface</a>
+<a class="menuitem" href="silcmac_hsilccrypt2FMAC20Interface.html">MAC Interface</a>
+<a class="menuitem" href="silcmath_hsilcmath2FMath20Interface.html">Math Interface</a>
+<a class="menuitem" href="silcmp_hsilcmath2FMP20Integer20Interface.html">MP Integer Interface</a>
+<a class="menuitem" href="silcpgp_hsilcpgp2FOpenPGP20Interface.html">OpenPGP Interface</a>
+<a class="menuitem" href="silcpk_hsilccrypt2FSILC20Interface.html">SILC Interface</a>
+<a class="menuitem" href="silcpkcs_hsilccrypt2FPKCS20Interface.html">PKCS Interface</a>
+<a class="menuitem" href="silcpkcs1_hsilccrypt2FPKCS23120Interface.html">PKCS#1 Interface</a>
+<a class="menuitem" href="silcrng_hsilccrypt2FRNG20Interface.html">RNG Interface</a>
+<a class="menuitem" href="silcskr_hsilcskr2FKey20Manager20and20Repository.html">Key Manager and Repository</a>
+<a class="menuitem" href="silcssh_hsilcssh2FSSH20Interface.html">SSH Interface</a>
+<a class="menuitem" href="softacc_hsilcacc2FSoftware20Accelerator.html">Software Accelerator</a>
+</div> <!-- navigation -->
+<div id="content">
+<a name="silccrypt2fHash20Function20Interface">
+</a><a name="robo114"></a><h2>Hash Function Interface</h2>
+
+<p class="item_name">DESCRIPTION</p>
+<p> This is the interface for hash functions which are used to create message
+ digests.  The routines are used in various cryptographic operations.
+</p>
+<p class="item_name">EXAMPLE</p>
+<pre> <a href="./silchash_hsilccrypt2FSilcHash.html#robo113">SilcHash</a> sha1hash;
+
+ // Allocate SHA-1 hash function
+ <a href="./silchash_hsilccrypt2Fsilc5Fhash5Falloc.html#robo105">silc_hash_alloc</a>(SILC_HASH_SHA1, &amp;sha1hash);
+
+ // Hash some data
+ unsigned char digest[<a href="./silchash_hsilccrypt2FSILC5FHASH5FMAXLEN.html#robo110">SILC_HASH_MAXLEN</a>];
+
+ <a href="./silchash_hsilccrypt2Fsilc5Fhash5Finit.html#robo95">silc_hash_init</a>(sha1hash);
+ <a href="./silchash_hsilccrypt2Fsilc5Fhash5Fupdate.html#robo94">silc_hash_update</a>(sha1hash, "foobar", 6);
+ <a href="./silchash_hsilccrypt2Fsilc5Fhash5Ffinal.html#robo93">silc_hash_final</a>(sha1hash, digest);
+
+ // Same can be done in one call also
+ <a href="./silchash_hsilccrypt2Fsilc5Fhash5Fmake.html#robo96">silc_hash_make</a>(sha1hash, "foobar", 6, digest);
+
+ // Free hash
+ <a href="./silchash_hsilccrypt2Fsilc5Fhash5Ffree.html#robo103">silc_hash_free</a>(sha1hash);
+</pre>
+
+<p class="item_name">TABLE OF CONTENTS</p>
+<ul class="toc_entries">
+<li class="toc_entries"><a href="./silchash_hsilccrypt2FSilcHash.html#">SilcHash</a></li>
+<li class="toc_entries"><a href="./silchash_hsilccrypt2FHashes.html#">Hashes</a></li>
+<li class="toc_entries"><a href="./silchash_hsilccrypt2FHash2DOIDs.html#">Hash-OIDs</a></li>
+<li class="toc_entries"><a href="./silchash_hsilccrypt2FSILC5FHASH5FMAXLEN.html#">SILC_HASH_MAXLEN</a></li>
+<li class="toc_entries"><a href="./silchash_hsilccrypt2Fsilc5Fhash5Fregister.html#">silc_hash_register</a></li>
+<li class="toc_entries"><a href="./silchash_hsilccrypt2Fsilc5Fhash5Funregister.html#">silc_hash_unregister</a></li>
+<li class="toc_entries"><a href="./silchash_hsilccrypt2Fsilc5Fhash5Fregister5Fdefault.html#">silc_hash_register_default</a></li>
+<li class="toc_entries"><a href="./silchash_hsilccrypt2Fsilc5Fhash5Funregister5Fall.html#">silc_hash_unregister_all</a></li>
+<li class="toc_entries"><a href="./silchash_hsilccrypt2Fsilc5Fhash5Falloc.html#">silc_hash_alloc</a></li>
+<li class="toc_entries"><a href="./silchash_hsilccrypt2Fsilc5Fhash5Falloc5Fby5Foid.html#">silc_hash_alloc_by_oid</a></li>
+<li class="toc_entries"><a href="./silchash_hsilccrypt2Fsilc5Fhash5Ffree.html#">silc_hash_free</a></li>
+<li class="toc_entries"><a href="./silchash_hsilccrypt2Fsilc5Fhash5Fis5Fsupported.html#">silc_hash_is_supported</a></li>
+<li class="toc_entries"><a href="./silchash_hsilccrypt2Fsilc5Fhash5Fget5Fsupported.html#">silc_hash_get_supported</a></li>
+<li class="toc_entries"><a href="./silchash_hsilccrypt2Fsilc5Fhash5Flen.html#">silc_hash_len</a></li>
+<li class="toc_entries"><a href="./silchash_hsilccrypt2Fsilc5Fhash5Fblock5Flen.html#">silc_hash_block_len</a></li>
+<li class="toc_entries"><a href="./silchash_hsilccrypt2Fsilc5Fhash5Fget5Fname.html#">silc_hash_get_name</a></li>
+<li class="toc_entries"><a href="./silchash_hsilccrypt2Fsilc5Fhash5Fget5Foid.html#">silc_hash_get_oid</a></li>
+<li class="toc_entries"><a href="./silchash_hsilccrypt2Fsilc5Fhash5Fmake.html#">silc_hash_make</a></li>
+<li class="toc_entries"><a href="./silchash_hsilccrypt2Fsilc5Fhash5Finit.html#">silc_hash_init</a></li>
+<li class="toc_entries"><a href="./silchash_hsilccrypt2Fsilc5Fhash5Fupdate.html#">silc_hash_update</a></li>
+<li class="toc_entries"><a href="./silchash_hsilccrypt2Fsilc5Fhash5Ffinal.html#">silc_hash_final</a></li>
+<li class="toc_entries"><a href="./silchash_hsilccrypt2Fsilc5Fhash5Ftransform.html#">silc_hash_transform</a></li>
+<li class="toc_entries"><a href="./silchash_hsilccrypt2Fsilc5Fhash5Ffingerprint.html#">silc_hash_fingerprint</a></li>
+<li class="toc_entries"><a href="./silchash_hsilccrypt2Fsilc5Fhash5Fbabbleprint.html#">silc_hash_babbleprint</a></li>
+</ul>
+</div> <!-- content -->
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>softacc.h</title>
+<!-- Source: ./../../lib/silcacc/softacc.h -->
+<!-- Generated with ROBODoc Version 4.99.36 (Feb  3 2008) -->
+</head>
+<body>
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+<a class="menuitem" href="silcacc_hsilcacc2FCrypto20Accelerator20Interface.html">Crypto Accelerator Interface</a>
+<a class="menuitem" href="silcasn1_hsilcasn12FASN2E120Interface.html">ASN.1 Interface</a>
+<a class="menuitem" href="silcber_hsilcasn12FBER20Interface.html">BER Interface</a>
+<a class="menuitem" href="silccipher_hsilccrypt2FCipher20Interface.html">Cipher Interface</a>
+<a class="menuitem" href="silccrypto_hsilccrypt2FCrypto20Toolkit20Interface.html">Crypto Toolkit Interface</a>
+<a class="menuitem" href="silchash_hsilccrypt2FHash20Function20Interface.html">Hash Function Interface</a>
+<a class="menuitem" href="silcmac_hsilccrypt2FMAC20Interface.html">MAC Interface</a>
+<a class="menuitem" href="silcmath_hsilcmath2FMath20Interface.html">Math Interface</a>
+<a class="menuitem" href="silcmp_hsilcmath2FMP20Integer20Interface.html">MP Integer Interface</a>
+<a class="menuitem" href="silcpgp_hsilcpgp2FOpenPGP20Interface.html">OpenPGP Interface</a>
+<a class="menuitem" href="silcpk_hsilccrypt2FSILC20Interface.html">SILC Interface</a>
+<a class="menuitem" href="silcpkcs_hsilccrypt2FPKCS20Interface.html">PKCS Interface</a>
+<a class="menuitem" href="silcpkcs1_hsilccrypt2FPKCS23120Interface.html">PKCS#1 Interface</a>
+<a class="menuitem" href="silcrng_hsilccrypt2FRNG20Interface.html">RNG Interface</a>
+<a class="menuitem" href="silcskr_hsilcskr2FKey20Manager20and20Repository.html">Key Manager and Repository</a>
+<a class="menuitem" href="silcssh_hsilcssh2FSSH20Interface.html">SSH Interface</a>
+<a class="menuitem" href="softacc_hsilcacc2FSoftware20Accelerator.html">Software Accelerator</a>
+</div> <!-- navigation -->
+<div id="content">
+<a name="silcacc2fSoftware20Accelerator">
+</a><a name="robo331"></a><h2>Software Accelerator</h2>
+
+<p class="item_name">DESCRIPTION</p>
+<p> Software accelerator is a thread-pool system where computationally
+ expensive operations are executed in multiple threads for the purpose of
+ off-loading and balancing the computations across multiple cores and
+ processors.
+</p>
+
+<p> Software accelerator need not be registered with <a href="./silcacc_hsilcacc2Fsilc5Facc5Fregister.html#robo12">silc_acc_register</a>
+ because it is registered automatically in SILC Crypto Toolkit, however
+ it must be initialized with <a href="./silcacc_hsilcacc2Fsilc5Facc5Finit.html#robo9">silc_acc_init</a>.
+</p>
+<p class="item_name">ACCELERATORS</p>
+<p> Public key and private key accelerator:
+</p>
+
+<p> The software accelerator can accelerate public keys and private keys.
+ The public key and private key operations are executed in threads to
+ enhance the overall performance of the program and machine when multiple
+ public key and private key operations need to be executed at the same
+ time.  This can significantly improve performance, especially in server
+ applications.
+</p>
+
+<p> The accelerated public key and private key can be used with normal
+ SILC PKCS API.  Internally however the software accelerator is used.
+ The SilcSchedule must be given as argument to <a href="./silcacc_hsilcacc2Fsilc5Facc5Finit.html#robo9">silc_acc_init</a> if the
+ <a href="./softacc_hsilcacc2Fsoftacc.html#robo330">softacc</a> is used to accelerate public keys and private keys.
+</p>
+
+<p> <a href="./silccipher_hsilccrypt2FCiphers.html#robo83">Ciphers</a>:
+</p>
+
+<p> The software accelerator can accelerate ciphers.  The only supported
+ encryption mode is Counter Mode (CTR).  <a href="./silccipher_hsilccrypt2FCiphers.html#robo83">Ciphers</a> with other encryption
+ modes cannot be accelerated.  The CTR mode is accelerated by pre-computing
+ the CTR key stream in threads.  This can significantly enhance both
+ encryption and decryption performance.
+</p>
+
+<p> The accelerated cipher can be used with normal SILC Cipher API.
+ Internally however the software accelerator is used.  Currently only
+ one limitation exist with accelerated ciphers and SILC Cipher API;  The
+ optional IV argument in <a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fencrypt.html#robo71">silc_cipher_encrypt</a> and <a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fdecrypt.html#robo70">silc_cipher_decrypt</a>
+ cannot be used.  The IV must be set with <a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fset5Fiv.html#robo68">silc_cipher_set_iv</a> prior to
+ encrypting and decrypting.  Usually, this is not an issue for programmer.
+</p>
+<p class="item_name">PERFORMANCE</p>
+<p> <a href="./silccipher_hsilccrypt2FCiphers.html#robo83">Ciphers</a>:
+</p>
+
+<p> The AES is especially optimized in <a href="./softacc_hsilcacc2Fsoftacc.html#robo330">softacc</a>.  Other ciphers can be used
+ as well, but their performance does not match that of the AES.
+</p>
+
+<p> On dual-core machine the default settings should give very good peak
+ performance.  In 2008, AES-128 was measured 2.0 Gbit/sec with default
+ settings.
+</p>
+
+<p> On 4-core and 8-core machines the default settings will not give the
+ best performance.  To get the best performance out, one must commit
+ system resources (RAM) for <a href="./softacc_hsilcacc2Fsoftacc.html#robo330">softacc</a>.  In 2008, AES-128 was measured 5.68
+ Gbit/sec with cipher_blocks=65536 and cipher_streams=32 on 4-core
+ machine (Xeon 5160 3GHz) and 9.08 Gbit/sec with cipher_blocks=65536 and
+ cipher_streams=64 on 8-core machine (Xeon E5345 2.33GHz).  With default
+ settings you can expect 1-3 Gbit/sec reduction in peak performance.
+</p>
+<p class="item_name">OPTIONS</p>
+<p> The following options can affect the behavior of the <a href="./softacc_hsilcacc2Fsoftacc.html#robo330">softacc</a> and can be
+ given as argument to the <a href="./silcacc_hsilcacc2Fsilc5Facc5Finit.html#robo9">silc_acc_init</a> when initializing the <a href="./softacc_hsilcacc2Fsoftacc.html#robo330">softacc</a>.
+</p>
+
+<p> "min_threads"
+</p>
+
+<p> The minimum amount of threads that the <a href="./softacc_hsilcacc2Fsoftacc.html#robo330">softacc</a> will always run.  If
+ this isn't given the default number is 0 (does not start any threads
+ when initialized).
+</p>
+
+<p> "max_threads"
+</p>
+
+<p> The maximum amount of threads the software accelerator can use.  If
+ you are using the <a href="./softacc_hsilcacc2Fsoftacc.html#robo330">softacc</a> only for accelerating public key and private
+ key operations this number should be the number of CPU cores in your
+ machine.  If you are using it also for accelerating ciphers this number
+ may need to be fairly large.  Each acclerated cipher will reserve
+ "cipher_threads" many threads from the <a href="./softacc_hsilcacc2Fsoftacc.html#robo330">softacc</a>.  Always leave some
+ threads free for the public key and private key acceleration to work.
+ If this option is not given the default number is 4.
+</p>
+
+<p> "cipher_threads"
+</p>
+
+<p> The number of threads each accelerated cipher will use.  Note that,
+ each accelerated cipher will reserve this many threads from the <a href="./softacc_hsilcacc2Fsoftacc.html#robo330">softacc</a>.
+ The "max_threads" will determine the final maximum number of threads
+ the <a href="./softacc_hsilcacc2Fsoftacc.html#robo330">softacc</a> can use.  If the "max_threads" limit is reached no more
+ ciphers can be accelerated (also note that if this happens, public key
+ and private key acceleration does not work anymore).  The threads are
+ reserved as long as the cipher is accelerated.  If this option is not
+ given the default number is 2.
+</p>
+
+<p> "cipher_blocks"
+</p>
+
+<p> The number of cipher blocks the <a href="./softacc_hsilcacc2Fsoftacc.html#robo330">softacc</a> will pre-compute.  Each cipher
+ block consumes 16 or 8 bytes of memory, depending on the size of the
+ actual cipher block size.  This value can be used to tweak the
+ performance of the <a href="./softacc_hsilcacc2Fsoftacc.html#robo330">softacc</a>.  If this option is not given the default
+ number is 4096.  The number must be multiple of 16.
+</p>
+
+<p> "cipher_streams"
+</p>
+
+<p> The number of pre-computation streams each accelerated cipher will use.
+ Each stream will use "cipher_blocks" many blocks in the stream.  This
+ number can be used to tweak the performance of the <a href="./softacc_hsilcacc2Fsoftacc.html#robo330">softacc</a>.  If this
+ option is not given the default number is 2 * "cipher_threads".
+</p>
+<p class="item_name">EXAMPLE</p>
+<pre> // Initialize the software accelerator.
+ <a href="./silcacc_hsilcacc2Fsilc5Facc5Finit.html#robo9">silc_acc_init</a>(<a href="./softacc_hsilcacc2FSILC5FSOFTACC.html#robo329">SILC_SOFTACC</a>, NULL, "min_threads", 2, "max_threads", 8, NULL);
+
+ // Accelerate cipher
+ <a href="./silccipher_hsilccrypt2FSilcCipher.html#robo84">SilcCipher</a> acc_cipher;
+
+ acc_cipher = <a href="./silcacc_hsilcacc2Fsilc5Facc5Fcipher.html#robo1">silc_acc_cipher</a>(<a href="./softacc_hsilcacc2FSILC5FSOFTACC.html#robo329">SILC_SOFTACC</a>, cipher);
+ <a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fset5Fkey.html#robo69">silc_cipher_set_key</a>(acc_cipher, key, key_len, TRUE);
+ <a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fset5Fiv.html#robo68">silc_cipher_set_iv</a>(acc_cipher, iv);
+
+ // Encrypt with the accelerated cipher
+ <a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fencrypt.html#robo71">silc_cipher_encrypt</a>(acc_cipher, src, dst, len, NULL);
+
+ // Free accelerated cipher
+ <a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Ffree.html#robo74">silc_cipher_free</a>(acc_cipher);
+
+ // Free the original associated cipher
+ <a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Ffree.html#robo74">silc_cipher_free</a>(cipher);
+</pre>
+
+<p class="item_name">TABLE OF CONTENTS</p>
+<ul class="toc_entries">
+<li class="toc_entries"><a href="./softacc_hsilcacc2Fsoftacc.html#">softacc</a></li>
+<li class="toc_entries"><a href="./softacc_hsilcacc2FSILC5FSOFTACC.html#">SILC_SOFTACC</a></li>
+<li class="toc_entries"><a href="./softacc_hsilcacc2FSILC5FSOFTACC5FNAME.html#">SILC_SOFTACC_NAME</a></li>
+</ul>
+</div> <!-- content -->
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+</body>
+</html>

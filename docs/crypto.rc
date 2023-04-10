@@ -1,0 +1,84 @@
+options:
+	--src ../../lib
+	--doc .
+	--html
+	--sectionnameonly
+	--syntaxcolors
+	--nopre
+	--no_subdirectories
+	--nosort
+	--index
+	--documenttitle "SILC Crypto Toolkit"
+	--multidoc
+	--one_file_per_header
+	--header_toc
+	--module_index_menu
+	--document_header header
+	--document_footer footer
+	--css crypto.css
+
+items:
+	SOURCE
+	NAME
+	COPYRIGHT
+	SYNOPSIS
+	USAGE
+	FUNCTION
+	DESCRIPTION
+	PURPOSE
+	AUTHOR
+	CREATION DATE
+	MODIFICATION HISTORY
+	HISTORY
+	INPUTS
+	INPUT
+	ARGUMENTS
+	OPTIONS
+	PARAMETERS
+	SWITCHES
+	OUTPUT
+	SIDE EFFECTS
+	RESULTS
+	RESULT
+	RETURN VALUE
+	EXAMPLE
+	NOTE
+	NOTES
+	DIAGNOSTICS
+	WARNINGS
+	ERRORS
+	BUGS
+	TODO
+	IDEAS
+	PORTABILITY
+	SEE ALSO
+	METHODS
+	NEW METHODS
+	ATTRIBUTES
+	NEW ATTRIBUTES
+	TAGS
+	COMMANDS
+	DERIVED FROM
+	DERIVED BY
+	USES
+	CHILDREN
+	USED BY
+	PARENTS
+	ACCELERATORS
+	PERFORMANCE
+
+preformatted items:
+	EXAMPLE
+	SYNOPSIS
+	NAME
+
+ignore files:
+	Makefile*
+	tests
+	win32
+	symbian
+	*.h~
+	*.c
+	*.in
+	silcdh.h
+	silcdn.h

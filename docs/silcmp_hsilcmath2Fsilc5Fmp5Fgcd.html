@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>silcmp.h</title>
+<!-- Source: ./../../lib/silcmath/silcmp.h -->
+<!-- Generated with ROBODoc Version 4.99.36 (Feb  3 2008) -->
+</head>
+<body>
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+<a class="menuitem" href="silcmp_hsilcmath2FMP20Integer20Interface.html">MP Integer Interface</a>
+<a class="menuitem" href="./silcmp_hsilcmath2FSilcMPInt.html#">SilcMPInt</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Finit.html#">silc_mp_init</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fsinit.html#">silc_mp_sinit</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Funinit.html#">silc_mp_uninit</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fsize.html#">silc_mp_size</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fsizeinbase.html#">silc_mp_sizeinbase</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fset.html#">silc_mp_set</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fset5Fui.html#">silc_mp_set_ui</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fset5Fsi.html#">silc_mp_set_si</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fset5Fstr.html#">silc_mp_set_str</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fget5Fui.html#">silc_mp_get_ui</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fget5Fstr.html#">silc_mp_get_str</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fadd.html#">silc_mp_add</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fadd5Fui.html#">silc_mp_add_ui</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fsub.html#">silc_mp_sub</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fsub5Fui.html#">silc_mp_sub_ui</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fmul.html#">silc_mp_mul</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fmul5Fui.html#">silc_mp_mul_ui</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fmul5F2exp.html#">silc_mp_mul_2exp</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fsqrt.html#">silc_mp_sqrt</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fdiv.html#">silc_mp_div</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fdiv5Fui.html#">silc_mp_div_ui</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fdiv5Fqr.html#">silc_mp_div_qr</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fdiv5F2exp.html#">silc_mp_div_2exp</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fdiv5F2exp5Fqr.html#">silc_mp_div_2exp_qr</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fmod.html#">silc_mp_mod</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fmod5Fui.html#">silc_mp_mod_ui</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fmod5F2exp.html#">silc_mp_mod_2exp</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fpow5Fui.html#">silc_mp_pow_ui</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fpow5Fmod.html#">silc_mp_pow_mod</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fpow5Fmod5Fui.html#">silc_mp_pow_mod_ui</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fmodinv.html#">silc_mp_modinv</a>
+<a class="menuitem" href="#">silc_mp_gcd</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fcmp.html#">silc_mp_cmp</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fcmp5Fsi.html#">silc_mp_cmp_si</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fcmp5Fui.html#">silc_mp_cmp_ui</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fmp2bin.html#">silc_mp_mp2bin</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fmp2bin5Fnoalloc.html#">silc_mp_mp2bin_noalloc</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fbin2mp.html#">silc_mp_bin2mp</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fabs.html#">silc_mp_abs</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fneg.html#">silc_mp_neg</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fand.html#">silc_mp_and</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5For.html#">silc_mp_or</a>
+<a class="menuitem" href="./silcmp_hsilcmath2Fsilc5Fmp5Fxor.html#">silc_mp_xor</a>
+</div> <!-- navigation -->
+<div id="content">
+<a name="silcmath2fsilc5fmp5fgcd">
+</a><a name="robo153"></a><h2>silc_mp_gcd</h2>
+
+<p class="item_name">SYNOPSIS</p>
+<pre>    SilcBool <strong>silc_mp_gcd</strong>(<a href="./silcmp_hsilcmath2FSilcMPInt.html#robo185">SilcMPInt</a> *dst, <a href="./silcmp_hsilcmath2FSilcMPInt.html#robo185">SilcMPInt</a> *mp1, <a href="./silcmp_hsilcmath2FSilcMPInt.html#robo185">SilcMPInt</a> *mp2);
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>    Calculate the greatest common divisor of the integers `mp1' and `mp2'
+    and save the result to `dst'.
+</p>
+
+</div> <!-- content -->
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,218 @@
+body {
+	width: 100%;
+	background-color: #fff;
+	font: normal 90% Arial, Helvetica, Verdana;
+	color: #454545;
+	margin-top: 0;
+	margin-left: 0;
+	margin-right: 0;
+}
+
+#logo {
+	font-size: 100%;
+	background-color: #eeeeee;
+	height: 46px;
+	margin-top: 0;
+	border-bottom: 1px solid #cacaca;
+}
+
+#logo a {
+	color: #9f7e40;
+	text-decoration: none;
+}
+
+#logo a:hover, #logo a:active {
+	color: #afaf77;
+}
+
+#contentwrapper {
+	float: left;
+	width: 100%;
+}
+
+#content {
+	font-size: 100%;
+	padding: 5px 5px 2px 10px;
+	margin-right: 245px;
+	border-right: 1px dotted #cacaca;
+}
+
+/* The content margin-right is 245 px.  To get navigation's dotted border
+   to same position as contents dotted border we have width 231 + right
+   border padding 4 + left border padding 10 == 245 px. */
+#navigation {
+	border-left: 1px dotted #cacaca;
+	width: 231px;
+	min-height: 590px;
+	position: relative;
+	float: right;
+	padding: 5px 4px 2px 10px;
+}
+
+#footer {
+	background-color: #eeeeee;
+	clear: left;
+	width: 100%;
+	font-size: 100%;
+	border-top: 1px solid #cacaca;
+}
+
+#footer a {
+	color: #9f7e40;
+	text-decoration: none;
+}
+
+#footer a:hover, #footer a:active {
+	color: #afaf77;
+}
+
+pre {
+	font-family: monospace;
+	margin: 12px;
+	padding: 5px;
+	white-space: pre;
+	color: #000;
+}
+
+pre.source {
+	background-color: #ffe;
+	border: dashed #aa9 1px;
+}
+
+p {
+	margin: 15px;
+}
+
+p.item_name  {
+	font-weight: bolder;
+	margin: 5px;
+	font-size: 110%;
+}
+
+ul.toc_entries {
+	list-style-image: url(./arrow.png);
+}
+
+a.menuitem {
+	font-size: 90%;
+	color: #9f7e40;
+	padding: 4px 1px 1px 5px;
+	background: url(./arrow.png) no-repeat center left;
+	text-align: left;
+	padding-left: 20px;
+}
+
+
+#extra, #extra a
+{
+}
+
+#content a {
+	color: #9f7e40;
+	text-decoration: none;
+}
+
+#content a:hover, #content a:active {
+	color: #afaf77;
+}
+
+a.indexitem {
+	display: block;
+}
+
+h1
+{
+	font-size: 220%;
+	margin-top: 0px;
+}
+
+h2
+{
+	font-size: 180%;
+	margin-top: 0px;
+}
+
+h3
+{
+	font-size: 133%;
+	margin-top: 0px;
+}
+
+h4
+{
+	font-size: 124%;
+	margin-top: 0px;
+}
+
+h5
+{
+	font-size: 115%;
+	margin-top: 0px;
+}
+
+h6
+{
+	font-size: 106%;
+	margin-top: 0px;
+}
+
+#navigation a {
+	text-decoration: none;
+}
+
+.menuitem:hover {
+	color: #afaf77;
+	text-decoration: none;
+}
+
+#extra a
+{
+    text-decoration: none;
+}
+
+#logo a
+{
+    text-decoration: none;
+}
+
+#extra a:hover
+{
+}
+
+
+.menuitem       {width: auto;}
+#content        {width: auto;}
+.menuitem       {display: block;}
+
+span.keyword
+{
+    color: #00F;
+}
+
+span.comment
+{
+    color: #080;
+}
+
+span.quote
+{
+    color: #F00;
+}
+
+span.squote
+{
+    color: #F0F;
+}
+
+span.sign
+{
+    color: #008B8B;
+}
+
+
+@media print
+{
+    #navigation {display: none;}
+    #content    {padding: 0px;}
+    #content a  {text-decoration: underline;}
+}

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>silcpgp.h</title>
+<!-- Source: ./../../lib/silcpgp/silcpgp.h -->
+<!-- Generated with ROBODoc Version 4.99.36 (Feb  3 2008) -->
+</head>
+<body>
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+<a class="menuitem" href="silcpgp_hsilcpgp2FOpenPGP20Interface.html">OpenPGP Interface</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2FSilcPGPPublicKey.html#">SilcPGPPublicKey</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2FSilcPGPPrivateKey.html#">SilcPGPPrivateKey</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2FSilcPGPPacket.html#">SilcPGPPacket</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2FSilcPGPPacketTag.html#">SilcPGPPacketTag</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2FSilcPGPPKCSAlgorithm.html#">SilcPGPPKCSAlgorithm</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2FSilcPGPCipher.html#">SilcPGPCipher</a>
+<a class="menuitem" href="#">SilcPGPHash</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2FSilcPGPS2KType.html#">SilcPGPS2KType</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2FSilcPGPKeyType.html#">SilcPGPKeyType</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2Fsilc5Fpgp5Fpacket5Fdecode.html#">silc_pgp_packet_decode</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2Fsilc5Fpgp5Fpacket5Fget5Ftag.html#">silc_pgp_packet_get_tag</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2Fsilc5Fpgp5Fpacket5Fget5Fdata.html#">silc_pgp_packet_get_data</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2Fsilc5Fpgp5Fpacket5Ffree.html#">silc_pgp_packet_free</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2Fsilc5Fpgp5Fpacket5Ffree5Flist.html#">silc_pgp_packet_free_list</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2Fsilc5Fpgp5Fpublic5Fkey5Fdecode.html#">silc_pgp_public_key_decode</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2Fsilc5Fpgp5Fpublic5Fkey5Ffree.html#">silc_pgp_public_key_free</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2Fsilc5Fpgp5Fprivate5Fkey5Fdecode.html#">silc_pgp_private_key_decode</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2Fsilc5Fpgp5Fprivate5Fkey5Ffree.html#">silc_pgp_private_key_free</a>
+<a class="menuitem" href="./silcpgp_hsilcpgp2Fsilc5Fpgp5Fs2k.html#">silc_pgp_s2k</a>
+</div> <!-- navigation -->
+<div id="content">
+<a name="silcpgp2fSilcPGPHash">
+</a><a name="robo199"></a><h2>SilcPGPHash</h2>
+
+<p class="item_name">NAME</p>
+<pre>    typedef enum { ... } <strong>SilcPGPHash</strong>;
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>    OpenPGP hash functions.
+</p>
+<p class="item_name">SOURCE</p>
+<pre class="source">typedef enum <span class="sign">{</span>
+  SILC_PGP_HASH_MD5               <span class="sign">=</span> 1<span class="sign">,</span>   <span class="comment">/* MD5 */</span>
+  SILC_PGP_HASH_SHA1              <span class="sign">=</span> 2<span class="sign">,</span>   <span class="comment">/* SHA-1 */</span>
+  SILC_PGP_HASH_RIPEMD160         <span class="sign">=</span> 3<span class="sign">,</span>   <span class="comment">/* RIPE-MD160 */</span>
+  SILC_PGP_HASH_SHA256            <span class="sign">=</span> 8<span class="sign">,</span>   <span class="comment">/* SHA-256 */</span>
+  SILC_PGP_HASH_SHA384            <span class="sign">=</span> 9<span class="sign">,</span>   <span class="comment">/* SHA-394 */</span>
+  SILC_PGP_HASH_SHA512            <span class="sign">=</span> 10<span class="sign">,</span>  <span class="comment">/* SHA-512 */</span>
+  SILC_PGP_HASH_SHA224            <span class="sign">=</span> 11<span class="sign">,</span>  <span class="comment">/* SHA-224 */</span>
+<span class="sign">}</span> <strong>SilcPGPHash</strong><span class="sign">;</span>
+</pre>
+
+</div> <!-- content -->
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+</body>
+</html>

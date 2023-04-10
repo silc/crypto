@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>silcssh.h</title>
+<!-- Source: ./../../lib/silcssh/silcssh.h -->
+<!-- Generated with ROBODoc Version 4.99.36 (Feb  3 2008) -->
+</head>
+<body>
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+<a class="menuitem" href="silcacc_hsilcacc2FCrypto20Accelerator20Interface.html">Crypto Accelerator Interface</a>
+<a class="menuitem" href="silcasn1_hsilcasn12FASN2E120Interface.html">ASN.1 Interface</a>
+<a class="menuitem" href="silcber_hsilcasn12FBER20Interface.html">BER Interface</a>
+<a class="menuitem" href="silccipher_hsilccrypt2FCipher20Interface.html">Cipher Interface</a>
+<a class="menuitem" href="silccrypto_hsilccrypt2FCrypto20Toolkit20Interface.html">Crypto Toolkit Interface</a>
+<a class="menuitem" href="silchash_hsilccrypt2FHash20Function20Interface.html">Hash Function Interface</a>
+<a class="menuitem" href="silcmac_hsilccrypt2FMAC20Interface.html">MAC Interface</a>
+<a class="menuitem" href="silcmath_hsilcmath2FMath20Interface.html">Math Interface</a>
+<a class="menuitem" href="silcmp_hsilcmath2FMP20Integer20Interface.html">MP Integer Interface</a>
+<a class="menuitem" href="silcpgp_hsilcpgp2FOpenPGP20Interface.html">OpenPGP Interface</a>
+<a class="menuitem" href="silcpk_hsilccrypt2FSILC20Interface.html">SILC Interface</a>
+<a class="menuitem" href="silcpkcs_hsilccrypt2FPKCS20Interface.html">PKCS Interface</a>
+<a class="menuitem" href="silcpkcs1_hsilccrypt2FPKCS23120Interface.html">PKCS#1 Interface</a>
+<a class="menuitem" href="silcrng_hsilccrypt2FRNG20Interface.html">RNG Interface</a>
+<a class="menuitem" href="silcskr_hsilcskr2FKey20Manager20and20Repository.html">Key Manager and Repository</a>
+<a class="menuitem" href="silcssh_hsilcssh2FSSH20Interface.html">SSH Interface</a>
+<a class="menuitem" href="softacc_hsilcacc2FSoftware20Accelerator.html">Software Accelerator</a>
+</div> <!-- navigation -->
+<div id="content">
+<a name="silcssh2fSSH20Interface">
+</a><a name="robo327"></a><h2>SSH Interface</h2>
+
+<p class="item_name">DESCRIPTION</p>
+<p> SILC SSH Library provides SSH2 public key and private key support for
+ applications.  The SILC SSH Library has been integrated to the SILC Crypto
+ Toolkit allowing easy use of the SSH keys through the SILC PKCS API.  The
+ interface provides also a low level API to directly manipulate the SSH
+ keys.
+</p>
+
+<p> The library supports creation of new SSH2 key pairs, encryption, decryption,
+ signatures and verification.  Both RSA and DSS SSH2 keys are supported.
+ The library supports the standard SSH2 public key file format defined
+ in RFC 4716 and the OpenSSH public key file format.  The private key file
+ format support includes OpenSSH private key files.  The signature format
+ is compliant with the SSH2 protocol.
+</p>
+<p class="item_name">EXAMPLE</p>
+<pre> <a href="./silcpkcs_hsilccrypt2FSilcPublicKey.html#robo259">SilcPublicKey</a> public_key;
+ <a href="./silcpkcs_hsilccrypt2FSilcPrivateKey.html#robo258">SilcPrivateKey</a> private_key;
+ <a href="./silcssh_hsilcssh2FSilcSshPublicKey.html#robo325">SilcSshPublicKey</a> ssh_pubkey;
+ <a href="./silcssh_hsilcssh2FSilcSshPrivateKey.html#robo324">SilcSshPrivateKey</a> ssh_privkey;
+
+ // Generate new SSH2 key pair, RSA algorithm, 2048 bits
+ <a href="./silcssh_hsilcssh2Fsilc5Fssh5Fgenerate5Fkey.html#robo323">silc_ssh_generate_key</a>("rsa", 2048, rng, "foo@example.com",
+                       &amp;public_key, &amp;private_key);
+
+ // Add (optional) headers to the key before saving to a file
+ ssh_pubkey = <a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fpublic5Fkey5Fget5Fpkcs.html#robo225">silc_pkcs_public_key_get_pkcs</a>(SILC_PKCS_SSH2, public_key);
+ <a href="./silcssh_hsilcssh2Fsilc5Fssh5Fpublic5Fkey5Fset5Ftype.html#robo317">silc_ssh_public_key_set_type</a>(ssh_pubkey, SILC_SSH_KEY_SSH2);
+ <a href="./silcssh_hsilcssh2Fsilc5Fssh5Fpublic5Fkey5Fadd5Ffield.html#robo318">silc_ssh_public_key_add_field</a>(ssh_pubkey, "Comment", "My own key");
+
+ // Rest of the operations use standard SILC PKCS API
+
+ // Save new key pair to file
+ <a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fsave5Fpublic5Fkey.html#robo245">silc_pkcs_save_public_key</a>("pubkey.pub", public_key, SILC_PKCS_FILE_BASE64);
+ <a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fsave5Fprivate5Fkey.html#robo243">silc_pkcs_save_private_key</a>("privkey.prv", private_key, passphrase,
+                            passphrase_len, SILC_PKCS_FILE_BASE64, rng);
+
+ // Load SSH2 key pair
+ <a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fload5Fpublic5Fkey.html#robo246">silc_pkcs_load_public_key</a>("pubkey.pub", SILC_PKCS_SSH2, &amp;public_key);
+ <a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fload5Fprivate5Fkey.html#robo244">silc_pkcs_load_private_key</a>("privkey.prv", passphrase, passphrase_len,
+                            SILC_PKCS_SSH2, &amp;public_key);
+
+ // Free public and private key. Frees automatically the underlaying SSH keys.
+ <a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fpublic5Fkey5Ffree.html#robo241">silc_pkcs_public_key_free</a>(public_key);
+ <a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fprivate5Fkey5Ffree.html#robo234">silc_pkcs_private_key_free</a>(private_key);
+</pre>
+
+<p class="item_name">TABLE OF CONTENTS</p>
+<ul class="toc_entries">
+<li class="toc_entries"><a href="./silcssh_hsilcssh2FSilcSshKeyType.html#">SilcSshKeyType</a></li>
+<li class="toc_entries"><a href="./silcssh_hsilcssh2FSilcSshPublicKey.html#">SilcSshPublicKey</a></li>
+<li class="toc_entries"><a href="./silcssh_hsilcssh2FSilcSshPrivateKey.html#">SilcSshPrivateKey</a></li>
+<li class="toc_entries"><a href="./silcssh_hsilcssh2Fsilc5Fssh5Fgenerate5Fkey.html#">silc_ssh_generate_key</a></li>
+<li class="toc_entries"><a href="./silcssh_hsilcssh2Fsilc5Fssh5Fpublic5Fkey5Fdecode.html#">silc_ssh_public_key_decode</a></li>
+<li class="toc_entries"><a href="./silcssh_hsilcssh2Fsilc5Fssh5Fpublic5Fkey5Fencode.html#">silc_ssh_public_key_encode</a></li>
+<li class="toc_entries"><a href="./silcssh_hsilcssh2Fsilc5Fssh5Fpublic5Fkey5Ffree.html#">silc_ssh_public_key_free</a></li>
+<li class="toc_entries"><a href="./silcssh_hsilcssh2Fsilc5Fssh5Fpublic5Fkey5Fget5Ffield.html#">silc_ssh_public_key_get_field</a></li>
+<li class="toc_entries"><a href="./silcssh_hsilcssh2Fsilc5Fssh5Fpublic5Fkey5Fadd5Ffield.html#">silc_ssh_public_key_add_field</a></li>
+<li class="toc_entries"><a href="./silcssh_hsilcssh2Fsilc5Fssh5Fpublic5Fkey5Fset5Ftype.html#">silc_ssh_public_key_set_type</a></li>
+</ul>
+</div> <!-- content -->
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+</body>
+</html>

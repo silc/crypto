@@ -1,0 +1,49 @@
+commit bbb398e17e9fea91bab6ba551bddee1e48bf318e
+Author: Pekka Riikonen <priikone@silcnet.org>
+Date:   Sat Mar 15 11:16:57 2008 +0200
+
+    Check for SRT in configure before using any SRT specific macros.
+
+commit af315d6ae4f6f57944b558b18225454f63d24104
+Author: Pekka Riikonen <priikone@silcnet.org>
+Date:   Sat Mar 15 11:10:26 2008 +0200
+
+    Fixed tfm_fp_mul_2 and tfm_fp_mul_d to handle leading digit correctly.
+
+commit 26618713bb72877372e5dc3b7b9f7d101c26fb78
+Author: Pekka Riikonen <priikone@silcnet.org>
+Date:   Sat Mar 15 11:09:36 2008 +0200
+
+    Compilation environment fixes to make make install work correctly.
+
+ Makefile.ad                      |    2 +-
+ configure.ad                     |  153 ++++++++++++++++++++++----------------
+ distdir/crypto                   |    3 +-
+ distdir/pre-dist-crypto          |    2 +-
+ doc/crypto.in/crypto.rc          |   50 ++++++++++++
+ doc/crypto.in/index.html.in      |    2 +-
+ includes/Makefile.ad             |   11 +--
+ lib/silcacc/Makefile.ad          |    2 +
+ lib/silcacc/tests/Makefile.am    |    8 +--
+ lib/silcasn1/Makefile.ad         |    9 ++-
+ lib/silcasn1/silcber.h           |    3 +
+ lib/silcasn1/tests/Makefile.am   |    4 +-
+ lib/silccrypt/Makefile.ad        |    4 +-
+ lib/silccrypt/silcdh.h           |   48 ++++++------
+ lib/silccrypt/silcmac.h          |    1 +
+ lib/silccrypt/silcpkcs1.h        |    2 +
+ lib/silccrypt/tests/Makefile.am  |   21 +-----
+ lib/silcmath/Makefile.ad         |    2 +
+ lib/silcmath/mp_tfm.c            |    2 +-
+ lib/silcmath/tests/test_silcmp.c |    1 +
+ lib/silcmath/tfm.c               |    8 +-
+ lib/silcpgp/Makefile.ad          |   12 ++-
+ lib/silcpgp/tests/Makefile.am    |    4 +-
+ lib/silcskr/Makefile.ad          |    6 +-
+ lib/silcskr/silcskr_i.h          |    1 +
+ lib/silcskr/tests/Makefile.am    |    6 +-
+ lib/silcssh/Makefile.ad          |   11 ++-
+ lib/silcssh/tests/Makefile.am    |    6 +-
+ scripts/release                  |    8 ++
+ 29 files changed, 239 insertions(+), 153 deletions(-)
+ create mode 100644 scripts/release

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>silccipher.h</title>
+<!-- Source: ./../../lib/silccrypt/silccipher.h -->
+<!-- Generated with ROBODoc Version 4.99.36 (Feb  3 2008) -->
+</head>
+<body>
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+<a class="menuitem" href="silccipher_hsilccrypt2FCipher20Interface.html">Cipher Interface</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2FSilcCipher.html#">SilcCipher</a>
+<a class="menuitem" href="#">Ciphers</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2FCipher2DAlgorithms.html#">Cipher-Algorithms</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2FSilcCipherMode.html#">SilcCipherMode</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fregister.html#">silc_cipher_register</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Funregister.html#">silc_cipher_unregister</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fregister5Fdefault.html#">silc_cipher_register_default</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Funregister5Fall.html#">silc_cipher_unregister_all</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Falloc.html#">silc_cipher_alloc</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Falloc5Ffull.html#">silc_cipher_alloc_full</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Ffree.html#">silc_cipher_free</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fis5Fsupported.html#">silc_cipher_is_supported</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fget5Fsupported.html#">silc_cipher_get_supported</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fencrypt.html#">silc_cipher_encrypt</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fdecrypt.html#">silc_cipher_decrypt</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fset5Fkey.html#">silc_cipher_set_key</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fset5Fiv.html#">silc_cipher_set_iv</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fget5Fiv.html#">silc_cipher_get_iv</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fget5Fkey5Flen.html#">silc_cipher_get_key_len</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fget5Fblock5Flen.html#">silc_cipher_get_block_len</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fget5Fiv5Flen.html#">silc_cipher_get_iv_len</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fget5Fname.html#">silc_cipher_get_name</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fget5Falg5Fname.html#">silc_cipher_get_alg_name</a>
+<a class="menuitem" href="./silccipher_hsilccrypt2Fsilc5Fcipher5Fget5Fmode.html#">silc_cipher_get_mode</a>
+</div> <!-- navigation -->
+<div id="content">
+<a name="silccrypt2fCiphers">
+</a><a name="robo83"></a><h2>Ciphers</h2>
+
+<p class="item_name">NAME</p>
+<pre>    <strong>Ciphers</strong>
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>    Supported ciphers names.  These names can be given as argument
+    to <a href="./silccipher_hsilccrypt2Fsilc5Fcipher5Falloc.html#robo76">silc_cipher_alloc</a>.
+</p>
+<p class="item_name">SOURCE</p>
+<pre class="source"><span class="comment">/* AES in CTR mode, in different key lengths */</span>
+<span class="sign">#</span>define SILC_CIPHER_AES_256_CTR          <span class="quote">"aes-256-ctr"</span>
+<span class="sign">#</span>define SILC_CIPHER_AES_192_CTR          <span class="quote">"aes-192-ctr"</span>
+<span class="sign">#</span>define SILC_CIPHER_AES_128_CTR          <span class="quote">"aes-128-ctr"</span>
+
+<span class="comment">/* AES in CBC mode, in different key lengths */</span>
+<span class="sign">#</span>define SILC_CIPHER_AES_256_CBC          <span class="quote">"aes-256-cbc"</span>
+<span class="sign">#</span>define SILC_CIPHER_AES_192_CBC          <span class="quote">"aes-192-cbc"</span>
+<span class="sign">#</span>define SILC_CIPHER_AES_128_CBC          <span class="quote">"aes-128-cbc"</span>
+
+<span class="comment">/* AES in CFB mode, in different key lengths */</span>
+<span class="sign">#</span>define SILC_CIPHER_AES_256_CFB          <span class="quote">"aes-256-cfb"</span>
+<span class="sign">#</span>define SILC_CIPHER_AES_192_CFB          <span class="quote">"aes-192-cfb"</span>
+<span class="sign">#</span>define SILC_CIPHER_AES_128_CFB          <span class="quote">"aes-128-cfb"</span>
+
+<span class="comment">/* AES in ECB mode, in different key lengths */</span>
+<span class="sign">#</span>define SILC_CIPHER_AES_256_ECB          <span class="quote">"aes-256-ecb"</span>
+<span class="sign">#</span>define SILC_CIPHER_AES_192_ECB          <span class="quote">"aes-192-ecb"</span>
+<span class="sign">#</span>define SILC_CIPHER_AES_128_ECB          <span class="quote">"aes-128-ecb"</span>
+
+<span class="comment">/* Twofish in CTR mode, in different key lengths */</span>
+<span class="sign">#</span>define SILC_CIPHER_TWOFISH_256_CTR      <span class="quote">"twofish-256-ctr"</span>
+<span class="sign">#</span>define SILC_CIPHER_TWOFISH_192_CTR      <span class="quote">"twofish-192-ctr"</span>
+<span class="sign">#</span>define SILC_CIPHER_TWOFISH_128_CTR      <span class="quote">"twofish-128-ctr"</span>
+
+<span class="comment">/* Twofish in CBC mode, in different key lengths */</span>
+<span class="sign">#</span>define SILC_CIPHER_TWOFISH_256_CBC      <span class="quote">"twofish-256-cbc"</span>
+<span class="sign">#</span>define SILC_CIPHER_TWOFISH_192_CBC      <span class="quote">"twofish-192-cbc"</span>
+<span class="sign">#</span>define SILC_CIPHER_TWOFISH_128_CBC      <span class="quote">"twofish-128-cbc"</span>
+
+<span class="comment">/* Twofish in CFB mode, in different key lengths */</span>
+<span class="sign">#</span>define SILC_CIPHER_TWOFISH_256_CFB      <span class="quote">"twofish-256-cfb"</span>
+<span class="sign">#</span>define SILC_CIPHER_TWOFISH_192_CFB      <span class="quote">"twofish-192-cfb"</span>
+<span class="sign">#</span>define SILC_CIPHER_TWOFISH_128_CFB      <span class="quote">"twofish-128-cfb"</span>
+
+<span class="comment">/* Twofish in ECB mode, in different key lengths */</span>
+<span class="sign">#</span>define SILC_CIPHER_TWOFISH_256_ECB      <span class="quote">"twofish-256-ecb"</span>
+<span class="sign">#</span>define SILC_CIPHER_TWOFISH_192_ECB      <span class="quote">"twofish-192-ecb"</span>
+<span class="sign">#</span>define SILC_CIPHER_TWOFISH_128_ECB      <span class="quote">"twofish-128-ecb"</span>
+
+<span class="comment">/* CAST-128 in CTR, CBC, CFB, ECB modes, 128-bit key length */</span>
+<span class="sign">#</span>define SILC_CIPHER_CAST5_128_CTR        <span class="quote">"cast5-128-ctr"</span>
+<span class="sign">#</span>define SILC_CIPHER_CAST5_128_CBC        <span class="quote">"cast5-128-cbc"</span>
+<span class="sign">#</span>define SILC_CIPHER_CAST5_128_CFB        <span class="quote">"cast5-128-cfb"</span>
+<span class="sign">#</span>define SILC_CIPHER_CAST5_128_ECB        <span class="quote">"cast5-128-ecb"</span>
+
+<span class="comment">/* DES in CTR, CBC, CFB, ECB modes, 56-bit key length */</span>
+<span class="sign">#</span>define SILC_CIPHER_DES_56_CTR           <span class="quote">"des-56-ctr"</span>
+<span class="sign">#</span>define SILC_CIPHER_DES_56_CBC           <span class="quote">"des-56-cbc"</span>
+<span class="sign">#</span>define SILC_CIPHER_DES_56_CFB           <span class="quote">"des-56-cfb"</span>
+<span class="sign">#</span>define SILC_CIPHER_DES_56_ECB           <span class="quote">"des-56-ecb"</span>
+
+<span class="comment">/* 3DES in CTR, CBC, CFB, ECB modes, 168-bit (192-bit) key length */</span>
+<span class="sign">#</span>define SILC_CIPHER_3DES_168_CTR         <span class="quote">"3des-168-ctr"</span>
+<span class="sign">#</span>define SILC_CIPHER_3DES_168_CBC         <span class="quote">"3des-168-cbc"</span>
+<span class="sign">#</span>define SILC_CIPHER_3DES_168_CFB         <span class="quote">"3des-168-cfb"</span>
+<span class="sign">#</span>define SILC_CIPHER_3DES_168_ECB         <span class="quote">"3des-168-ecb"</span>
+
+<span class="comment">/* No encryption */</span>
+<span class="sign">#</span>define SILC_CIPHER_NONE                 <span class="quote">"none"</span>
+</pre>
+
+</div> <!-- content -->
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+</body>
+</html>

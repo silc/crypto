@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>silcpkcs.h</title>
+<!-- Source: ./../../lib/silccrypt/silcpkcs.h -->
+<!-- Generated with ROBODoc Version 4.99.36 (Feb  3 2008) -->
+</head>
+<body>
+<div id="logo">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+
+<div id="contentwrapper">
+<div id="navigation">
+<a class="menuitem" href="silcacc_hsilcacc2FCrypto20Accelerator20Interface.html">Crypto Accelerator Interface</a>
+<a class="menuitem" href="silcasn1_hsilcasn12FASN2E120Interface.html">ASN.1 Interface</a>
+<a class="menuitem" href="silcber_hsilcasn12FBER20Interface.html">BER Interface</a>
+<a class="menuitem" href="silccipher_hsilccrypt2FCipher20Interface.html">Cipher Interface</a>
+<a class="menuitem" href="silccrypto_hsilccrypt2FCrypto20Toolkit20Interface.html">Crypto Toolkit Interface</a>
+<a class="menuitem" href="silchash_hsilccrypt2FHash20Function20Interface.html">Hash Function Interface</a>
+<a class="menuitem" href="silcmac_hsilccrypt2FMAC20Interface.html">MAC Interface</a>
+<a class="menuitem" href="silcmath_hsilcmath2FMath20Interface.html">Math Interface</a>
+<a class="menuitem" href="silcmp_hsilcmath2FMP20Integer20Interface.html">MP Integer Interface</a>
+<a class="menuitem" href="silcpgp_hsilcpgp2FOpenPGP20Interface.html">OpenPGP Interface</a>
+<a class="menuitem" href="silcpk_hsilccrypt2FSILC20Interface.html">SILC Interface</a>
+<a class="menuitem" href="silcpkcs_hsilccrypt2FPKCS20Interface.html">PKCS Interface</a>
+<a class="menuitem" href="silcpkcs1_hsilccrypt2FPKCS23120Interface.html">PKCS#1 Interface</a>
+<a class="menuitem" href="silcrng_hsilccrypt2FRNG20Interface.html">RNG Interface</a>
+<a class="menuitem" href="silcskr_hsilcskr2FKey20Manager20and20Repository.html">Key Manager and Repository</a>
+<a class="menuitem" href="silcssh_hsilcssh2FSSH20Interface.html">SSH Interface</a>
+<a class="menuitem" href="softacc_hsilcacc2FSoftware20Accelerator.html">Software Accelerator</a>
+</div> <!-- navigation -->
+<div id="content">
+<a name="silccrypt2fPKCS20Interface">
+</a><a name="robo263"></a><h2>PKCS Interface</h2>
+
+<p class="item_name">DESCRIPTION</p>
+<p> SILC PKCS API provides generic interface for performing various
+ public key cryptography related operations with different types of
+ public and private keys.  Support for loading and saving of different
+ types of public key and private keys are also provided.
+</p>
+
+<p> This interface is used to perform operations with public keys and private
+ keys but the interface cannot be used to generate new key pairs.  Instead,
+ PKCS implementations provide functions to generate key pairs.  Call
+ <a href="./silcpk_hsilccrypt2Fsilc5Fpkcs5Fsilc5Fgenerate5Fkey.html#robo210">silc_pkcs_silc_generate_key</a> to generate SILC protocol key pair.  Call
+ <a href="./silcssh_hsilcssh2Fsilc5Fssh5Fgenerate5Fkey.html#robo323">silc_ssh_generate_key</a> to generate SSH2 protocol key pair.  Call
+ silc_pgp_generate_key to generate OpenPGP key pair.
+</p>
+<p class="item_name">EXAMPLE</p>
+<pre> // Load public and private keys
+ <a href="./silcpkcs_hsilccrypt2FSilcPublicKey.html#robo259">SilcPublicKey</a> public_key;
+ <a href="./silcpkcs_hsilccrypt2FSilcPrivateKey.html#robo258">SilcPrivateKey</a> private_key;
+
+ <a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fload5Fpublic5Fkey.html#robo246">silc_pkcs_load_public_key</a>("pubkey.pub", SILC_PKCS_ANY, &amp;public_key);
+ <a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fload5Fprivate5Fkey.html#robo244">silc_pkcs_load_private_key</a>("privkey, prv", passphrase, passphrase_len,
+                            SILC_PKCS_ANY, &amp;public_key);
+
+ // Compute signature
+ unsigned char dst[2048];
+ SilcUInt32 sig_len;
+
+ <a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fsign.html#robo229">silc_pkcs_sign</a>(private_key, src, src_len, dst, sizeof(dst), &amp;sig_len,
+               TRUE, NULL, rng);
+
+ // Free keys
+ <a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fpublic5Fkey5Ffree.html#robo241">silc_pkcs_public_key_free</a>(public_key);
+ <a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fprivate5Fkey5Ffree.html#robo234">silc_pkcs_private_key_free</a>(private_key);
+</pre>
+
+<p class="item_name">TABLE OF CONTENTS</p>
+<ul class="toc_entries">
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2FSilcPKCSType.html#">SilcPKCSType</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2FPKCS2DAlgorithms.html#">PKCS-Algorithms</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2FPKCS2DSchemes.html#">PKCS-Schemes</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2FSilcPublicKey.html#">SilcPublicKey</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2FSilcPrivateKey.html#">SilcPrivateKey</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2FSilcPKCSFileEncoding.html#">SilcPKCSFileEncoding</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2FSilcPKCSEncryptCb.html#">SilcPKCSEncryptCb</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2FSilcPKCSDecryptCb.html#">SilcPKCSDecryptCb</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2FSilcPKCSSignCb.html#">SilcPKCSSignCb</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2FSilcPKCSVerifyCb.html#">SilcPKCSVerifyCb</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fregister.html#">silc_pkcs_register</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Funregister.html#">silc_pkcs_unregister</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Falgorithm5Fregister.html#">silc_pkcs_algorithm_register</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Falgorithm5Funregister.html#">silc_pkcs_algorithm_unregister</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fregister5Fdefault.html#">silc_pkcs_register_default</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Funregister5Fall.html#">silc_pkcs_unregister_all</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fload5Fpublic5Fkey.html#">silc_pkcs_load_public_key</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fsave5Fpublic5Fkey.html#">silc_pkcs_save_public_key</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fload5Fprivate5Fkey.html#">silc_pkcs_load_private_key</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fsave5Fprivate5Fkey.html#">silc_pkcs_save_private_key</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fpublic5Fkey5Falloc.html#">silc_pkcs_public_key_alloc</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fpublic5Fkey5Ffree.html#">silc_pkcs_public_key_free</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fpublic5Fkey5Fencode.html#">silc_pkcs_public_key_encode</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fpublic5Fkey5Fget5Flen.html#">silc_pkcs_public_key_get_len</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fpublic5Fkey5Fcompare.html#">silc_pkcs_public_key_compare</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fpublic5Fkey5Fcopy.html#">silc_pkcs_public_key_copy</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fprivate5Fkey5Falloc.html#">silc_pkcs_private_key_alloc</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fprivate5Fkey5Fget5Flen.html#">silc_pkcs_private_key_get_len</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fprivate5Fkey5Ffree.html#">silc_pkcs_private_key_free</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fencrypt.html#">silc_pkcs_encrypt</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fencrypt5Fasync.html#">silc_pkcs_encrypt_async</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fdecrypt.html#">silc_pkcs_decrypt</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fdecrypt5Fasync.html#">silc_pkcs_decrypt_async</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fsign.html#">silc_pkcs_sign</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fsign5Fasync.html#">silc_pkcs_sign_async</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fverify.html#">silc_pkcs_verify</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fverify5Fasync.html#">silc_pkcs_verify_async</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fpublic5Fkey5Fget5Fpkcs.html#">silc_pkcs_public_key_get_pkcs</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fprivate5Fkey5Fget5Fpkcs.html#">silc_pkcs_private_key_get_pkcs</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Ffind5Fpkcs.html#">silc_pkcs_find_pkcs</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Ffind5Falgorithm.html#">silc_pkcs_find_algorithm</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fget5Fpkcs.html#">silc_pkcs_get_pkcs</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fget5Falgorithm.html#">silc_pkcs_get_algorithm</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fget5Fname.html#">silc_pkcs_get_name</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fget5Ftype.html#">silc_pkcs_get_type</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fpkcs5Fget5Fsupported.html#">silc_pkcs_get_supported</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fhash5Fpublic5Fkey.html#">silc_hash_public_key</a></li>
+<li class="toc_entries"><a href="./silcpkcs_hsilccrypt2Fsilc5Fhash5Fpublic5Fkey5Fcompare.html#">silc_hash_public_key_compare</a></li>
+</ul>
+</div> <!-- content -->
+</div> <!-- contentwrapper -->
+<div id="footer">
+<table border="0" cellspacing="0" cellpadding="6" width="100%">
+ <tr valign="top">
+  <td>Copyright &copy; 2001 - 2008 SILC Project<br />
+    <a href="http://silc.fi">SILC Project Website</a></td>
+  <td align="right">
+   <a href="index.html">SILC Crypto Toolkit Manual</a><br />
+   <a href="masterindex.html">Index</a></small></td>
+  </td>
+ </tr>
+</table>
+</div>
+</body>
+</html>
